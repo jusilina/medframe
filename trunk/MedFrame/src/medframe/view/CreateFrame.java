@@ -4,6 +4,7 @@
  */
 package medframe.view;
 
+import com.itextpdf.text.Anchor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -11,12 +12,24 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import javax.swing.event.MenuEvent;
 import javax.swing.event.MenuListener;
+import medframe.Certificate;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.FontFactory;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.BaseFont;
+import com.itextpdf.text.pdf.PdfWriter;
+import java.io.FileOutputStream;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import medframe.PropertyNames;
 
 /**
  *
  * @author Julia
  */
-public class CreateFrame extends javax.swing.JFrame
+public class CreateFrame extends javax.swing.JFrame implements PropertyNames
 {
 
     /**
@@ -30,26 +43,6 @@ public class CreateFrame extends javax.swing.JFrame
     
     private void initMyComponents()
     {
-//        createForm.addMenuListener(new MenuListener() {
-//
-//            @Override
-//            public void menuSelected(MenuEvent e)
-//            {
-//                createPanel.setVisible(true);
-//            }
-//
-//            @Override
-//            public void menuDeselected(MenuEvent e)
-//            {
-//            //    throw new UnsupportedOperationException("Not supported yet.");
-//            }
-//
-//            @Override
-//            public void menuCanceled(MenuEvent e)
-//            {
-//            //    throw new UnsupportedOperationException("Not supported yet.");
-//            }
-//        });
         editProperties.addMouseListener(new MouseListener() {
 
             @Override
@@ -85,13 +78,7 @@ public class CreateFrame extends javax.swing.JFrame
             
         });
 
-//            @Override
-//            public void actionPerformed(ActionEvent e)
-//            {
-//                createPanel.setVisible(false);
-//            }
-//        
-//        });
+
         createForm.addMouseListener(new MouseListener() {
 
             @Override
@@ -122,6 +109,64 @@ public class CreateFrame extends javax.swing.JFrame
             public void mouseExited(MouseEvent e)
             {
              //   throw new UnsupportedOperationException("Not supported yet.");
+            }
+        });
+        
+        savePDF.addMouseListener(new MouseListener() {
+
+            @Override
+            public void mouseClicked(MouseEvent e)
+            {
+                Certificate certificate = new Certificate();
+                
+                Document document=new Document();
+                try
+                {
+                    BaseFont times = BaseFont.createFont("c:/windows/fonts/tahoma.ttf","cp1251",BaseFont.EMBEDDED);
+                    Font font = new Font (times);
+                    PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream("C:\\ITextTest.pdf"));
+                    document.open();
+                    Anchor anchorTarget = new Anchor(TITLE, font);
+                     anchorTarget.setName("BackToTop");
+                    Paragraph paragraph1 = new Paragraph();
+
+                   // paragraph1.setSpacingBefore(50);
+
+                    paragraph1.add(anchorTarget);
+                    document.add(paragraph1);
+                    document.add(new Paragraph(TITLE,font));
+                    document.close();
+                }
+                catch (Exception ex)
+                {
+                    Logger.getLogger(CreateFrame.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
+                
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e)
+            {
+               // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e)
+            {
+               // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e)
+            {
+              //  throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e)
+            {
+              //  throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
             }
         });
 
@@ -165,6 +210,7 @@ public class CreateFrame extends javax.swing.JFrame
         jMenuBar1 = new javax.swing.JMenuBar();
         createForm = new javax.swing.JMenu();
         editProperties = new javax.swing.JMenu();
+        savePDF = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -225,7 +271,7 @@ public class CreateFrame extends javax.swing.JFrame
         jLabel2.setText("Дата");
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel1.setText("Осмотр невролога (на дому)");
+        jLabel1.setText(TITLE);
 
         jLabel6.setText(", онемение в ");
 
@@ -344,6 +390,11 @@ public class CreateFrame extends javax.swing.JFrame
         
         jMenuBar1.add(editProperties);
 
+        savePDF.setText("Save PDF");
+        
+        
+        jMenuBar1.add(savePDF);
+
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -381,6 +432,16 @@ public class CreateFrame extends javax.swing.JFrame
         // TODO add your handling code here:
     }//GEN-LAST:event_partOfBodyBoxActionPerformed
 
+    private void savePDFMenuSelected(javax.swing.event.MenuEvent evt)//GEN-FIRST:event_savePDFMenuSelected
+    {//GEN-HEADEREND:event_savePDFMenuSelected
+        // TODO add your handling code here:
+    }//GEN-LAST:event_savePDFMenuSelected
+
+    private void savePDFActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_savePDFActionPerformed
+    {//GEN-HEADEREND:event_savePDFActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_savePDFActionPerformed
+
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -408,5 +469,6 @@ public class CreateFrame extends javax.swing.JFrame
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JComboBox partOfBodyBox;
+    private javax.swing.JMenu savePDF;
     // End of variables declaration//GEN-END:variables
 }
