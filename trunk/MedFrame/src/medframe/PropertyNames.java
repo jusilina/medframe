@@ -12,6 +12,7 @@ package medframe;
  */
 public interface PropertyNames
 {
-    static final String TITLE = "Осмотр невролога ";
+    static final String TITLE = "Осмотр невролога";
+    static final String DATE = "Дата";
     
 }
