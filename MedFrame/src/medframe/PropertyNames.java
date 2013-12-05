@@ -14,5 +14,9 @@ public interface PropertyNames
 {
     static final String TITLE = "Осмотр невролога";
     static final String DATE = "Дата";
+    static final String COMPLAINE = "Жалобы: умеренный,интенсивный болевой синдром в ";
+    static final String DIFFICULTY = "затруднение движений в ШОП, ГОП, ПКО, в суставе ";
+    static final String NUMBNESS = ", онемение в ";
+    static final String WEAKNESS = "слабость в ";
     
 }
