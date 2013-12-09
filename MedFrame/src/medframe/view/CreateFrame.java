@@ -26,6 +26,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultComboBoxModel;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
@@ -41,6 +42,7 @@ import org.xml.sax.SAXParseException;
 public class CreateFrame extends javax.swing.JFrame implements PropertyNames
 {
     private ArrayList <String> partOfBody;
+    private ArrayList <String> joints;
 
     /**
      * Creates new form CreateFrame
@@ -54,6 +56,8 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames
     
     private void initMyComponents()
     {
+        partOfBodyBox.setModel(new DefaultComboBoxModel(partOfBody.toArray()));
+        jointsBox.setModel(new DefaultComboBoxModel(joints.toArray()));
         editProperties.addMouseListener(new MouseListener() {
 
             @Override
@@ -216,7 +220,7 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames
         partOfBodyBox = new javax.swing.JComboBox();
         jLabel3 = new javax.swing.JLabel();
         jDateChooser1 = new com.toedter.calendar.JDateChooser();
-        jComboBox2 = new javax.swing.JComboBox();
+        jointsBox = new javax.swing.JComboBox();
         jLabel5 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         createForm = new javax.swing.JMenu();
@@ -289,7 +293,7 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel4.setText("Жалобы: ");
 
-        partOfBodyBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+      //  partOfBodyBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         partOfBodyBox.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -301,7 +305,7 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel3.setText("умеренный, интенсивный болевой синдром в");
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+      //  jointsBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel5.setText("затруднение движений в ШОП, ГОП, ПКО, в суставе ");
@@ -350,7 +354,7 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames
                             .addGroup(createPanelLayout.createSequentialGroup()
                                 .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGap(18, 18, 18)
-                                .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(jointsBox, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -373,7 +377,7 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(createPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jointsBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6)
                     .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -459,7 +463,6 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames
     private javax.swing.JMenu createForm;
     private javax.swing.JPanel createPanel;
     private javax.swing.JMenu editProperties;
-    private javax.swing.JComboBox jComboBox2;
     private javax.swing.JComboBox jComboBox3;
     private javax.swing.JComboBox jComboBox4;
     private javax.swing.JComboBox jComboBox5;
@@ -479,6 +482,7 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JComboBox jointsBox;
     private javax.swing.JComboBox partOfBodyBox;
     private javax.swing.JMenu savePDF;
     // End of variables declaration//GEN-END:variables
@@ -494,6 +498,7 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames
             
             partOfBody = handler.getPartOfBodys();
             System.out.println(partOfBody.toString());
+            joints = handler.getJoints();
             
 
         }
