@@ -20,10 +20,19 @@ import com.itextpdf.text.FontFactory;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.BaseFont;
 import com.itextpdf.text.pdf.PdfWriter;
+import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
 import medframe.PropertyNames;
+import medframe.SAXHandler;
+import org.xml.sax.SAXException;
+import org.xml.sax.SAXParseException;
 
 /**
  *
@@ -31,12 +40,14 @@ import medframe.PropertyNames;
  */
 public class CreateFrame extends javax.swing.JFrame implements PropertyNames
 {
+    private ArrayList <String> partOfBody;
 
     /**
      * Creates new form CreateFrame
      */
     public CreateFrame()
     {
+        importProperties();
         initComponents();
         initMyComponents();
     }
@@ -471,4 +482,33 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames
     private javax.swing.JComboBox partOfBodyBox;
     private javax.swing.JMenu savePDF;
     // End of variables declaration//GEN-END:variables
+
+    private void importProperties()
+    {
+        try
+        {
+            SAXParserFactory factory = SAXParserFactory.newInstance();
+            SAXParser parser = factory.newSAXParser();
+            SAXHandler handler = new SAXHandler();
+            parser.parse(new File("properties.xml"), handler);
+            
+            partOfBody = handler.getPartOfBodys();
+            System.out.println(partOfBody.toString());
+            
+
+        }
+        catch (ParserConfigurationException ex)
+        {
+            Logger.getLogger(CreateFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        catch (SAXException ex)
+        {
+            Logger.getLogger(CreateFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        catch (IOException ex)
+        {
+            Logger.getLogger(CreateFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
 }
