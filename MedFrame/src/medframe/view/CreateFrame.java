@@ -16,6 +16,7 @@ import medframe.Certificate;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Font;
+
 import com.itextpdf.text.FontFactory;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.BaseFont;
@@ -132,30 +133,10 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames
             @Override
             public void mouseClicked(MouseEvent e)
             {
-                Certificate certificate = new Certificate();
+               // Certificate certificate = new Certificate();
+                savePDF();
                 
-                Document document=new Document();
-                try
-                {
-                    BaseFont times = BaseFont.createFont("c:/windows/fonts/tahoma.ttf","cp1251",BaseFont.EMBEDDED);
-                    Font font = new Font (times);
-                    PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream("C:\\ITextTest.pdf"));
-                    document.open();
-                    Anchor anchorTarget = new Anchor(TITLE, font);
-                     anchorTarget.setName("BackToTop");
-                    Paragraph paragraph1 = new Paragraph();
 
-                   // paragraph1.setSpacingBefore(50);
-
-                    paragraph1.add(anchorTarget);
-                    document.add(paragraph1);
-                    document.add(new Paragraph(TITLE,font));
-                    document.close();
-                }
-                catch (Exception ex)
-                {
-                    Logger.getLogger(CreateFrame.class.getName()).log(Level.SEVERE, null, ex);
-                }
                 
                 
             }
@@ -188,6 +169,32 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames
 
     
     
+    }
+
+    private void savePDF()
+    {
+        Document document=new Document();
+        try
+        {
+            BaseFont times = BaseFont.createFont("c:/windows/fonts/tahoma.ttf","cp1251",BaseFont.EMBEDDED);
+            Font font = new Font (times);
+            PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream("C:\\ITextTest.pdf"));
+            document.open();
+            Anchor anchorTarget = new Anchor(TITLE, font);
+            anchorTarget.setName("BackToTop");
+            Paragraph paragraph1 = new Paragraph();
+
+            // paragraph1.setSpacingBefore(50);
+
+            paragraph1.add(anchorTarget);
+            document.add(paragraph1);
+            document.add(new Paragraph(TITLE,font));
+            document.close();
+        }
+        catch (Exception ex)
+        {
+            Logger.getLogger(CreateFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -229,14 +236,7 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jComboBox7.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "работает", "безработный", "пенсионер", "инвалид" }));
-        jComboBox7.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                jComboBox7ActionPerformed(evt);
-            }
-        });
+        jComboBox7.setModel(new javax.swing.DefaultComboBoxModel(new String[] { WORKING, NOT_WORKING, PENSIONER, CRIPPLE }));
 
         jTextField1.setText("jTextField1");
 
@@ -262,11 +262,11 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames
                     .addComponent(jComboBox8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
-        jLabel9.setText("Анамнез:");
+        jLabel9.setText(ANAMNESIS);
 
-        jLabel7.setText("слабость в");
+        jLabel7.setText(WEAKNESS);
 
-        jLabel8.setText("Соц.анамнез: ");
+        jLabel8.setText(SOSCIAL_ANAMNESIS);
 
         jComboBox5.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -274,41 +274,26 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames
 
         jComboBox3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "и", "или", " ", " " }));
-        jComboBox4.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                jComboBox4ActionPerformed(evt);
-            }
-        });
+        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel(new String[] { " ", AND, OR}));
 
-        jLabel2.setText("Дата");
+        jLabel2.setText(DATE);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel1.setText(TITLE);
 
-        jLabel6.setText(", онемение в ");
+        jLabel6.setText(NUMBNESS);
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel4.setText("Жалобы: ");
+        java.awt.Font defaultFont = new java.awt.Font("Tahoma", 0, 12);
+        java.awt.Font fatFont = new java.awt.Font("Tahoma", 1, 12);
 
-      //  partOfBodyBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        partOfBodyBox.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                partOfBodyBoxActionPerformed(evt);
-            }
-        });
+        jLabel4.setFont(fatFont); // NOI18N
+        jLabel4.setText(COMPLAINE);
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel3.setText("умеренный, интенсивный болевой синдром в");
+        jLabel3.setFont(defaultFont); // NOI18N
+        jLabel3.setText(COMPLAINE_DESCR);
 
-      //  jointsBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel5.setText("затруднение движений в ШОП, ГОП, ПКО, в суставе ");
+        jLabel5.setFont(defaultFont); // NOI18N
+        jLabel5.setText(DIFFICULTY);
 
         javax.swing.GroupLayout createPanelLayout = new javax.swing.GroupLayout(createPanel);
         createPanel.setLayout(createPanelLayout);
@@ -432,20 +417,7 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jComboBox4ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jComboBox4ActionPerformed
-    {//GEN-HEADEREND:event_jComboBox4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox4ActionPerformed
 
-    private void jComboBox7ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jComboBox7ActionPerformed
-    {//GEN-HEADEREND:event_jComboBox7ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox7ActionPerformed
-
-    private void partOfBodyBoxActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_partOfBodyBoxActionPerformed
-    {//GEN-HEADEREND:event_partOfBodyBoxActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_partOfBodyBoxActionPerformed
 
     private void savePDFMenuSelected(javax.swing.event.MenuEvent evt)//GEN-FIRST:event_savePDFMenuSelected
     {//GEN-HEADEREND:event_savePDFMenuSelected

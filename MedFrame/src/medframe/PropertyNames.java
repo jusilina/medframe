@@ -12,11 +12,26 @@ package medframe;
  */
 public interface PropertyNames
 {
+    static final String SPACE = " ";
     static final String TITLE = "Осмотр невролога";
     static final String DATE = "Дата";
-    static final String COMPLAINE = "Жалобы: умеренный,интенсивный болевой синдром в ";
-    static final String DIFFICULTY = "затруднение движений в ШОП, ГОП, ПКО, в суставе ";
-    static final String NUMBNESS = ", онемение в ";
-    static final String WEAKNESS = "слабость в ";
-    
+    static final String COMPLAINE = "Жалобы:";
+    static final String COMPLAINE_DESCR = "умеренный,интенсивный болевой синдром в";
+    static final String DIFFICULTY = "затруднение движений в ШОП, ГОП, ПКО, в суставе";
+    static final String NUMBNESS = ", онемение в";
+    static final String WEAKNESS = "слабость в";
+    static final String SOSCIAL_ANAMNESIS = "Сщоц.анамнез:";
+    static final String ANAMNESIS = "Анамнез:";
+    static final String CONSCIOUS = "Сознание:";
+    static final String EMOTION = "Эмоциональная сфера:";
+    static final String WORKING = "работает";
+    static final String NOT_WORKING = "не работает";
+    static final String PENSIONER = "пенсионер";
+    static final String CRIPPLE = "инвалид";
+    static final String AND = "и";
+    static final String OR = "или";
+
+
+
+
 }
