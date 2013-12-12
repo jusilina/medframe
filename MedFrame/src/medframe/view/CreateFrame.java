@@ -4,7 +4,8 @@
  */
 package medframe.view;
 
-import com.itextpdf.text.Anchor;
+import com.itextpdf.text.*;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -13,12 +14,7 @@ import java.awt.event.MouseListener;
 import javax.swing.event.MenuEvent;
 import javax.swing.event.MenuListener;
 import medframe.Certificate;
-import com.itextpdf.text.Document;
-import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.Font;
 
-import com.itextpdf.text.FontFactory;
-import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.BaseFont;
 import com.itextpdf.text.pdf.PdfWriter;
 import java.io.File;
@@ -173,21 +169,22 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames
 
     private void savePDF()
     {
-        Document document=new Document();
+        Document document=new Document(PageSize.A4);
+        String fileName = "C:\\ITextTest.pdf";
         try
         {
             BaseFont times = BaseFont.createFont("c:/windows/fonts/tahoma.ttf","cp1251",BaseFont.EMBEDDED);
             Font font = new Font (times);
-            PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream("C:\\ITextTest.pdf"));
+            PdfWriter.getInstance(document, new FileOutputStream(fileName));
             document.open();
-            Anchor anchorTarget = new Anchor(TITLE, font);
-            anchorTarget.setName("BackToTop");
-            Paragraph paragraph1 = new Paragraph();
+       //     Anchor anchorTarget = new Anchor(TITLE, font);
+       //     anchorTarget.setName("BackToTop");
+          //  Paragraph paragraph1 = new Paragraph();
 
             // paragraph1.setSpacingBefore(50);
 
-            paragraph1.add(anchorTarget);
-            document.add(paragraph1);
+          //  paragraph1.add(anchorTarget);
+          //  document.add(paragraph1);
             document.add(new Paragraph(TITLE,font));
             document.close();
         }

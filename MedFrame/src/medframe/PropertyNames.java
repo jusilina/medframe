@@ -30,6 +30,11 @@ public interface PropertyNames
     static final String CRIPPLE = "инвалид";
     static final String AND = "и";
     static final String OR = "или";
+    static final String ATTACKS = "Эпи.приступы";
+
+    static final String RECOMMENDATIONS = "Рекомендации:";
+
+
 
 
 
