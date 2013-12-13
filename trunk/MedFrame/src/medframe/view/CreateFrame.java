@@ -123,47 +123,7 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames
              //   throw new UnsupportedOperationException("Not supported yet.");
             }
         });
-        
-        savePDF.addMouseListener(new MouseListener() {
 
-            @Override
-            public void mouseClicked(MouseEvent e)
-            {
-               // Certificate certificate = new Certificate();
-                savePDF();
-                
-
-                
-                
-            }
-
-            @Override
-            public void mousePressed(MouseEvent e)
-            {
-               // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-            }
-
-            @Override
-            public void mouseReleased(MouseEvent e)
-            {
-               // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-            }
-
-            @Override
-            public void mouseEntered(MouseEvent e)
-            {
-              //  throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e)
-            {
-              //  throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-            }
-        });
-
-
-    
     
     }
 
@@ -177,14 +137,7 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames
             Font font = new Font (times);
             PdfWriter.getInstance(document, new FileOutputStream(fileName));
             document.open();
-       //     Anchor anchorTarget = new Anchor(TITLE, font);
-       //     anchorTarget.setName("BackToTop");
-          //  Paragraph paragraph1 = new Paragraph();
 
-            // paragraph1.setSpacingBefore(50);
-
-          //  paragraph1.add(anchorTarget);
-          //  document.add(paragraph1);
             document.add(new Paragraph(TITLE,font));
             document.close();
         }
@@ -208,7 +161,7 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames
         createPanel = new javax.swing.JPanel();
         jComboBox7 = new javax.swing.JComboBox();
         jPanel1 = new javax.swing.JPanel();
-        jTextField1 = new javax.swing.JTextField();
+        professionField = new javax.swing.JTextField();
         jComboBox8 = new javax.swing.JComboBox();
         jLabel9 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
@@ -218,7 +171,7 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames
         jComboBox3 = new javax.swing.JComboBox();
         jComboBox4 = new javax.swing.JComboBox();
         jLabel2 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
+        titleLabel = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         partOfBodyBox = new javax.swing.JComboBox();
@@ -226,16 +179,22 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames
         jDateChooser1 = new com.toedter.calendar.JDateChooser();
         jointsBox = new javax.swing.JComboBox();
         jLabel5 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         createForm = new javax.swing.JMenu();
         editProperties = new javax.swing.JMenu();
-        savePDF = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jComboBox7.setModel(new javax.swing.DefaultComboBoxModel(new String[] { WORKING, NOT_WORKING, PENSIONER, CRIPPLE }));
+        jComboBox7.setModel(new DefaultComboBoxModel(new String[] { PropertyNames.WORKING, PropertyNames.NOT_WORKING, PropertyNames.PENSIONER, PropertyNames.CRIPPLE }));
 
-        jTextField1.setText("jTextField1");
+        professionField.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                professionFieldActionPerformed(evt);
+            }
+        });
 
         jComboBox8.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -245,7 +204,7 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(professionField, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jComboBox8, 0, 163, Short.MAX_VALUE)
                 .addContainerGap())
@@ -255,15 +214,15 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(professionField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jComboBox8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
-        jLabel9.setText(ANAMNESIS);
+        jLabel9.setText("Анамнез:");
 
-        jLabel7.setText(WEAKNESS);
+        jLabel7.setText("слабость в");
 
-        jLabel8.setText(SOSCIAL_ANAMNESIS);
+        jLabel8.setText(PropertyNames.SOSCIAL_ANAMNESIS);
 
         jComboBox5.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -271,26 +230,28 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames
 
         jComboBox3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel(new String[] { " ", AND, OR}));
+        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel(new String[] {PropertyNames.SPACE, PropertyNames.AND, PropertyNames.OR})
+        );
 
-        jLabel2.setText(DATE);
+        jLabel2.setText(PropertyNames.DATE);
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel1.setText(TITLE);
+        titleLabel.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        titleLabel.setText(PropertyNames.TITLE);
 
-        jLabel6.setText(NUMBNESS);
+        jLabel6.setText(", онемение в ");
 
-        java.awt.Font defaultFont = new java.awt.Font("Tahoma", 0, 12);
-        java.awt.Font fatFont = new java.awt.Font("Tahoma", 1, 12);
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel4.setText(PropertyNames.COMPLAINE);
 
-        jLabel4.setFont(fatFont); // NOI18N
-        jLabel4.setText(COMPLAINE);
+        partOfBodyBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        jLabel3.setFont(defaultFont); // NOI18N
-        jLabel3.setText(COMPLAINE_DESCR);
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel3.setText("умеренный, интенсивный болевой синдром в");
 
-        jLabel5.setFont(defaultFont); // NOI18N
-        jLabel5.setText(DIFFICULTY);
+        jointsBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel5.setText("затруднение движений в ШОП, ГОП, ПКО, в суставе ");
 
         javax.swing.GroupLayout createPanelLayout = new javax.swing.GroupLayout(createPanel);
         createPanel.setLayout(createPanelLayout);
@@ -313,8 +274,8 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames
                                         .addComponent(partOfBodyBox, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(createPanelLayout.createSequentialGroup()
                                         .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jLabel1))))
+                                        .addGap(118, 118, 118)
+                                        .addComponent(titleLabel))))
                             .addGroup(createPanelLayout.createSequentialGroup()
                                 .addComponent(jLabel8)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -322,7 +283,7 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jLabel9))
-                        .addContainerGap(180, Short.MAX_VALUE))
+                        .addContainerGap(161, Short.MAX_VALUE))
                     .addGroup(createPanelLayout.createSequentialGroup()
                         .addGroup(createPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(createPanelLayout.createSequentialGroup()
@@ -347,10 +308,10 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames
             createPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(createPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(createPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2)
-                    .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(createPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(titleLabel)
+                    .addComponent(jDateChooser1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(createPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
@@ -375,22 +336,24 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames
                     .addComponent(jLabel8))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel9)
-                .addContainerGap(233, Short.MAX_VALUE))
+                .addContainerGap(120, Short.MAX_VALUE))
         );
 
+        jButton1.setText("Сохранить PDF");
+        jButton1.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         createForm.setText("Create Form");
-        
         jMenuBar1.add(createForm);
         createForm.getAccessibleContext().setAccessibleName("Create form");
 
         editProperties.setText("Edit");
-        
         jMenuBar1.add(editProperties);
-
-        savePDF.setText("Save PDF");
-        
-        
-        jMenuBar1.add(savePDF);
 
         setJMenuBar(jMenuBar1);
 
@@ -400,7 +363,11 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(createPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(createPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -408,7 +375,9 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(createPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(45, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 124, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addContainerGap())
         );
 
         pack();
@@ -426,12 +395,23 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames
         // TODO add your handling code here:
     }//GEN-LAST:event_savePDFActionPerformed
 
+    private void professionFieldActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_professionFieldActionPerformed
+    {//GEN-HEADEREND:event_professionFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_professionFieldActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton1ActionPerformed
+    {//GEN-HEADEREND:event_jButton1ActionPerformed
+        savePDF();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu createForm;
     private javax.swing.JPanel createPanel;
     private javax.swing.JMenu editProperties;
+    private javax.swing.JButton jButton1;
     private javax.swing.JComboBox jComboBox3;
     private javax.swing.JComboBox jComboBox4;
     private javax.swing.JComboBox jComboBox5;
@@ -439,7 +419,6 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames
     private javax.swing.JComboBox jComboBox7;
     private javax.swing.JComboBox jComboBox8;
     private com.toedter.calendar.JDateChooser jDateChooser1;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -450,10 +429,10 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames
     private javax.swing.JLabel jLabel9;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JComboBox jointsBox;
     private javax.swing.JComboBox partOfBodyBox;
-    private javax.swing.JMenu savePDF;
+    private javax.swing.JTextField professionField;
+    private javax.swing.JLabel titleLabel;
     // End of variables declaration//GEN-END:variables
 
     private void importProperties()
