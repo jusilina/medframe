@@ -5,13 +5,13 @@ package medframe;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author Julia
  */
 public interface PropertyNames
 {
+
     static final String SPACE = " ";
     static final String TITLE = "Осмотр невролога (на дому)";
     static final String DATE = "Дата";
@@ -21,6 +21,10 @@ public interface PropertyNames
     static final String NUMBNESS = ", онемение в";
     static final String WEAKNESS = "слабость в";
     static final String SOCIAL_ANAMNESIS = "Соц.анамнез:";
+
+    static final String EXERCISE_STRESS = "физическая нагрузка";
+    static final String STATIC_LOAD = "статическая нагрузка";
+
     static final String ANAMNESIS = "Анамнез:";
     /**
      * Сознание
@@ -40,15 +44,15 @@ public interface PropertyNames
      * Эпи.приступы
      */
     static final String ATTACKS = "Эпи.приступы";
-    
+
     static final String DREAM = "Сон";
     static final String NAME = "ФИО:";
     static final String CRANIAL_NERVE = "ЧМН:";
     static final String SENSITIVITY = "Чувствительность:";
-    static final String REFLEXES ="Рефлексы";
-    static final String P_REFLEXES ="Патологические рефлексы:";
-    static final String A_REFLEXES ="Рефлексы орального автоматизма";
-    static final String GAIT ="Двигательные функции походка:";
+    static final String REFLEXES = "Рефлексы";
+    static final String P_REFLEXES = "Патологические рефлексы:";
+    static final String A_REFLEXES = "Рефлексы орального автоматизма";
+    static final String GAIT = "Двигательные функции походка:";
     static final String COORDINATION = "Координация:";
     static final String CORTICAL_FUNCTIONS = "Высшие корковые функции:";
     static final String NERVOUS_SYSTEM = "Вегетативная   нервная  система:";
@@ -57,10 +61,5 @@ public interface PropertyNames
 
     static final String RECOMMENDATIONS = "Рекомендации:";
     static final String THERAPY = "Лечение:";
-
-
-
-
-
 
 }
