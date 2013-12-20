@@ -4,21 +4,26 @@
  */
 package medframe.view;
 
-import com.itextpdf.text.*;
-
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import javax.swing.event.MenuEvent;
-import javax.swing.event.MenuListener;
-import medframe.Certificate;
-
+import com.itextpdf.text.Document;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.PageSize;
+import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.BaseFont;
 import com.itextpdf.text.pdf.PdfWriter;
+import medframe.PropertyNames;
+import medframe.SAXHandler;
+import medframe.Storage;
+import org.xml.sax.SAXException;
+import user.Visit;
+
+import javax.swing.*;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -28,15 +33,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.DefaultComboBoxModel;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.parsers.SAXParser;
-import javax.xml.parsers.SAXParserFactory;
-import medframe.PropertyNames;
-import medframe.SAXHandler;
-import medframe.Storage;
-import org.xml.sax.SAXException;
-import org.xml.sax.SAXParseException;
 
 /**
  *
@@ -48,12 +44,15 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames
     private ArrayList<String> partOfBody;
     private ArrayList<String> joints;
     private Map properiesMap = new HashMap();
+    private Storage storage;
+    private Visit visit = new Visit();
 
     /**
      * Creates new form CreateFrame
      */
     public CreateFrame()
     {
+        storage = new Storage();
         importProperties();
         initComponents();
         initMyComponents();
@@ -92,11 +91,17 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames
             @Override
             public void mouseClicked(MouseEvent e)
             {
+                File file = new File("c:\\test.xml");
+
                 System.out.println("exportPropertiesActionPerformed");
+                Visit visit = new Visit();
+                visit.setName(nameField.getText());
+                visit.setDate(new Date());     //TODO: update to dateChooser
+
                 //  properiesMap.put("name", nameField.getText());
                 //properiesMap.put("date", dateChooser.getDateFormatString());
-                Storage s = new Storage();
-                s.exportFile();
+
+                storage.exportFile(file, visit);
             }
 
             @Override
@@ -165,20 +170,11 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames
     {
         Document document = new Document(PageSize.A4);
         String fileName = "C:\\ITextTest.pdf";
-        try
-        {
-            BaseFont times = BaseFont.createFont("c:/windows/fonts/tahoma.ttf", "cp1251", BaseFont.EMBEDDED);
-            Font font = new Font(times);
-            PdfWriter.getInstance(document, new FileOutputStream(fileName));
-            document.open();
+        File file = new File(fileName);
 
-            document.add(new Paragraph(TITLE, font));
-            document.close();
-        }
-        catch (Exception ex)
-        {
-            Logger.getLogger(CreateFrame.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        storage.savePDF(visit);
+
+
     }
 
     /**
@@ -490,7 +486,8 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames
         //  properiesMap.put("name", nameField.getText());
         //properiesMap.put("date", dateChooser.getDateFormatString());
         Storage s = new Storage();
-        s.exportFile();
+        File file = new File("C:\\doc.xml");
+        s.exportFile(file);
     }//GEN-LAST:event_exportPropertiesActionPerformed
 
 
