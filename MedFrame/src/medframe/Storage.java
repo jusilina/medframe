@@ -16,6 +16,10 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -25,11 +29,13 @@ import java.util.logging.Logger;
  */
 public class Storage implements PropertyNames
 {
-    private String pdfFont = "../resources/tahoma.ttf";
-    private String encoding = "cp1251";
+
+    private final String pdfFont = "tahoma.ttf";
+    private final String encoding = "cp1251";
 
     public void exportFile(File file, Visit visit)
     {
+        Map<String, String> elements = visit.getParametersMap();
         OutputStream outputStream;
         XMLStreamWriter out = null;
         try
@@ -41,13 +47,24 @@ public class Storage implements PropertyNames
                     new OutputStreamWriter(outputStream, "utf-8"));
 
             out.writeStartDocument();
-            out.writeStartElement("person");
 
-            out.writeStartElement("name");
-            out.writeCharacters("TEST NAME");
-            out.writeEndElement();
+            for (String key : elements.keySet())
+            {
+                out.writeStartElement(key);
+                out.writeCharacters(elements.get(key));
+                out.writeEndElement();
+                out.writeCharacters("   ");
 
-            out.writeEndElement();
+            }
+//            out.writeStartElement("person");
+//
+//            out.writeStartElement("name");
+//         //   out.writeCharacters(visit.getName());
+//            out.writeEndElement();
+//            
+//            out.writeStartElement("date");
+//
+//            out.writeEndElement();
             out.writeEndDocument();
             out.close();
             outputStream.close();
@@ -60,7 +77,8 @@ public class Storage implements PropertyNames
 
     }
 
-    public void savePDF(File file, Visit visit)  {
+    public void savePDF(File file, Visit visit)
+    {
         Document document = new Document(PageSize.A4);
         try
         {
@@ -76,12 +94,8 @@ public class Storage implements PropertyNames
             mainPart.setFont(font);
             mainPart.setAlignment(Element.ALIGN_LEFT);
 
-            Phrase date = new Phrase(DATE + visit.getStringDate());
+            Phrase date = new Phrase(DATE + SPACE + visit.getStringDate());
             mainPart.add(date);
-
-
-
-
 
             document.add(mainPart);
 

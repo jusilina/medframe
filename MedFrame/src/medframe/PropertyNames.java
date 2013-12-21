@@ -14,7 +14,7 @@ public interface PropertyNames
 
     static final String SPACE = " ";
     static final String TITLE = "Осмотр невролога (на дому)";
-    static final String DATE = "Дата";
+    static final String DATE = "Дата:";
     static final String COMPLAINE = "Жалобы:";
     static final String COMPLAINE_DESCR = "умеренный,интенсивный болевой синдром в";
     static final String DIFFICULTY = "затруднение движений в ШОП, ГОП, ПКО, в суставе";
@@ -45,7 +45,14 @@ public interface PropertyNames
      */
     static final String ATTACKS = "Эпи.приступы";
 
-    static final String DREAM = "Сон";
+    static final String DREAM = "Сон:";
+    static final String NORM = "норма";
+    static final String DISBALANCE = "нарушен";
+
+    static final String DREAM_DISB_ASLEEP = "трудность засыпания";
+    static final String DREAM_DISB_F_AWAKENINGS = "частые пробуждения";
+    static final String DREAM_DISB_E_AWAKENINGS = "ранние пробуждения";
+
     static final String NAME = "ФИО:";
     static final String CRANIAL_NERVE = "ЧМН:";
     static final String SENSITIVITY = "Чувствительность:";
@@ -61,5 +68,7 @@ public interface PropertyNames
 
     static final String RECOMMENDATIONS = "Рекомендации:";
     static final String THERAPY = "Лечение:";
+
+    static final String CATEGORY = "Выбрать категорию";
 
 }
