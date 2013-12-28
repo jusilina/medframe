@@ -24,9 +24,25 @@ import org.xml.sax.SAXException;
 public class ProjectProperties
 {
     private static ProjectProperties properties;
+
+    public ArrayList<String> getPartOfBody()
+    {
+        return partOfBody;
+    }
+
+    public ArrayList<String> getJoints()
+    {
+        return joints;
+    }
     
    private ArrayList<String> partOfBody;
    private ArrayList<String> joints;
+    private ArrayList <String> categories;
+
+    public ArrayList<String> getCategories()
+    {
+        return categories;
+    }
     
    private ProjectProperties(){
        importProperties();
@@ -40,16 +56,9 @@ public class ProjectProperties
        }
        return properties;
    }
-
-    public ArrayList<String> getPartOfBody()
-    {
-        return partOfBody;
-    }
-
-    public ArrayList<String> getJoints()
-    {
-        return joints;
-    }
+    
+    
+    
     
     private void importProperties()
     {
@@ -63,6 +72,8 @@ public class ProjectProperties
             partOfBody = handler.getPartOfBodys();
             System.out.println(partOfBody.toString());
             joints = handler.getJoints();
+            
+            categories = handler.getCategories();
 
         }
         catch (ParserConfigurationException ex)
