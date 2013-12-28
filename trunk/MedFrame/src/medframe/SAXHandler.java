@@ -20,6 +20,12 @@ public class SAXHandler extends DefaultHandler
 {
     private ArrayList <String> partOfBody;
      private ArrayList <String> joints;
+     private ArrayList <String> categories;
+
+    public ArrayList<String> getCategories()
+    {
+        return categories;
+    }
    // private boolean isPartOfBody = false;
     String thisElement = ""; 
     
@@ -36,8 +42,9 @@ public class SAXHandler extends DefaultHandler
       @Override
   public void startDocument() throws SAXException
   {
-    partOfBody = new ArrayList<>();
-    joints = new ArrayList<>();
+    partOfBody = new ArrayList<String>();
+    joints = new ArrayList<String>();
+    categories = new ArrayList<String>();
   }
   
     @Override
@@ -55,8 +62,11 @@ public class SAXHandler extends DefaultHandler
     }
     case "joint":{
         joints.add(new String(ch, start, length));
-        break;       
-    
+        break;     
+    }
+    case "category":{
+        categories.add(new String(ch, start, length));
+        break;
     }
     
     }

@@ -1,5 +1,9 @@
 ﻿<?xml version="1.1" encoding="UTF-8" ?>
 <parameters>
+    <category>Дисциркуляторная энцефалопатия</category>
+    <category>Вертеброгенная патология</category>
+    <category>Головные боль</category>
+    <category>Паркинсонизм</category>
     <partOfBody>поясница</partOfBody>
     <partOfBody>шея</partOfBody>
     <partOfBody>грудной отдел</partOfBody>
