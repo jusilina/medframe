@@ -151,10 +151,7 @@ public class ProjectProperties implements PropertyNames
             joints = handler.getJoints();
             
             categories = new ArrayList<>();
-            Iterator iter = handler.getCategories().iterator();
-            while(iter.hasNext())
-            {
-                Category cat = (Category) iter.next();
+            for (Category cat : handler.getCategories()) {
                 categories.add(cat.getName());
             }
             
