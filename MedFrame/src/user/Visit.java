@@ -30,6 +30,14 @@ public class Visit
     private String sensitivity;
     private String reflexes;
     private String pReflexes;
+    private String aReflexes;
+    private String gate;
+    private String coordination;
+    private String nervousSystem;
+    private String diagnosis;
+    private String recomendations;
+    private String therapy;
+
 
     public String getEmotion()
     {
@@ -150,13 +158,7 @@ public class Visit
     {
         this.therapy = therapy;
     }
-    private String aReflexes;
-    private String gate;
-    private String coordination;
-    private String nervousSystem;
-    private String diagnosis;
-    private String recomendations;
-    private String therapy;
+
 
     public String getComplaine()
     {

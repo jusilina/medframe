@@ -5,8 +5,12 @@
         <group>
             <file>file:/F:/NetBeansProjects/medframe_trunk/MedFrame/properties.xml</file>
             <file>file:/F:/NetBeansProjects/medframe_trunk/MedFrame/src/medframe/ProjectProperties.java</file>
+            <file>file:/F:/NetBeansProjects/medframe_trunk/MedFrame/src/medframe/view/JComboCheckBox.java</file>
+            <file>file:/F:/NetBeansProjects/medframe_trunk/MedFrame/src/medframe/MedFrame.java</file>
+            <file>file:/F:/NetBeansProjects/medframe_trunk/MedFrame/src/medframe/SAXHandler.java</file>
             <file>file:/F:/NetBeansProjects/medframe_trunk/MedFrame/src/medframe/view/CreateFrame.java</file>
-            <file>file:/F:/NetBeansProjects/medframe_trunk/MedFrame/src/medframe/view/complaintsJPanel.java</file>
+            <file>file:/F:/NetBeansProjects/medframe_trunk/MedFrame/src/medframe/PropertyNames.java</file>
+            <file>file:/F:/NetBeansProjects/medframe_trunk/MedFrame/src/user/Visit.java</file>
         </group>
     </open-files>
 </project-private>

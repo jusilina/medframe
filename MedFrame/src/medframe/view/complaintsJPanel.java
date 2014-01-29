@@ -51,6 +51,8 @@ public class complaintsJPanel extends javax.swing.JPanel implements PropertyName
         jComboBox5 = new javax.swing.JComboBox();
         jLabel7 = new javax.swing.JLabel();
 
+        setMinimumSize(new java.awt.Dimension(742, 104));
+
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel3.setText("умеренный, интенсивный болевой синдром в");
 

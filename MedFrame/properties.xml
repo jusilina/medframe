@@ -1,15 +1,105 @@
 ﻿<?xml version="1.1" encoding="UTF-8" ?>
 <parameters>
-    <category>Дисциркуляторная энцефалопатия</category>
-    <category>Вертеброгенная патология</category>
-    <category>Головные боль</category>
-    <category>Паркинсонизм</category>
+    <category name="Дисциркуляторная энцефалопатия">
+        <drug id="Actovegini">
+            <mark>5 ml</mark>
+        </drug>  
+                 
+                
+        <drug id="Cerebrolizini">
+            <mark>5 ml</mark>
+            <mark>10 ml</mark>            
+        </drug>
+        <drug id="Citoflavini">
+            <mark>5 ml</mark>
+        </drug>
+        <drug id="Acidi nicotinici"></drug>
+        <drug id="Gliatilini"></drug>
+        <drug id="Mexidoli"></drug>
+        <drug id="Pyracetami"></drug>
+        <drug id="Cortexini"></drug>
+        <drug id="Acatinoli"></drug>
+        <drug id="Galantamini"></drug>
+        <drug id="Donepezil"></drug>
+     </category>
+    <category name="Вертеброгенная патология"></category>
+    <category name="Головные боль"></category>
+    <category name="Паркинсонизм"></category>
     <partOfBody>поясница</partOfBody>
     <partOfBody>шея</partOfBody>
     <partOfBody>грудной отдел</partOfBody>
+    
+    <dose>внутримышечно № 10</dose>
+    <dose>внутримышечно № 5</dose>
+    <dose>внутримышечно № 5-10</dose>
+    <dose>внутримышечно № 3-6</dose>
+    <dose>внутривенно № 10</dose>
+    <dose>внутривенно № 5</dose>
+    <dose>по схеме 2-3-4-5-5-4-3-2 ml</dose>
+
+    <dose>1  таб  1-2 раза в день</dose>
+    <dose>1  таб  1 раза в день</dose>
+    <dose>1  таб  2 раза в день</dose>
+    <dose>1  таб  2-3 раза в день</dose>
+    <dose>1  таб  3 раза в день</dose>
+    
 
     <joint>колено</joint>
 
     <conscious>ясное</conscious>
     <conscious>оглушенность</conscious>
+    
+    <disturbed_sleep>трудность засыпания</disturbed_sleep>
+    <disturbed_sleep>частые пробуждения</disturbed_sleep>
+    <disturbed_sleep>раннее пробуждение</disturbed_sleep>
+ 
+    <!-- Эмоциональная сфера нарушения -->   
+    <emotion>эмоциональная лабильность</emotion>
+    <emotion>астенизация</emotion>
+    <emotion>критика снижена</emotion>
+    
+    <cranicalNerve>слабость зрачковых реакций</cranicalNerve>
+    <cranicalNerve>снижение слуха</cranicalNerve>
+    <cranicalNerve>снижение зрени</cranicalNerve>
+    <cranicalNerve>гипомимия</cranicalNerve>
+    
+    <nervousSystem>дермографизм розовый</nervousSystem>
+    <nervousSystem>дермографизм красный</nervousSystem>
+    <nervousSystem>дермографизм белый</nervousSystem>
+    <nervousSystem>дермографизм широкий</nervousSystem>
+    <nervousSystem>дермографизм узкий</nervousSystem>
+    <nervousSystem>дермографизм быстроисчезающий</nervousSystem>
+    <nervousSystem>гипергидроз  ладоней</nervousSystem>
+    
+    <rombergManeuver>устойчив</rombergManeuver>
+    <rombergManeuver>пошатывается</rombergManeuver>
+    <rombergManeuver>падает вправо</rombergManeuver>
+    <rombergManeuver>падает влево</rombergManeuver>
+    
+    <coordinationTests>неуверенно</coordinationTests>
+    <coordinationTests>промахивается</coordinationTests>
+    <coordinationTests>интенция</coordinationTests>
+    <coordinationTests>атаксия</coordinationTests>
+    
+    <sensitivityDisbalance>гипестезия</sensitivityDisbalance>
+    <sensitivityDisbalance>анестезия</sensitivityDisbalance>
+    <sensitivityDisbalance>гиперстезия</sensitivityDisbalance>
+    
+    <nervousTension>с-м Нери</nervousTension>
+    <nervousTension>с-м Ласега D</nervousTension>
+    <nervousTension>с-м Ласега S</nervousTension>
+    <nervousTension>парестезии</nervousTension>
+    
+    <pReflexesHand>Бабинский</pReflexesHand>
+    <pReflexesHand>Ласк</pReflexesHand>
+    <pReflexesHand>Бехтерев</pReflexesHand>
+    <pReflexesHand>Тремнер</pReflexesHand>
+    
+    <pReflexesLeg>Бабинский</pReflexesLeg>
+    <pReflexesLeg>Гордон</pReflexesLeg>
+    <pReflexesLeg>Чаддок</pReflexesLeg>
+    <pReflexesLeg>Россолимо</pReflexesLeg>
+    
+     <aReflexes>хоботковый</aReflexes>
+     <aReflexes>Маринеску-Радовичи</aReflexes>
 </parameters>
