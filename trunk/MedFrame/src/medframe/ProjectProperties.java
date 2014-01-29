@@ -9,6 +9,7 @@ package medframe;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.xml.parsers.ParserConfigurationException;
@@ -16,14 +17,93 @@ import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 import medframe.view.CreateFrame;
 import org.xml.sax.SAXException;
+import user.Category;
 
 /**
  *
  * @author Julia
  */
-public class ProjectProperties
+public class ProjectProperties implements PropertyNames
 {
     private static ProjectProperties properties;
+
+    private ArrayList<String> partOfBody;
+    private ArrayList<String> joints;
+    private ArrayList<String> categories;
+    private ArrayList disturbed_sleepList;
+    private ArrayList <String> emotionViolations;
+    private ArrayList <String> cranicalNerveViolations;
+    private ArrayList <String> nervousSystemList;
+    private ArrayList <String> rombergList;
+    private ArrayList <String> sensitivityDisbalanceList;
+    private ArrayList <String> nervousTensionList;
+    private ArrayList <String> pReflexesHand;
+    private ArrayList <String> pReflexesLeg;
+    private ArrayList <String> aReflexesList;
+
+    public ArrayList<String> getaReflexesList()
+    {
+        return aReflexesList;
+    }
+    
+    
+    public ArrayList<String> getpReflexesHand()
+    {
+        return pReflexesHand;
+    }
+
+    public ArrayList<String> getpReflexesLeg()
+    {
+        return pReflexesLeg;
+    }
+
+    public ArrayList<String> getCranicalNerveViolations()
+    {
+        return cranicalNerveViolations;
+    }
+
+    public ArrayList<String> getNervousTensionList()
+    {
+        return nervousTensionList;
+    }
+
+    public ArrayList<String> getSensitivityDisbalanceList()
+    {
+        return sensitivityDisbalanceList;
+    }
+
+    
+    public ArrayList<String> getNervousSystemList()
+    {
+        return nervousSystemList;
+    }
+
+    public ArrayList<String> getRombergList()
+    {
+        return rombergList;
+    }
+    
+
+    public ArrayList <String> getEmotionViolations()
+    {
+        return emotionViolations;
+    }
+
+    public void setEmotionViolations(ArrayList emotionViolations)
+    {
+        this.emotionViolations = emotionViolations;
+    }
+
+
+    public ArrayList <String> getDisturbed_sleepList()
+    {
+        return disturbed_sleepList;
+    }
+
+    public void setDisturbed_sleepList(ArrayList disturbed_sleepList)
+    {
+        this.disturbed_sleepList = disturbed_sleepList;
+    }
 
     public ArrayList<String> getPartOfBody()
     {
@@ -34,10 +114,7 @@ public class ProjectProperties
     {
         return joints;
     }
-    
-   private ArrayList<String> partOfBody;
-   private ArrayList<String> joints;
-    private ArrayList <String> categories;
+
 
     public ArrayList<String> getCategories()
     {
@@ -73,8 +150,25 @@ public class ProjectProperties
             System.out.println(partOfBody.toString());
             joints = handler.getJoints();
             
-            categories = handler.getCategories();
-
+            categories = new ArrayList<>();
+            Iterator iter = handler.getCategories().iterator();
+            while(iter.hasNext())
+            {
+                Category cat = (Category) iter.next();
+                categories.add(cat.getName());
+            }
+            
+            disturbed_sleepList = handler.getDisturbed_sleepList();
+            emotionViolations = handler.getEmotionViolations();
+            cranicalNerveViolations=handler.getCranicalNerveViolations();
+            cranicalNerveViolations.add(0, CRANICAL_NERVE_N);
+            nervousSystemList=handler.getNervousSystemList();
+            rombergList = handler.getRombergList();
+            sensitivityDisbalanceList = handler.getSensitivityDisbalanceList();
+            nervousTensionList = handler.getNervousTensionList();
+            pReflexesHand = handler.getpReflexesHand();
+            pReflexesLeg = handler.getpReflexesLeg();
+            aReflexesList=handler.getaReflexesList();
         }
         catch (ParserConfigurationException ex)
         {
