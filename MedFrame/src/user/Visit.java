@@ -35,7 +35,7 @@ public class Visit
     private String coordination;
     private String nervousSystem;
     private String diagnosis;
-    private String recomendations;
+    private String recommendations;
     private String therapy;
 
 
@@ -141,12 +141,12 @@ public class Visit
 
     public String getRecomendations()
     {
-        return recomendations;
+        return recommendations;
     }
 
     public void setRecomendations(String recomendations)
     {
-        this.recomendations = recomendations;
+        this.recommendations = recomendations;
     }
 
     public String getTherapy()
@@ -236,28 +236,19 @@ public class Visit
     {
         Map elements = new HashMap();
         Field fld[] = Visit.class.getDeclaredFields();
-        for (int i = 0; i < fld.length; i++)
-        {
-            Field field = fld[i];
+
+        for (Field field : fld) {
             String fieldName = field.getName();
             String fieldValue = "";
-            if (fieldName.equals("date"))
-            {
+            if (fieldName.equals("date")) {
                 fieldValue = getStringDate();
-            }
-            else
-            {
-                try
-                {
-                    fieldValue = (String)field.get(this);
-                 //   fieldValue = fld[i].get(fieldName).toString();
-                }
-                catch (IllegalArgumentException ex)
-                {
+            } else {
+                try {
+                    fieldValue = (String) field.get(this);
+                    //   fieldValue = fld[i].get(fieldName).toString();
+                } catch (IllegalArgumentException ex) {
                     Logger.getLogger(Visit.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                catch (IllegalAccessException ex)
-                {
+                } catch (IllegalAccessException ex) {
                     Logger.getLogger(Visit.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }

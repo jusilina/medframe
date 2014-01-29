@@ -4,24 +4,18 @@
  */
 package medframe.view;
 
-import java.awt.event.ActionEvent;
+import medframe.ProjectProperties;
 import medframe.PropertyNames;
-
 import medframe.Storage;
 import user.Visit;
 
 import javax.swing.*;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import java.awt.event.*;
 import java.io.File;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import medframe.ProjectProperties;
 
 /**
  *
@@ -73,10 +67,7 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames
             }
         });
 
-//        JCheckBox box1 = new JCheckBox("1");
-//        JCheckBox box2 = new JCheckBox("2");
-//        JCheckBox box3 = new JCheckBox("3");
-//        JCheckBox[] box = {box1, box2, box3};
+
         dreamComboBox.addItemListener(new ItemListener()
         {
 
@@ -269,16 +260,11 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames
             }
         });
 
-        Iterator iter = props.getCategories().iterator();
-        while (iter.hasNext())
-        {
-            String categoryName = (String) iter.next();
+        for (String categoryName : props.getCategories()) {
             JMenuItem categoryItem = new JMenuItem(categoryName);
 
-            categoryItem.addActionListener(new java.awt.event.ActionListener()
-            {
-                public void actionPerformed(java.awt.event.ActionEvent evt)
-                {
+            categoryItem.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent evt) {
                     categoryItemActionPerformed(evt);
                 }
 
@@ -319,12 +305,10 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames
 
     private Visit populateVisit()
     {
-        //  Map visitMap = new HashMap();
         visit.setName(nameField.getText());
         visit.setDate(dateChooser.getDate());
 
         return visit;
-
     }
 
     /**
@@ -371,9 +355,7 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames
         anamnesisLabel = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        //JCheckBox box1 = new JCheckBox("1");
-        //        JCheckBox box2 = new JCheckBox("2");
-        //        JCheckBox box3 = new JCheckBox("3");
+
         int size = props.getDisturbed_sleepList().size();
         JCheckBox[] box = new JCheckBox[size];
 
@@ -1142,8 +1124,8 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames
      }                                                 
      */
 
-    private void exportItemActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_exportItemActionPerformed
-    {//GEN-HEADEREND:event_exportItemActionPerformed
+    private void exportItemActionPerformed(java.awt.event.ActionEvent evt)
+    {
         JFileChooser exportFile = new JFileChooser();
         //  exportFile.setCurrentDirectory(new File("testTest.xml"));
         if (exportFile.showSaveDialog(this) == JFileChooser.APPROVE_OPTION)
@@ -1159,9 +1141,24 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames
 //        System.out.println("exportItemActionPerformed");
         //  Visit visit = new Visit();
         //    visit.setName(nameField.getText());
-        //  visit.setDate(new Date());     //TODO: update to dateChooser
+        //  visit.setDate(new Date());
 
-    }//GEN-LAST:event_exportItemActionPerformed
+    }
+
+    private void importItemActionPerformed(java.awt.event.ActionEvent evt)
+    {
+        JFileChooser importFile = new JFileChooser();
+
+        if (importFile.showSaveDialog(this) == JFileChooser.APPROVE_OPTION)
+        {
+            File file = importFile.getSelectedFile();
+            System.out.println(file.getPath());
+
+            Visit importVisit = storage.importFile(file);
+        }
+
+
+    }
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton1ActionPerformed
     {//GEN-HEADEREND:event_jButton1ActionPerformed

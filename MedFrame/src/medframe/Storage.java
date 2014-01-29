@@ -10,16 +10,11 @@ import com.itextpdf.text.pdf.BaseFont;
 import com.itextpdf.text.pdf.PdfWriter;
 import user.Visit;
 
-import javax.xml.stream.XMLOutputFactory;
-import javax.xml.stream.XMLStreamWriter;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.util.HashMap;
-import java.util.Iterator;
+import javax.xml.stream.*;
+import javax.xml.stream.events.StartElement;
+import javax.xml.stream.events.XMLEvent;
+import java.io.*;
 import java.util.Map;
-import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -74,6 +69,40 @@ public class Storage implements PropertyNames
         {
             Logger.getLogger(Storage.class.getName()).log(Level.SEVERE, null, ex);
         }
+
+    }
+
+    public Visit importFile(File file)
+    {
+        Visit visit = new Visit();
+        Map<String, String> elements = visit.getParametersMap();
+//        InputStream inputStream;
+//        XMLInputFactory in = null;
+        try
+        {
+//            outputStream = new FileOutputStream(file);
+            System.out.println("exportFile");
+            XMLInputFactory factory = XMLInputFactory.newInstance();
+            XMLEventReader eventReader =
+                    factory.createXMLEventReader(
+                            new FileReader(file));
+            while(eventReader.hasNext()){
+
+                XMLEvent event = eventReader.nextEvent();
+
+                if(event.getEventType() == XMLStreamConstants.START_ELEMENT){
+                    StartElement startElement = event.asStartElement();
+                    System.out.println(startElement.getName().getLocalPart());
+                }
+                //handle more event types here...
+            }
+
+        }
+        catch (Exception ex)
+        {
+            Logger.getLogger(Storage.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return visit;
 
     }
 
