@@ -5,11 +5,16 @@
  */
 package medframe;
 
+import com.google.common.collect.Multimap;
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.BaseFont;
 import com.itextpdf.text.pdf.PdfWriter;
+import org.xml.sax.SAXException;
 import user.Visit;
 
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
 import javax.xml.stream.*;
 import javax.xml.stream.events.StartElement;
 import javax.xml.stream.events.XMLEvent;
@@ -33,7 +38,7 @@ public class Storage implements PropertyNames
 
     public void exportFile(File file, Visit visit)
     {
-        Map<String, String> elements = visit.getParametersMap();
+        Multimap <String, String> elements = visit.getParametersMap();
         OutputStream outputStream;
         XMLStreamWriter out = null;
         try
@@ -48,21 +53,16 @@ public class Storage implements PropertyNames
 
             for (String key : elements.keySet())
             {
-                out.writeStartElement(key);
-                out.writeCharacters(elements.get(key));
-                out.writeEndElement();
-                out.writeCharacters("   ");
+                for (String value : elements.get(key))
+                {
+                    out.writeStartElement(key);
+                    out.writeCharacters(value);
+                    out.writeEndElement();
+                    out.writeCharacters("   ");
+                }
 
             }
-//            out.writeStartElement("person");
-//
-//            out.writeStartElement("name");
-//         //   out.writeCharacters(visit.getName());
-//            out.writeEndElement();
-//            
-//            out.writeStartElement("date");
-//
-//            out.writeEndElement();
+
             out.writeEndDocument();
             out.close();
             outputStream.close();
@@ -78,35 +78,23 @@ public class Storage implements PropertyNames
     public Visit importFile(File file)
     {
         Visit visit = new Visit();
-        Map<String, String> elements = visit.getParametersMap();
-//        InputStream inputStream;
-//        XMLInputFactory in = null;
+
         try
         {
-//            outputStream = new FileOutputStream(file);
-            System.out.println("exportFile");
-            XMLInputFactory factory = XMLInputFactory.newInstance();
-            XMLEventReader eventReader
-                    = factory.createXMLEventReader(
-                            new FileReader(file));
-            while (eventReader.hasNext())
-            {
-
-                XMLEvent event = eventReader.nextEvent();
-
-                if (event.getEventType() == XMLStreamConstants.START_ELEMENT)
-                {
-                    StartElement startElement = event.asStartElement();
-                    System.out.println(startElement.getName().getLocalPart());
-                }
-                //handle more event types here...
-            }
-
+            SAXParserFactory factory = SAXParserFactory.newInstance();
+            SAXParser parser = factory.newSAXParser();
+            SAXImportHandler handler = new SAXImportHandler(visit);
+            parser.parse(file, handler);
         }
-        catch (Exception ex)
+        catch (ParserConfigurationException e)
         {
-            Logger.getLogger(Storage.class.getName()).log(Level.SEVERE, null, ex);
+            e.printStackTrace();
+        } catch (Exception e)
+        {
+            e.printStackTrace();
         }
+
+
         return visit;
 
     }
@@ -274,7 +262,7 @@ public class Storage implements PropertyNames
             }
             else
             {
-                pReflexesVal = new Phrase(HAND + SPACE + visit.getpReflexes().get(0).toString() + SPACE + LEG + SPACE + visit.getpReflexes().get(1).toString());
+                pReflexesVal = new Phrase(HAND + SPACE + visit.getpReflexesHand().toString() + SPACE + LEG + SPACE + visit.getpReflexesLeg().toString());
             }
 
             pReflexes.add(pReflexesLabel);
