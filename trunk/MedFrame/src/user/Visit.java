@@ -16,10 +16,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import com.google.common.collect.ArrayListMultimap;
 import medframe.view.CreateFrame;
+import com.google.common.collect.Multimap;
 
 /**
- *
  * @author Julia
  */
 public class Visit
@@ -42,6 +44,9 @@ public class Visit
     private List<String> nervousTension = new ArrayList<String>();
     private List<String> reflexes = new ArrayList<String>();
     private List<String> pReflexes = new ArrayList<String>();
+    private List pReflexesHand = new ArrayList();
+    private List pReflexesLeg = new ArrayList();
+
     private List<String> aReflexes = new ArrayList<String>();
     private String gaite;
     private List<String> motion = new ArrayList<String>();
@@ -131,6 +136,26 @@ public class Visit
     public void setpReflexes(List pReflexes)
     {
         this.pReflexes = pReflexes;
+    }
+
+    public List getpReflexesHand()
+    {
+        return pReflexesHand;
+    }
+
+    public void setpReflexesHand(List pReflexesHand)
+    {
+        this.pReflexesHand = pReflexesHand;
+    }
+
+    public List getpReflexesLeg()
+    {
+        return pReflexesLeg;
+    }
+
+    public void setpReflexesLeg(List pReflexesLeg)
+    {
+        this.pReflexesLeg = pReflexesLeg;
     }
 
     public List getaReflexes()
@@ -254,8 +279,7 @@ public class Visit
 //            int month = cal.get(Calendar.MONTH);
 //            int day = cal.get(Calendar.DAY_OF_MONTH);
             return f.format(date);
-        }
-        else
+        } else
         {
             return "";
         }
@@ -391,9 +415,41 @@ public class Visit
         this.recommendationsAdd = recommendationsAdd;
     }
 
-    public Map<String, String> getParametersMap()
+    public void addParameter(String name, String value)
     {
-        Map elements = new HashMap();
+        try
+        {
+            Field fld = this.getClass().getDeclaredField(name);
+            String typeName = fld.getType().getName();
+
+            if (typeName.equals(List.class.getName()))
+            {
+                System.out.println("List name=" + name);
+                List list = (List) fld.get(this);
+                list.add(value);
+            } else if (typeName.equals(LinkedList.class.getName()))
+            {
+                System.out.println("linked list name=" + name);
+                LinkedList list = (LinkedList) fld.get(this);
+                list.add(value);
+            } else
+            {
+                fld.set(this, value);
+            }
+
+        } catch (NoSuchFieldException e)
+        {
+            e.printStackTrace();
+        } catch (IllegalAccessException e)
+        {
+            e.printStackTrace();
+        }
+
+    }
+
+    public Multimap<String, String> getParametersMap()
+    {
+        Multimap<String, String> elements = ArrayListMultimap.create();
         Field fld[] = Visit.class.getDeclaredFields();
 
         for (Field field : fld)
@@ -408,38 +464,30 @@ public class Visit
                 if (typeName.equals(Logger.class.getName()))
                 {
                     continue;
-                }
-                else
-                    if (fieldName.equals("date"))
-                    {
-                        fieldValue = getStringDate();
-                    }
-                else if (fieldName.equals("coordinationTest"))
+                } else if (fieldName.equals("date"))
+                {
+                    fieldValue = getStringDate();
+                } else if (fieldName.equals("coordinationTest"))
                 {
                     log.info("coordinationTest");
-                }
-                 else if (typeName.equals(List.class.getName()))
+                } else if (typeName.equals(List.class.getName()))
                 {
-                                System.out.println("name=" + fieldName);
-                                fieldValueArray = (ArrayList) field.get(this);
-                }
-                    else if (typeName.equals(LinkedList.class.getName()))
-                    {
-                        fieldValueList = (LinkedList) field.get(this);
-                    }                        
-                    else
-                    {
+                    System.out.println("name=" + fieldName);
+                    fieldValueArray = (ArrayList) field.get(this);
+                } else if (typeName.equals(LinkedList.class.getName()))
+                {
+                    fieldValueList = (LinkedList) field.get(this);
+                } else
+                {
 
-                        fieldValue = (String) field.get(this);
-                        //   fieldValue = fld[i].get(fieldName).toString();
-                    }
-                
-            }
-            catch (IllegalArgumentException ex)
+                    fieldValue = (String) field.get(this);
+                    //   fieldValue = fld[i].get(fieldName).toString();
+                }
+
+            } catch (IllegalArgumentException ex)
             {
                 Logger.getLogger(Visit.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            catch (IllegalAccessException ex)
+            } catch (IllegalAccessException ex)
             {
                 Logger.getLogger(Visit.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -449,15 +497,13 @@ public class Visit
                 {
                     elements.put(fieldName, value);
                 }
-            }
-            else if (fieldValueList.size() > 0)
+            } else if (fieldValueList.size() > 0)
             {
                 for (String value : fieldValueList)
                 {
                     elements.put(fieldName, value);
                 }
-            }
-            else
+            } else
             {
                 elements.put(fieldName, fieldValue);
             }

@@ -390,12 +390,14 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames
         {
             ArrayList pReflexes = new ArrayList();
             Object[] pReflexesList = pReflexesHandBox.getSelectedObjects();
-            pReflexes.add(Arrays.asList(pReflexesList));
+//            pReflexes.add(Arrays.asList(pReflexesList));
+            visit.setpReflexesHand(new ArrayList<>(Arrays.asList(pReflexesList)));
             
             pReflexesList = pReflexesLegBox.getSelectedObjects();
-            pReflexes.add(Arrays.asList(pReflexesList));
-            
-            visit.setpReflexes(pReflexes);
+//            pReflexes.add(Arrays.asList(pReflexesList));
+
+            visit.setpReflexesLeg(new ArrayList<>(Arrays.asList(pReflexesList)));
+//            visit.setpReflexes(pReflexes);
         }
         
                 if(aReflexesMainBox.getSelectedItem().equals(NO))

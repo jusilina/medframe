@@ -66,6 +66,7 @@
     <emotion>эмоциональная лабильность</emotion>
     <emotion>астенизация</emotion>
     <emotion>критика снижена</emotion>
+    <emotion>ипохондричность</emotion>
     
     <cranicalNerve>слабость зрачковых реакций</cranicalNerve>
     <cranicalNerve>снижение слуха</cranicalNerve>
@@ -99,7 +100,6 @@
     <nervousTension>с-м Ласега S</nervousTension>
     <nervousTension>парестезии</nervousTension>
     
-    <pReflexesHand>Бабинский</pReflexesHand>
     <pReflexesHand>Ласк</pReflexesHand>
     <pReflexesHand>Бехтерев</pReflexesHand>
     <pReflexesHand>Тремнер</pReflexesHand>
@@ -120,6 +120,8 @@
     <motion>ограничены ШОП</motion>
     <motion>ограничены ГОП</motion>
     <motion>ограничены ПКО</motion>
+	<motion>ограничены в плечевом суставе</motion>
+	<motion>ограничены в тазобедренном суставе</motion>
      
     <recommendation>ОАК</recommendation>
     <recommendation>ОАМ</recommendation>
@@ -132,7 +134,21 @@
     <recommendation>МРТ ШОП</recommendation>
     <recommendation>МРТ ГОП</recommendation>
     <recommendation>МРТ ПКО</recommendation>
-    <recommendation>ЭНМГ</recommendation>
+    <recommendation>ЭНМГ рук</recommendation>
+	<recommendation>ЭНМГ ног</recommendation>
+	<recommendation>миоглобин</recommendation>
+	<recommendation>КФК</recommendation>
+	<recommendation>C-реактивный белок</recommendation>
+	<recommendation>ревматоидный фактор</recommendation>
+	<recommendation>УЗДГ МАГ</recommendation>
+	<recommendation>липидный профиль</recommendation>
+	<recommendation>МНО</recommendation>
+	<recommendation>фибриноген</recommendation>
+	<recommendation>МРТ головного мозга</recommendation>
+	<recommendation>КТ головного мозга</recommendation>
+	<recommendation>ЭЭГ</recommendation>
+	<recommendation>консультация офтальмолога(глазное дно)</recommendation>
+	<recommendation>рентгенография ШОП</recommendation>
     
     <therapy>ЛФК постоянно</therapy>
     <therapy>ФТЛ</therapy>

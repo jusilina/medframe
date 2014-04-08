@@ -6,10 +6,10 @@ package medframe;
 
 import java.io.IOException;
 import java.util.logging.LogManager;
+
 import medframe.view.CreateFrame;
 
 /**
- *
  * @author Julia
  */
 public class MedFrame
