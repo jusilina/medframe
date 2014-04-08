@@ -22,31 +22,31 @@ import java.util.ArrayList;
 public class SAXImportHandler extends DefaultHandler
 {
 
-    private ArrayList<String> partOfBody;
-    private ArrayList<String> joints;
-    private ArrayList<Category> categories;
-    private ArrayList disturbed_sleepList;
-    private ArrayList emotionViolations;
-    private ArrayList cranicalNerveViolations;
-    private ArrayList nervousSystemList;
-    private ArrayList rombergList;
-    private Category category;
-    private ArrayList drugs;
-
-    private boolean isDrug;
-    private String thisDrug;
-    private ArrayList sensitivityDisbalanceList;
-    private ArrayList nervousTensionList;
-    private ArrayList<String> pReflexesHand;
-    private ArrayList<String> pReflexesLeg;
-    private ArrayList aReflexesList;
-    private ArrayList muscleToneList;
-    private ArrayList motionList;
-    private ArrayList diagnosisList;
-    private boolean isDiagnosis;
-    private ArrayList recommendationList;
-    private ArrayList therapyList;
-    private ArrayList coordinationTest;
+//    private ArrayList<String> partOfBody;
+//    private ArrayList<String> joints;
+//    private ArrayList<Category> categories;
+//    private ArrayList disturbed_sleepList;
+//    private ArrayList emotionViolations;
+//    private ArrayList cranicalNerveViolations;
+//    private ArrayList nervousSystemList;
+//    private ArrayList rombergList;
+//    private Category category;
+//    private ArrayList drugs;
+//
+//    private boolean isDrug;
+//    private String thisDrug;
+//    private ArrayList sensitivityDisbalanceList;
+//    private ArrayList nervousTensionList;
+//    private ArrayList<String> pReflexesHand;
+//    private ArrayList<String> pReflexesLeg;
+//    private ArrayList aReflexesList;
+//    private ArrayList muscleToneList;
+//    private ArrayList motionList;
+//    private ArrayList diagnosisList;
+//    private boolean isDiagnosis;
+//    private ArrayList recommendationList;
+//    private ArrayList therapyList;
+//    private ArrayList coordinationTest;
 
     private Visit visit;
     private ArrayList fieldNames = new ArrayList();
@@ -61,126 +61,126 @@ public class SAXImportHandler extends DefaultHandler
         }
     }
 
-    public ArrayList getTherapyList()
-    {
-        return therapyList;
-    }
-
-    public ArrayList getCoordinationTest()
-    {
-        return coordinationTest;
-    }
-
-    
-    public ArrayList getaReflexesList()
-    {
-        return aReflexesList;
-    }
-
-    public ArrayList getMotionList()
-    {
-        return motionList;
-    }
-
-    public ArrayList getRecommendationList()
-    {
-        return recommendationList;
-    }
-
-    
-    public ArrayList getMuscleToneList()
-    {
-        return muscleToneList;
-    }
-    
-    public ArrayList<String> getpReflexesHand()
-    {
-        return pReflexesHand;
-    }
-
-    public ArrayList<String> getpReflexesLeg()
-    {
-        return pReflexesLeg;
-    }
-
-    public ArrayList getSensitivityDisbalanceList()
-    {
-        return sensitivityDisbalanceList;
-    }
-
-    public ArrayList getNervousTensionList()
-    {
-        return nervousTensionList;
-    }
-
-    public ArrayList getCranicalNerveViolations()
-    {
-        return cranicalNerveViolations;
-    }
-
-    public ArrayList getEmotionViolations()
-    {
-        return emotionViolations;
-    }
-
-    public ArrayList getDisturbed_sleepList()
-    {
-        return disturbed_sleepList;
-    }
-
-    public void setDisturbed_sleepList(ArrayList disturbed_sleepList)
-    {
-        this.disturbed_sleepList = disturbed_sleepList;
-    }
-
-    public ArrayList<Category> getCategories()
-    {
-        return categories;
-    }
-    // private boolean isPartOfBody = false;
+//    public ArrayList getTherapyList()
+//    {
+//        return therapyList;
+//    }
+//
+//    public ArrayList getCoordinationTest()
+//    {
+//        return coordinationTest;
+//    }
+//
+//
+//    public ArrayList getaReflexesList()
+//    {
+//        return aReflexesList;
+//    }
+//
+//    public ArrayList getMotionList()
+//    {
+//        return motionList;
+//    }
+//
+//    public ArrayList getRecommendationList()
+//    {
+//        return recommendationList;
+//    }
+//
+//
+//    public ArrayList getMuscleToneList()
+//    {
+//        return muscleToneList;
+//    }
+//
+//    public ArrayList<String> getpReflexesHand()
+//    {
+//        return pReflexesHand;
+//    }
+//
+//    public ArrayList<String> getpReflexesLeg()
+//    {
+//        return pReflexesLeg;
+//    }
+//
+//    public ArrayList getSensitivityDisbalanceList()
+//    {
+//        return sensitivityDisbalanceList;
+//    }
+//
+//    public ArrayList getNervousTensionList()
+//    {
+//        return nervousTensionList;
+//    }
+//
+//    public ArrayList getCranicalNerveViolations()
+//    {
+//        return cranicalNerveViolations;
+//    }
+//
+//    public ArrayList getEmotionViolations()
+//    {
+//        return emotionViolations;
+//    }
+//
+//    public ArrayList getDisturbed_sleepList()
+//    {
+//        return disturbed_sleepList;
+//    }
+//
+//    public void setDisturbed_sleepList(ArrayList disturbed_sleepList)
+//    {
+//        this.disturbed_sleepList = disturbed_sleepList;
+//    }
+//
+//    public ArrayList<Category> getCategories()
+//    {
+//        return categories;
+//    }
+//    // private boolean isPartOfBody = false;
     String thisElement = "";
-
-    public ArrayList getPartOfBodys()
-    {
-        return partOfBody;
-    }
-
-    public ArrayList<String> getJoints()
-    {
-        return joints;
-    }
-
-    public ArrayList getNervousSystemList()
-    {
-        return nervousSystemList;
-    }
-
-    public ArrayList getRombergList()
-    {
-        return rombergList;
-    }
+//
+//    public ArrayList getPartOfBodys()
+//    {
+//        return partOfBody;
+//    }
+//
+//    public ArrayList<String> getJoints()
+//    {
+//        return joints;
+//    }
+//
+//    public ArrayList getNervousSystemList()
+//    {
+//        return nervousSystemList;
+//    }
+//
+//    public ArrayList getRombergList()
+//    {
+//        return rombergList;
+//    }
 
     @Override
     public void startDocument() throws SAXException
     {
-        partOfBody = new ArrayList<String>();
-        joints = new ArrayList<String>();
-        categories = new ArrayList();
-        disturbed_sleepList = new ArrayList();
-        emotionViolations = new ArrayList();
-        cranicalNerveViolations = new ArrayList();
-        nervousSystemList = new ArrayList();
-        rombergList = new ArrayList();
-        sensitivityDisbalanceList = new ArrayList();
-        nervousTensionList = new ArrayList();
-        pReflexesHand = new ArrayList<>();
-        pReflexesLeg = new ArrayList<>();
-        aReflexesList = new ArrayList();
-        muscleToneList = new ArrayList();
-        motionList = new ArrayList();
-        recommendationList = new ArrayList();
-        therapyList = new ArrayList();
-        coordinationTest = new ArrayList();
+//        partOfBody = new ArrayList<String>();
+//        joints = new ArrayList<String>();
+//        categories = new ArrayList();
+//        disturbed_sleepList = new ArrayList();
+//        emotionViolations = new ArrayList();
+//        cranicalNerveViolations = new ArrayList();
+//        nervousSystemList = new ArrayList();
+//        rombergList = new ArrayList();
+//        sensitivityDisbalanceList = new ArrayList();
+//        nervousTensionList = new ArrayList();
+//        pReflexesHand = new ArrayList<>();
+//        pReflexesLeg = new ArrayList<>();
+//        aReflexesList = new ArrayList();
+//        muscleToneList = new ArrayList();
+//        motionList = new ArrayList();
+//        recommendationList = new ArrayList();
+//        therapyList = new ArrayList();
+//        coordinationTest = new ArrayList();
     }
 
     @Override
@@ -326,11 +326,11 @@ public class SAXImportHandler extends DefaultHandler
     public void endElement(String uri, String localName, String qName) throws SAXException
     {
         thisElement = "";
-        if (qName.equals("category"))
-        {
-            categories.add(category);
-
-        }
+//        if (qName.equals("category"))
+//        {
+//            categories.add(category);
+//
+//        }
     }
 
     @Override

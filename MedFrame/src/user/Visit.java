@@ -6,6 +6,7 @@
 package user;
 
 import java.lang.reflect.Field;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -422,7 +423,14 @@ public class Visit
             Field fld = this.getClass().getDeclaredField(name);
             String typeName = fld.getType().getName();
 
-            if (typeName.equals(List.class.getName()))
+            if (typeName.equals(Date.class.getName()))
+            {
+                System.out.println("date name=" + name);
+                Date date = new SimpleDateFormat("yyyy-MM-dd").parse(value);
+                fld.set(this, date);
+            }
+
+            else if (typeName.equals(List.class.getName()))
             {
                 System.out.println("List name=" + name);
                 List list = (List) fld.get(this);
@@ -441,6 +449,9 @@ public class Visit
         {
             e.printStackTrace();
         } catch (IllegalAccessException e)
+        {
+            e.printStackTrace();
+        } catch (ParseException e)
         {
             e.printStackTrace();
         }
