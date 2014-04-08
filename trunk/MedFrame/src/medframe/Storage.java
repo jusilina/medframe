@@ -51,6 +51,7 @@ public class Storage implements PropertyNames
 
             out.writeStartDocument();
 
+            out.writeStartElement("parameters");
             for (String key : elements.keySet())
             {
                 for (String value : elements.get(key))
@@ -62,6 +63,7 @@ public class Storage implements PropertyNames
                 }
 
             }
+            out.writeEndElement();
 
             out.writeEndDocument();
             out.close();

@@ -297,6 +297,16 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames
 
     }
 
+    private void updateFormFromVisit()
+    {
+        nameField.setText(visit.getName());
+        dateChooser.setDate(visit.getDate());
+        complaineArea.setText(visit.getComplaine());
+        jobComboBox.setSelectedItem(visit.getSocialAnamnesis());
+
+
+    }
+
     private void categoryItemActionPerformed(ActionEvent evt)
     {
         String categoryName = evt.getActionCommand();
@@ -1424,8 +1434,8 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames
         // TODO add your handling code here:
     }//GEN-LAST:event_professionFieldActionPerformed
 
-    private void importItemActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_importItemActionPerformed
-    {//GEN-HEADEREND:event_importItemActionPerformed
+    private void importItemActionPerformed(java.awt.event.ActionEvent evt)
+    {
          JFileChooser importFile = new JFileChooser();
 
         if (importFile.showOpenDialog(this) == JFileChooser.APPROVE_OPTION)
@@ -1433,9 +1443,12 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames
             File file = importFile.getSelectedFile();
             System.out.println(file.getPath());
 
-            Visit importVisit = storage.importFile(file);
+            visit = storage.importFile(file);
+            log.info("File was imported");
+
+            updateFormFromVisit();
         }
-    }//GEN-LAST:event_importItemActionPerformed
+    }
 
     private void savePDFItemActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_savePDFItemActionPerformed
     {//GEN-HEADEREND:event_savePDFItemActionPerformed
