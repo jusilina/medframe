@@ -36,12 +36,45 @@ public class SAXHandler extends DefaultHandler
     private ArrayList<String> pReflexesHand;
     private ArrayList<String> pReflexesLeg;
     private ArrayList aReflexesList;
+    private ArrayList muscleToneList;
+    private ArrayList motionList;
+    private ArrayList diagnosisList;
+    private boolean isDiagnosis;
+    private ArrayList recommendationList;
+    private ArrayList therapyList;
+    private ArrayList coordinationTest;
 
+    public ArrayList getTherapyList()
+    {
+        return therapyList;
+    }
+
+    public ArrayList getCoordinationTest()
+    {
+        return coordinationTest;
+    }
+
+    
     public ArrayList getaReflexesList()
     {
         return aReflexesList;
     }
 
+    public ArrayList getMotionList()
+    {
+        return motionList;
+    }
+
+    public ArrayList getRecommendationList()
+    {
+        return recommendationList;
+    }
+
+    
+    public ArrayList getMuscleToneList()
+    {
+        return muscleToneList;
+    }
     
     public ArrayList<String> getpReflexesHand()
     {
@@ -126,6 +159,11 @@ public class SAXHandler extends DefaultHandler
         pReflexesHand = new ArrayList<>();
         pReflexesLeg = new ArrayList<>();
         aReflexesList = new ArrayList();
+        muscleToneList = new ArrayList();
+        motionList = new ArrayList();
+        recommendationList = new ArrayList();
+        therapyList = new ArrayList();
+        coordinationTest = new ArrayList();
     }
 
     @Override
@@ -133,10 +171,11 @@ public class SAXHandler extends DefaultHandler
     {
         thisElement = qName;
         isDrug = false;
+     //   isDiagnosis = false;
         if (qName.equals("category"))
         {
-
             drugs = new ArrayList();
+            diagnosisList = new ArrayList();
             String name = attributes.getValue("name");
             category = new Category(name);
         }
@@ -144,8 +183,13 @@ public class SAXHandler extends DefaultHandler
         {
             isDrug = true;
             thisDrug = attributes.getValue("id");
-
         }
+        
+//         if (qName.equals("diagnosis"))
+//        {
+//            isDiagnosis = true;
+//       //     thisDrug = attributes.getValue("id");
+//        }
 
     }
 
@@ -167,9 +211,13 @@ public class SAXHandler extends DefaultHandler
             }
             case "drug":
             {
-//        category.addDrug(new String(ch, start, length));
                 category.addDrug(thisDrug);
                 break;
+            }
+            case "diagnosis":
+            {
+                 category.addDiagnosis(new String(ch, start, length));
+                break;            
             }
             case "mark":
             {
@@ -226,11 +274,31 @@ public class SAXHandler extends DefaultHandler
                 aReflexesList.add(new String(ch, start, length));
                 break;
             }
-//    case "category":{
-//        categories.add(new String(ch, start, length));
-//        break;
-//    }
-
+            case "muscleTone":
+            {
+                muscleToneList.add(new String(ch, start, length));
+                break;
+            }
+            case "motion":
+            {
+                motionList.add(new String(ch, start, length));
+                break;            
+            }
+            case "recommendation":
+            {
+                recommendationList.add(new String(ch, start, length));
+                break; 
+            }
+            case "therapy":
+            {
+                therapyList.add(new String(ch, start, length));
+                break; 
+            }
+            case "coordinationTest":
+            {
+                coordinationTest.add(new String(ch, start, length));
+                break;
+            }
         }
 
     }

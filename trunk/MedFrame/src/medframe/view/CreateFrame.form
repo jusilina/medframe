@@ -41,11 +41,21 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Import"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="importItemActionPerformed"/>
+              </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem1">
+            <MenuItem class="javax.swing.JMenuItem" name="savePDFItem">
               <Properties>
                 <Property name="text" type="java.lang.String" value="save PDF"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="savePDFItemActionPerformed"/>
+              </Events>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_VariableLocal" type="java.lang.Boolean" value="true"/>
+                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="0"/>
+              </AuxValues>
             </MenuItem>
           </SubComponents>
         </Menu>
@@ -55,9 +65,6 @@
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
     <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-      <Dimension value="[1000, 700]"/>
-    </Property>
-    <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
       <Dimension value="[1000, 700]"/>
     </Property>
   </Properties>
@@ -106,6 +113,40 @@
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="323" max="-2" attributes="0"/>
+                              <Component id="titleLabel" min="-2" pref="211" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="nervousTensionLabel" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="nervousTensionMainBox" min="-2" pref="79" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="nervousTensionBox" min="-2" pref="177" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="motionTypeBox" min="-2" pref="98" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="motionLabel" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="motionBox" max="32767" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="muscleLabel" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                      <Component id="muscleBox" min="-2" pref="275" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                          </Group>
+                      </Group>
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                  </Group>
+                  <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
@@ -125,7 +166,7 @@
                                       <Component id="dateChooser" min="-2" pref="152" max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
-                                      <Component id="jLabel1" min="-2" pref="171" max="-2" attributes="0"/>
+                                      <Component id="emotionLabel" min="-2" pref="171" max="-2" attributes="0"/>
                                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                       <Component id="emotionMainBox" min="-2" pref="108" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
@@ -138,7 +179,7 @@
                                           <Component id="jScrollPane2" max="32767" attributes="0"/>
                                       </Group>
                                       <Group type="102" alignment="1" attributes="0">
-                                          <Component id="jLabel8" min="-2" pref="80" max="-2" attributes="0"/>
+                                          <Component id="jobLabel" min="-2" pref="80" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Component id="jobComboBox" min="-2" pref="117" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
@@ -160,7 +201,7 @@
                                       </Group>
                                   </Group>
                                   <Component id="complaintsTextPanel" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
+                                  <Component id="complaineLabel" min="-2" max="-2" attributes="0"/>
                                   <Group type="102" alignment="0" attributes="0">
                                       <Component id="dreamLabel" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
@@ -172,14 +213,6 @@
                                       <Component id="cranicalNerveLabel" min="-2" pref="76" max="-2" attributes="0"/>
                                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                       <Component id="cranicalNerveBox" min="-2" pref="220" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Component id="diagnosisLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="recommendationLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="therapyLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="drugsPanel" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
-                                      <Component id="addDrugButton" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
                                       <Component id="nervousLabel" min="-2" max="-2" attributes="0"/>
@@ -200,11 +233,6 @@
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <Group type="102" alignment="0" attributes="0">
-                                              <Component id="coordinationMainBox" min="-2" pref="108" max="-2" attributes="0"/>
-                                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                                              <Component id="coordinationPanel" min="-2" max="-2" attributes="0"/>
-                                          </Group>
                                           <Group type="102" attributes="0">
                                               <Component id="sensitivityMainBox" min="-2" pref="91" max="-2" attributes="0"/>
                                               <EmptySpace max="-2" attributes="0"/>
@@ -230,7 +258,7 @@
                                               <EmptySpace max="-2" attributes="0"/>
                                               <Component id="dLabel" min="-2" max="-2" attributes="0"/>
                                               <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="upperDSBox" min="-2" max="-2" attributes="0"/>
+                                              <Component id="upperDSLimbsBox" min="-2" max="-2" attributes="0"/>
                                               <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
                                               <Component id="sLabel" min="-2" max="-2" attributes="0"/>
                                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -238,37 +266,49 @@
                                               <EmptySpace max="-2" attributes="0"/>
                                               <Component id="dLabel1" min="-2" max="-2" attributes="0"/>
                                               <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="lowerDSBox" min="-2" max="-2" attributes="0"/>
+                                              <Component id="lowerDSLimbsBox" min="-2" max="-2" attributes="0"/>
                                               <EmptySpace max="-2" attributes="0"/>
                                               <Component id="sLabel1" min="-2" max="-2" attributes="0"/>
                                           </Group>
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                                  <Component id="gaitBox" alignment="0" max="32767" attributes="0"/>
+                                                  <Component id="coordinationMainBox" alignment="0" pref="108" max="32767" attributes="0"/>
+                                              </Group>
+                                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                                              <Component id="coordinationPanel" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                      </Group>
+                                  </Group>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="drugsPanel" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
+                                      <Component id="addDrugButton" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="103" alignment="0" groupAlignment="1" attributes="0">
+                                      <Group type="102" alignment="1" attributes="0">
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="recommendationLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="therapyLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                              <Component id="therapyBox" alignment="0" max="32767" attributes="0"/>
+                                              <Component id="recommendationBox" alignment="0" min="-2" pref="220" max="-2" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="recommendationText" min="-2" pref="544" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" attributes="0">
+                                          <Component id="diagnosisLabel" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="jScrollPane4" min="-2" pref="770" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                               </Group>
                               <EmptySpace max="32767" attributes="0"/>
                           </Group>
                       </Group>
-                  </Group>
-                  <Group type="102" attributes="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="496" max="-2" attributes="0"/>
-                              <Component id="jButton1" min="-2" pref="170" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="323" max="-2" attributes="0"/>
-                              <Component id="titleLabel" min="-2" pref="211" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="nervousTensionLabel" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="nervousTensionMainBox" min="-2" pref="79" max="-2" attributes="0"/>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="nervousTensionBox" min="-2" pref="177" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -288,12 +328,12 @@
                           <Component id="nameField" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
+                      <Component id="complaineLabel" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                       <Component id="complaintsTextPanel" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jobLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jobComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="professionField" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="stressComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -313,7 +353,7 @@
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                          <Component id="emotionLabel" min="-2" max="-2" attributes="0"/>
                           <Group type="103" alignment="0" groupAlignment="3" attributes="0">
                               <Component id="emotionMainBox" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="emotionViolationBox" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -329,12 +369,12 @@
                               <Component id="dreamLabel" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="cranicalNerveLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="cranicalNerveBox" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="0" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="sensitivityLabel" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -359,8 +399,8 @@
                           <Component id="dLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="sLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="lowerLimbsLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="lowerDSBox" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="upperDSBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="lowerDSLimbsBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="upperDSLimbsBox" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
@@ -379,8 +419,22 @@
                           </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="gaitLabel" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="gaitLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="gaitBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="motionTypeBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="motionLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="motionBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="muscleLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="muscleBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="103" alignment="0" groupAlignment="3" attributes="0">
                               <Component id="coordinationLabel" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -398,20 +452,28 @@
                           <Component id="pelvicOrganLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="pelvicOrganField" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="diagnosisLabel" min="-2" max="-2" attributes="0"/>
+                          <Component id="jScrollPane4" min="-2" pref="50" max="-2" attributes="0"/>
+                      </Group>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="diagnosisLabel" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="recommendationLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="recommendationBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="recommendationText" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="recommendationLabel" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="therapyLabel" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="therapyLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="therapyBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="drugsPanel" min="-2" max="-2" attributes="0"/>
                           <Component id="addDrugButton" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="56" max="32767" attributes="0"/>
-                      <Component id="jButton1" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -480,7 +542,7 @@
 
                   <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                   <SubComponents>
-                    <Component class="javax.swing.JTextArea" name="jTextArea1">
+                    <Component class="javax.swing.JTextArea" name="complaineArea">
                       <Properties>
                         <Property name="columns" type="int" value="20"/>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -500,7 +562,7 @@
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
               <SubComponents>
-                <Component class="javax.swing.JTextArea" name="jTextArea2">
+                <Component class="javax.swing.JTextArea" name="anamnesisArea">
                   <Properties>
                     <Property name="columns" type="int" value="20"/>
                     <Property name="rows" type="int" value="5"/>
@@ -564,7 +626,7 @@
                 </Property>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="jLabel8">
+            <Component class="javax.swing.JLabel" name="jobLabel">
               <Properties>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                   <Connection code="PropertyNames.SOCIAL_ANAMNESIS" type="code"/>
@@ -581,14 +643,14 @@
                 </Property>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="jLabel1">
+            <Component class="javax.swing.JLabel" name="emotionLabel">
               <Properties>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                   <Connection code="PropertyNames.EMOTION" type="code"/>
                 </Property>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="jLabel4">
+            <Component class="javax.swing.JLabel" name="complaineLabel">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Tahoma" size="12" style="1"/>
@@ -632,7 +694,7 @@
               </Properties>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new JComboCheckBox(nervousSystemBoxSource)"/>
-                <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="List &lt;String&gt; nervousSystemSizeList = props.getNervousSystemList();&#xa;int nervousSystemSize = nervousSystemSizeList.size();&#xa;JCheckBox[] nervousSystemBoxSource = new JCheckBox[nervousSystemSize];&#xa;&#xa;for(int i=0; i&lt;nervousSystemSize; i++)&#xa;{&#xa;    String name = nervousSystemSizeList.get(i);&#xa;    //System.out.println(name);&#xa;    nervousSystemBoxSource[i]= new JCheckBox(name);&#xa;}"/>
+                <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="List &lt;String&gt; nervousSystemList = props.getNervousSystemList();&#xa;int nervousSystemSize = nervousSystemList.size();&#xa;JCheckBox[] nervousSystemBoxSource = new JCheckBox[nervousSystemSize];&#xa;&#xa;for(int i=0; i&lt;nervousSystemSize; i++)&#xa;{&#xa;    String name = nervousSystemList.get(i);&#xa;    //System.out.println(name);&#xa;    nervousSystemBoxSource[i]= new JCheckBox(name);&#xa;}"/>
               </AuxValues>
             </Component>
             <Component class="javax.swing.JLabel" name="gaitLabel">
@@ -748,14 +810,6 @@
                 </Property>
               </Properties>
             </Component>
-            <Component class="javax.swing.JButton" name="jButton1">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="&#x421;&#x43e;&#x445;&#x440;&#x430;&#x43d;&#x438;&#x442;&#x44c; PDF"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
-              </Events>
-            </Component>
             <Container class="javax.swing.JPanel" name="drugsPanel">
 
               <Layout>
@@ -852,7 +906,8 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="coordinationTestN" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="coordinationTestBox" pref="89" max="32767" attributes="0"/>
+                          <Component id="coordinationTestBox" min="-2" pref="183" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -942,14 +997,13 @@
                 <Component class="javax.swing.JComboBox" name="coordinationTestBox">
                   <Properties>
                     <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                      <StringArray count="4">
-                        <StringItem index="0" value="Item 1"/>
-                        <StringItem index="1" value="Item 2"/>
-                        <StringItem index="2" value="Item 3"/>
-                        <StringItem index="3" value="Item 4"/>
-                      </StringArray>
+                      <StringArray count="0"/>
                     </Property>
                   </Properties>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new JComboCheckBox(coordinationTestSource)"/>
+                    <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="List &lt;String&gt; coordinationTestList = props.getCoordinationTest();&#xa;int coordinationTestListSize = coordinationTestList.size();&#xa;JCheckBox[] coordinationTestSource = new JCheckBox[coordinationTestListSize];&#xa;&#xa;for(int i=0; i&lt;coordinationTestListSize; i++)&#xa;{&#xa;    String name = coordinationTestList.get(i);&#xa;    coordinationTestSource[i]= new JCheckBox(name);&#xa;}"/>
+                  </AuxValues>
                 </Component>
               </SubComponents>
             </Container>
@@ -1039,7 +1093,7 @@
                 </Property>
               </Properties>
             </Component>
-            <Component class="javax.swing.JComboBox" name="upperDSBox">
+            <Component class="javax.swing.JComboBox" name="upperDSLimbsBox">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                   <StringArray count="3">
@@ -1050,7 +1104,7 @@
                 </Property>
               </Properties>
             </Component>
-            <Component class="javax.swing.JComboBox" name="lowerDSBox">
+            <Component class="javax.swing.JComboBox" name="lowerDSLimbsBox">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                   <StringArray count="3">
@@ -1154,6 +1208,105 @@
                 <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="aReflexesBox.setVisible(false);"/>
                 <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new JComboCheckBox(aReflexesSource)"/>
                 <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="List &lt;String&gt; aReflexesList = props.getaReflexesList();&#xa;int aReflexesListSize = aReflexesList.size();&#xa;JCheckBox[] aReflexesSource = new JCheckBox[aReflexesListSize];&#xa;&#xa;for(int i=0; i&lt;aReflexesListSize; i++)&#xa;{&#xa;    String name = aReflexesList.get(i);&#xa;    aReflexesSource[i]= new JCheckBox(name);&#xa;}"/>
+              </AuxValues>
+            </Component>
+            <Component class="javax.swing.JComboBox" name="gaitBox">
+              <Properties>
+                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="new javax.swing.DefaultComboBoxModel(new String[] { N, ANTALGIC })" type="code"/>
+                </Property>
+              </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_VariableLocal" type="java.lang.Boolean" value="true"/>
+                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="0"/>
+              </AuxValues>
+            </Component>
+            <Component class="javax.swing.JComboBox" name="motionTypeBox">
+              <Properties>
+                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="new javax.swing.DefaultComboBoxModel(new String[] { ACTIVE, PASSIVE })" type="code"/>
+                </Property>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="motionLabel">
+              <Properties>
+                <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="MOTION" type="code"/>
+                </Property>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="muscleLabel">
+              <Properties>
+                <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="MUSCLE_TONE" type="code"/>
+                </Property>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JComboBox" name="muscleBox">
+              <Properties>
+                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                  <StringArray count="0"/>
+                </Property>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="muscleBoxActionPerformed"/>
+              </Events>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new JComboCheckBox(muscleBoxSource)"/>
+                <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="List &lt;String&gt; muscleList = props.getMuscleToneList();&#xa;int muscleSize = muscleList.size();&#xa;JCheckBox[] muscleBoxSource = new JCheckBox[muscleSize];&#xa;&#xa;for(int i=0; i&lt;muscleSize; i++)&#xa;{&#xa;    String name = muscleList.get(i);&#xa;    //System.out.println(name);&#xa;    muscleBoxSource[i]= new JCheckBox(name);&#xa;}"/>
+              </AuxValues>
+            </Component>
+            <Component class="javax.swing.JComboBox" name="motionBox">
+              <Properties>
+                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                  <StringArray count="0"/>
+                </Property>
+              </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new JComboCheckBox(motionBoxSource)"/>
+                <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="List &lt;String&gt; motionList = props.getMotionList();&#xa;int motionListSize = motionList.size();&#xa;JCheckBox[] motionBoxSource = new JCheckBox[motionListSize];&#xa;&#xa;for(int i=0; i&lt;motionListSize; i++)&#xa;{&#xa;    String name = motionList.get(i);&#xa;    motionBoxSource[i]= new JCheckBox(name);&#xa;}"/>
+              </AuxValues>
+            </Component>
+            <Container class="javax.swing.JScrollPane" name="jScrollPane4">
+              <AuxValues>
+                <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+              </AuxValues>
+
+              <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+              <SubComponents>
+                <Component class="javax.swing.JTextArea" name="diagnosisArea">
+                  <Properties>
+                    <Property name="columns" type="int" value="20"/>
+                    <Property name="rows" type="int" value="5"/>
+                  </Properties>
+                </Component>
+              </SubComponents>
+            </Container>
+            <Component class="javax.swing.JComboBox" name="recommendationBox">
+              <Properties>
+                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                  <StringArray count="0"/>
+                </Property>
+              </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new JComboCheckBox(recommendationBoxSource)"/>
+                <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="List &lt;String&gt; recommendationList = props.getRecommendationList();&#xa;int recommendationSize = recommendationList.size();&#xa;JCheckBox[] recommendationBoxSource = new JCheckBox[recommendationSize];&#xa;&#xa;for(int i=0; i&lt;recommendationSize; i++)&#xa;{&#xa;    String name = recommendationList.get(i);&#xa;    recommendationBoxSource[i]= new JCheckBox(name);&#xa;}"/>
+              </AuxValues>
+            </Component>
+            <Component class="javax.swing.JTextField" name="recommendationText">
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="recommendationTextActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JComboBox" name="therapyBox">
+              <Properties>
+                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                  <StringArray count="0"/>
+                </Property>
+              </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new JComboCheckBox(therapyBoxSource)"/>
+                <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="List &lt;String&gt; therapyList = props.getTherapy();&#xa;int therapySize = therapyList.size();&#xa;JCheckBox[] therapyBoxSource = new JCheckBox[therapySize];&#xa;&#xa;for(int i=0; i&lt;therapySize; i++)&#xa;{&#xa;    String name = therapyList.get(i);&#xa;    therapyBoxSource[i]= new JCheckBox(name);&#xa;}"/>
               </AuxValues>
             </Component>
           </SubComponents>

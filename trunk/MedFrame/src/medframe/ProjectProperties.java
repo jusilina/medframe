@@ -29,7 +29,7 @@ public class ProjectProperties implements PropertyNames
 
     private ArrayList<String> partOfBody;
     private ArrayList<String> joints;
-    private ArrayList<String> categories;
+    private ArrayList<Category> categories;
     private ArrayList disturbed_sleepList;
     private ArrayList <String> emotionViolations;
     private ArrayList <String> cranicalNerveViolations;
@@ -40,10 +40,31 @@ public class ProjectProperties implements PropertyNames
     private ArrayList <String> pReflexesHand;
     private ArrayList <String> pReflexesLeg;
     private ArrayList <String> aReflexesList;
+    private ArrayList <String> muscleToneList;
+    private ArrayList <String> motionList;
+    private ArrayList <String> recommendationList;
+    private ArrayList <String> therapy;
+    private ArrayList coordinationTest;
 
+    public ArrayList<String> getTherapy()
+    {
+        return therapy;
+    }
+    
+    
     public ArrayList<String> getaReflexesList()
     {
         return aReflexesList;
+    }
+
+    public ArrayList<String> getMuscleToneList()
+    {
+        return muscleToneList;
+    }
+
+    public ArrayList<String> getMotionList()
+    {
+        return motionList;
     }
     
     
@@ -82,6 +103,11 @@ public class ProjectProperties implements PropertyNames
     {
         return rombergList;
     }
+
+    public ArrayList<String> getRecommendationList()
+    {
+        return recommendationList;
+    }
     
 
     public ArrayList <String> getEmotionViolations()
@@ -115,10 +141,24 @@ public class ProjectProperties implements PropertyNames
         return joints;
     }
 
-
-    public ArrayList<String> getCategories()
+    public ArrayList getCoordinationTest()
     {
-        return categories;
+        return coordinationTest;
+    }
+
+
+    public ArrayList<String> getCategoriesNames()
+    {
+        ArrayList categoriesNames = new ArrayList();
+                    for (Category cat : categories) {
+                categoriesNames.add(cat.getName());
+            }
+                    return categoriesNames;
+    }
+        public ArrayList<Category> getCategories()
+    {
+
+                    return categories;
     }
     
    private ProjectProperties(){
@@ -147,13 +187,13 @@ public class ProjectProperties implements PropertyNames
             parser.parse(new File("properties.xml"), handler);
 
             partOfBody = handler.getPartOfBodys();
-            System.out.println(partOfBody.toString());
+//            System.out.println(partOfBody.toString());
             joints = handler.getJoints();
             
-            categories = new ArrayList<>();
-            for (Category cat : handler.getCategories()) {
-                categories.add(cat.getName());
-            }
+            categories = handler.getCategories();//new ArrayList<>();
+//            for (Category cat : handler.getCategories()) {
+//                categories.add(cat.getName());
+//            }
             
             disturbed_sleepList = handler.getDisturbed_sleepList();
             emotionViolations = handler.getEmotionViolations();
@@ -166,6 +206,12 @@ public class ProjectProperties implements PropertyNames
             pReflexesHand = handler.getpReflexesHand();
             pReflexesLeg = handler.getpReflexesLeg();
             aReflexesList=handler.getaReflexesList();
+            muscleToneList = handler.getMuscleToneList();
+            muscleToneList.add(0,N);
+            motionList=handler.getMotionList();
+            recommendationList=handler.getRecommendationList();
+            therapy=handler.getTherapyList();
+            coordinationTest = handler.getCoordinationTest();
         }
         catch (ParserConfigurationException ex)
         {
