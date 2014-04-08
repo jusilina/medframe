@@ -22,6 +22,7 @@ public class Category
 {
     Map drugs = new HashMap();
     String name;
+    String diagnosis;
 
     public Category(String name)
     {
@@ -32,6 +33,11 @@ public class Category
     public String getName()
     {
         return name;
+    }
+    
+    public String getDiagnosis()
+    {
+        return diagnosis;
     }
 
     public void setName(String name)
@@ -73,6 +79,11 @@ public class Category
        Drug drug = (Drug) drugs.get(thisDrug);
        drug.getMark().add(mark);
        
+    }
+
+    public void addDiagnosis(String diagnosis)
+    {
+        this.diagnosis = diagnosis;
     }
     
 }

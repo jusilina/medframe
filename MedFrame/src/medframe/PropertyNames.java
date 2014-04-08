@@ -13,6 +13,7 @@ public interface PropertyNames
 {
 
     static final String SPACE = " ";
+    static final String COLON = ":";
     static final String TITLE = "Осмотр невролога (на дому)";
     static final String DATE = "Дата:";
     static final String COMPLAINE = "Жалобы:";
@@ -93,5 +94,10 @@ public interface PropertyNames
     static final String THERAPY = "Лечение:";
 
     static final String CATEGORY = "Выбрать категорию";
+    static final String MOTION = "движения:";
+    static final String ACTIVE = "активные";
+    static final String PASSIVE = "пассивные";
+    static final String MUSCLE_TONE = "мышечный тонус";
+    static final String ANTALGIC="анталгическая";
 
 }

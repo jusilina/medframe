@@ -1,6 +1,7 @@
 ﻿<?xml version="1.1" encoding="UTF-8" ?>
 <parameters>
     <category name="Дисциркуляторная энцефалопатия">
+        <diagnosis>Дисциркуляторная энцефалопатия 1,2,3 ст, с цефалгическим, вестибулопатическим синдромами,эмоционально-волевыми, мнестическими нарушениями</diagnosis>
         <drug id="Actovegini">
             <mark>5 ml</mark>
         </drug>  
@@ -21,10 +22,18 @@
         <drug id="Acatinoli"></drug>
         <drug id="Galantamini"></drug>
         <drug id="Donepezil"></drug>
-     </category>
-    <category name="Вертеброгенная патология"></category>
-    <category name="Головные боль"></category>
-    <category name="Паркинсонизм"></category>
+    </category>
+    <category name="Вертеброгенная патология">
+        <diagnosis>Вертеброгенная цервикокраниалгия, цервикалгия, торакалгия, люмбалгия, люмбоишалгия, Дискогенная радикулопатия  L5 , S1</diagnosis>
+        
+    </category>
+   
+    <category name="Головные боль">
+        <diagnosis>Головные боль напряжения, абузусная головная боль, мигрень</diagnosis>
+    </category>
+    <category name="Паркинсонизм">
+        <diagnosis>Болезнь Паркинсона, акинетико-ригидно-дрожательная форма, ригидно-дрожательная форма, акинетико-ригидная форма, легкие умеренные, выраженные,  когнитивные нарушения, эмоционально-волевые нарушения, моторные флуктуации , дискинезии пика дозы ,  постуральная неустойчивость, 3 стадия по Хен-Яр.</diagnosis>
+    </category>
     <partOfBody>поясница</partOfBody>
     <partOfBody>шея</partOfBody>
     <partOfBody>грудной отдел</partOfBody>
@@ -100,6 +109,38 @@
     <pReflexesLeg>Чаддок</pReflexesLeg>
     <pReflexesLeg>Россолимо</pReflexesLeg>
     
-     <aReflexes>хоботковый</aReflexes>
-     <aReflexes>Маринеску-Радовичи</aReflexes>
+    <aReflexes>хоботковый</aReflexes>
+    <aReflexes>Маринеску-Радовичи</aReflexes>
+    <muscleTone>повышен</muscleTone>
+    <muscleTone>снижен</muscleTone>
+    <muscleTone>болезненность при пальпации ШОП</muscleTone>
+    <muscleTone>болезненность при пальпации ГОП</muscleTone>
+    <muscleTone>болезненность при пальпации ПКО</muscleTone>
+    <motion>в полном объеме</motion>
+    <motion>ограничены ШОП</motion>
+    <motion>ограничены ГОП</motion>
+    <motion>ограничены ПКО</motion>
+     
+    <recommendation>ОАК</recommendation>
+    <recommendation>ОАМ</recommendation>
+    <recommendation>ЭКГ</recommendation>
+    <recommendation>ФЛГ</recommendation>
+    <recommendation>сахар крови</recommendation>
+    <recommendation>КТ ШОП</recommendation>
+    <recommendation>КТ ГОП</recommendation>
+    <recommendation>КТ ПКО</recommendation>
+    <recommendation>МРТ ШОП</recommendation>
+    <recommendation>МРТ ГОП</recommendation>
+    <recommendation>МРТ ПКО</recommendation>
+    <recommendation>ЭНМГ</recommendation>
+    
+    <therapy>ЛФК постоянно</therapy>
+    <therapy>ФТЛ</therapy>
+    
+    <coordinationTest>неуверенно</coordinationTest>
+    <coordinationTest>промахивается</coordinationTest>
+    <coordinationTest>интенция</coordinationTest>
+    <coordinationTest>атаксия</coordinationTest>
+
+    
 </parameters>

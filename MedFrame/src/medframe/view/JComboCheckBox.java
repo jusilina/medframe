@@ -9,6 +9,7 @@ package medframe.view;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Vector;
 import javax.swing.ComboBoxModel;
 import javax.swing.JCheckBox;
@@ -38,6 +39,30 @@ public class JComboCheckBox extends JComboBox {
       jcb.setSelected(!jcb.isSelected());
     }
   }
+  
+  @Override
+  public Object[] getSelectedObjects() {
+      ArrayList items = new ArrayList();
+      int size = this.dataModel.getSize();
+      for(int i=0;i<size; i++)
+      {
+          JCheckBox elem = (JCheckBox) this.dataModel.getElementAt(i);
+          if(elem.isSelected())
+          {
+              items.add(elem.getText());
+          }
+      }
+      return items.toArray();
+//        Object selectedObject = getSelectedItem();
+//        if ( selectedObject == null )
+//            return new Object[0];
+//        else {
+//            Object result[] = new Object[1];
+//            result[0] = selectedObject;
+//            return result;
+//        }
+    }
+  
   class ComboBoxRenderer implements ListCellRenderer {
     private JLabel defaultLabel;
     public ComboBoxRenderer() { setOpaque(true); }
