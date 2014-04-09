@@ -303,6 +303,26 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames
         dateChooser.setDate(visit.getDate());
         complaineArea.setText(visit.getComplaine());
         jobComboBox.setSelectedItem(visit.getSocialAnamnesis());
+        professionField.setText(visit.getProfission());
+        stressComboBox.setSelectedItem(visit.getStress());
+        anamnesisArea.setText(visit.getAnamnesis());
+        consciousBox.setSelectedItem(visit.getConscious());
+        consciousText.setText(visit.getConsciousAdd());
+        epiText.setText(visit.getEpileptic());
+
+        if(visit.getEmotion().get(0).equals(N))
+        {
+            emotionMainBox.setSelectedIndex(0);
+        }
+        else
+        {
+            emotionMainBox.setSelectedIndex(1);
+            emotionViolationBox.setSelectedObjects(visit.getEmotion());
+        }
+
+
+
+
 
 
     }
@@ -1514,7 +1534,7 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames
     private javax.swing.JMenu editProperties;
     private javax.swing.JLabel emotionLabel;
     private javax.swing.JComboBox emotionMainBox;
-    private javax.swing.JComboBox emotionViolationBox;
+    private JComboCheckBox emotionViolationBox;
     private javax.swing.JLabel epiLabel;
     private javax.swing.JTextField epiText;
     private javax.swing.JMenuItem exportItem;

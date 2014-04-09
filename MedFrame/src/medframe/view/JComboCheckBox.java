@@ -10,6 +10,7 @@ import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Vector;
 import javax.swing.ComboBoxModel;
 import javax.swing.JCheckBox;
@@ -23,8 +24,15 @@ import javax.swing.ListCellRenderer;
  * @author Julia
  */
 public class JComboCheckBox extends JComboBox {
+  private JCheckBox[] items;
   public JComboCheckBox() { addStuff(); }
-  public JComboCheckBox(JCheckBox[] items) { super(items); addStuff(); }
+
+    public JComboCheckBox(JCheckBox[] items)
+    {
+        super(items);
+        this.items = items;
+        addStuff();
+    }
   public JComboCheckBox(Vector items) { super(items); addStuff(); }
   public JComboCheckBox(ComboBoxModel aModel) { super(aModel); addStuff(); }
   private void addStuff() {
@@ -62,6 +70,37 @@ public class JComboCheckBox extends JComboBox {
 //            return result;
 //        }
     }
+
+   public void setSelectedObjects(List <String> objects)
+   {
+       //Deselect already selected objects
+       Object [] selectedObjects = this.getSelectedObjects();
+       for(Object o : selectedObjects)
+       {
+           for (JCheckBox item : items)
+           {
+               if(item.getText().equals(o))
+               {
+                   System.out.println("Selected item "+o.toString());
+                   this.setSelectedItem(item);
+               }
+           }
+       }
+
+       //Select new objects
+       for (String text : objects)
+       {
+           for (JCheckBox item : items)
+           {
+               if(item.getText().equals(text))
+               {
+//                   System.out.println("Select item "+item.toString());
+                   this.setSelectedItem(item);
+               }
+           }
+
+       }
+   }
   
   class ComboBoxRenderer implements ListCellRenderer {
     private JLabel defaultLabel;
