@@ -81,7 +81,6 @@ public class JComboCheckBox extends JComboBox {
            {
                if(item.getText().equals(o))
                {
-                   System.out.println("Selected item "+o.toString());
                    this.setSelectedItem(item);
                }
            }

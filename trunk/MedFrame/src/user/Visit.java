@@ -40,10 +40,12 @@ public class Visit
     private String epileptic;
     private List<String> emotion = new ArrayList<String>();
     private LinkedList<String> dream = new LinkedList<String>();
-    private List<String> cranicalNerve;
+    private List<String> cranicalNerve = new ArrayList<String>();
     private List<String> sensitivity = new ArrayList<String>();
     private List<String> nervousTension = new ArrayList<String>();
-    private List<String> reflexes = new ArrayList<String>();
+//    private List<String> reflexes = new ArrayList<String>();
+    private String upperDSLimb;
+    private String lowerDSLimb;
     private List<String> pReflexes = new ArrayList<String>();
     private List pReflexesHand = new ArrayList();
     private List pReflexesLeg = new ArrayList();
@@ -119,14 +121,35 @@ public class Visit
         this.sensitivity = sensitivity;
     }
 
-    public List getReflexes()
+//    public List getReflexes()
+//    {
+//        return reflexes;
+//    }
+//
+//    public void setReflexes(List reflexes)
+//    {
+//        this.reflexes = reflexes;
+//    }
+
+
+    public String getLowerDSLimb()
     {
-        return reflexes;
+        return lowerDSLimb;
     }
 
-    public void setReflexes(List reflexes)
+    public void setLowerDSLimb(String lowerDSLimb)
     {
-        this.reflexes = reflexes;
+        this.lowerDSLimb = lowerDSLimb;
+    }
+
+    public String getUpperDSLimb()
+    {
+        return upperDSLimb;
+    }
+
+    public void setUpperDSLimb(String upperDSLimb)
+    {
+        this.upperDSLimb = upperDSLimb;
     }
 
     public List getpReflexes()
@@ -535,7 +558,7 @@ public class Visit
 
     public void addNervousTension(String tension)
     {
-        this.nervousTension.add(tension);
+        this.nervousTension.add(0, tension);
     }
 
     public void addPReflexes(String pReflex)
