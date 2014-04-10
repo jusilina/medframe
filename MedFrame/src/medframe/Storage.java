@@ -240,9 +240,9 @@ public class Storage implements PropertyNames
             Phrase reflexesLabel = new Phrase(REFLEXES + SPACE + LIMBS + SPACE);
 
             //    Phrase reflexesVal;
-            java.util.List reflexesVal = visit.getReflexes();
-            String reflexesU = "D " + reflexesVal.get(0) + " S ";
-            String reflexesL = "D " + reflexesVal.get(1) + " S ";
+//            java.util.List reflexesVal = visit.getReflexes();
+            String reflexesU = "D " + visit.getUpperDSLimb() + " S ";
+            String reflexesL = "D " + visit.getLowerDSLimb() + " S ";
 
             Phrase reflexesLabelU = new Phrase(UPPER + SPACE + reflexesU);
             Phrase reflexesLabelL = new Phrase(LOWER + SPACE + reflexesL);

@@ -320,6 +320,50 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames
             emotionViolationBox.setSelectedObjects(visit.getEmotion());
         }
 
+        log.info("Import Dreams");
+        if(visit.getDream().get(0).equals(NORM))
+        {
+            dreamComboBox.setSelectedIndex(0);
+        }
+        else
+        {
+            dreamComboBox.setSelectedIndex(1);
+            List dreams = visit.getDream();
+            dreams.remove(0);
+            dreamDisbalanceBox.setSelectedObjects(dreams);
+        }
+
+        log.info("Import cranicalNerve");
+        cranicalNerveBox.setSelectedObjects(visit.getCranicalNerve());
+
+        log.info("Import Sensitivity");
+        if(visit.getSensitivity().get(0).equals(NORM))
+        {
+            sensitivityMainBox.setSelectedIndex(0);
+        }
+        else
+        {
+            sensitivityMainBox.setSelectedIndex(1);
+            List sensitivities = visit.getSensitivity();
+            sensitivities.remove(0);
+            sensitivityDisbalanceBox.setSelectedObjects(sensitivities);
+        }
+
+        log.info("Import NervousTension");
+        List nervousTensions = visit.getNervousTension();
+        if(nervousTensions.get(0).equals(NO))
+        {
+            nervousTensionMainBox.setSelectedIndex(0);
+        }
+        else
+        {
+            nervousTensionMainBox.setSelectedIndex(1);
+            nervousTensions.remove(0);
+            nervousTensionBox.setSelectedObjects(nervousTensions);
+        }
+
+        upperDSLimbsBox.setSelectedItem(visit.getUpperDSLimb());
+
 
 
 
@@ -399,10 +443,11 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames
             Object[] sensitivityList = sensitivityDisbalanceBox.getSelectedObjects();
              visit.setSensitivity(new ArrayList<>(Arrays.asList(sensitivityList)));
         }
-         
-        if(nervousTensionMainBox.getSelectedItem().equals(NORM))
+
+        log.info("nervousTensionMainBox: " + nervousTensionMainBox.getSelectedItem());
+        if(nervousTensionMainBox.getSelectedItem().equals(NO))
         {
-            visit.addNervousTension(NORM);
+            visit.addNervousTension(NO);
         }
         else
         {
@@ -410,8 +455,10 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames
             visit.setNervousTension(new ArrayList<>(Arrays.asList(nervousTensionList)));
         }
         
-        visit.setReflexes(new ArrayList<>(Arrays.asList(upperDSLimbsBox.getSelectedItem(), lowerDSLimbsBox.getSelectedItem())));
-        
+//        visit.setReflexes(new ArrayList<>(Arrays.asList(upperDSLimbsBox.getSelectedItem(), lowerDSLimbsBox.getSelectedItem())));
+        visit.setUpperDSLimb(upperDSLimbsBox.getSelectedItem().toString());
+        visit.setLowerDSLimb(lowerDSLimbsBox.getSelectedItem().toString());
+
         if(pReflexesMainBox.getSelectedItem().equals(NO))
         {
             visit.addPReflexes(NO);
@@ -1518,7 +1565,7 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames
     private javax.swing.JLabel coordinationTestLabel;
     private javax.swing.JLabel coordinationTestN;
     private javax.swing.JLabel coordinationTestS;
-    private javax.swing.JComboBox cranicalNerveBox;
+    private JComboCheckBox cranicalNerveBox;
     private javax.swing.JLabel cranicalNerveLabel;
     private javax.swing.JMenu createForm;
     private javax.swing.JLabel dLabel;
@@ -1527,7 +1574,7 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames
     private javax.swing.JTextArea diagnosisArea;
     private javax.swing.JLabel diagnosisLabel;
     private javax.swing.JComboBox dreamComboBox;
-    private javax.swing.JComboBox dreamDisbalanceBox;
+    private JComboCheckBox dreamDisbalanceBox;
     private javax.swing.JLabel dreamLabel;
     private javax.swing.JPanel dreamPanel;
     private javax.swing.JPanel drugsPanel;
@@ -1563,7 +1610,7 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames
     private javax.swing.JLabel nameLabel;
     private javax.swing.JLabel nervousLabel;
     private javax.swing.JComboBox nervousSystemBox;
-    private javax.swing.JComboBox nervousTensionBox;
+    private JComboCheckBox nervousTensionBox;
     private javax.swing.JLabel nervousTensionLabel;
     private javax.swing.JComboBox nervousTensionMainBox;
     private javax.swing.JComboBox pReflexesHandBox;
@@ -1584,7 +1631,7 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames
     private javax.swing.JLabel rombergLabel;
     private javax.swing.JLabel sLabel;
     private javax.swing.JLabel sLabel1;
-    private javax.swing.JComboBox sensitivityDisbalanceBox;
+    private JComboCheckBox sensitivityDisbalanceBox;
     private javax.swing.JLabel sensitivityLabel;
     private javax.swing.JComboBox sensitivityMainBox;
     private javax.swing.JComboBox stressComboBox;
