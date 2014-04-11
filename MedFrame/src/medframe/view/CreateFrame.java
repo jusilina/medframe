@@ -363,6 +363,20 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames
         }
 
         upperDSLimbsBox.setSelectedItem(visit.getUpperDSLimb());
+        lowerDSLimbsBox.setSelectedItem(visit.getLowerDSLimb());
+
+        List pReflexes = visit.getpReflexes();
+        if(pReflexes.get(0).equals(NO))
+        {
+            pReflexesMainBox.setSelectedIndex(0);
+        }
+        else
+        {
+            pReflexesMainBox.setSelectedIndex(1);
+//            nervousTensions.remove(0);
+            pReflexesLegBox.setSelectedObjects(nervousTensions);
+            pReflexesHandBox.setSelectedObjects(nervousTensions);
+        }
 
 
 
@@ -465,19 +479,14 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames
         }
         else
         {
-            ArrayList pReflexes = new ArrayList();
+//            ArrayList pReflexes = new ArrayList();
             Object[] pReflexesList = pReflexesHandBox.getSelectedObjects();
-//            pReflexes.add(Arrays.asList(pReflexesList));
             visit.setpReflexesHand(new ArrayList<>(Arrays.asList(pReflexesList)));
-            
             pReflexesList = pReflexesLegBox.getSelectedObjects();
-//            pReflexes.add(Arrays.asList(pReflexesList));
-
             visit.setpReflexesLeg(new ArrayList<>(Arrays.asList(pReflexesList)));
-//            visit.setpReflexes(pReflexes);
         }
         
-                if(aReflexesMainBox.getSelectedItem().equals(NO))
+            if(aReflexesMainBox.getSelectedItem().equals(NO))
         {
             visit.addAReflexes(NO);
         }
