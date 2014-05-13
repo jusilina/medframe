@@ -57,6 +57,8 @@ public class Visit
     private List<String> muscle = new ArrayList<String>();
     private String coordination;
     private List coordinationTest = new ArrayList();
+    private String coordinationTestDS;
+    private String coordinationTestSN;
     private List<String> romberg = new ArrayList<String>();
     private List<String> nervousSystem = new ArrayList<String>();
     private String diagnosis;
@@ -66,12 +68,28 @@ public class Visit
     private List<String> therapy = new ArrayList<String>();
     private static Logger log = Logger.getLogger(Visit.class.getName());
 
+    public String getCoordinationTestDS() {
+        return coordinationTestDS;
+    }
+
+    public void setCoordinationTestDS(String coordinationTestDS) {
+        this.coordinationTestDS = coordinationTestDS;
+    }
+
+    public String getCoordinationTestSN() {
+        return coordinationTestSN;
+    }
+
+    public void setCoordinationTestSN(String coordinationTestSN) {
+        this.coordinationTestSN = coordinationTestSN;
+    }
+
     public List<String> getEmotion()
     {
         return emotion;
     }
 
-    public List<ArrayList> getCoordinationTest()
+    public List<String> getCoordinationTest()
     {
         return coordinationTest;
     }

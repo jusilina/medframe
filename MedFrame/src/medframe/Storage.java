@@ -332,9 +332,8 @@ public class Storage implements PropertyNames
             Phrase coordinationVal = new Phrase(visit.getCoordination() + SPACE);
             Phrase coordinationRombergVal = new Phrase(visit.getRomberg().toString() + SPACE);
 
-            ArrayList coordDSN = visit.getCoordinationTest().get(0);
-            String coordinationTestDSN = "D" + coordDSN.get(0) + "S" + coordDSN.get(1) + "N" + SPACE;
-            Phrase coordinationTestVal = new Phrase(coordinationTestDSN + visit.getCoordinationTest().get(1).toString());
+            String coordinationTestDSN = "D" + visit.getCoordinationTestDS() + "S" + visit.getCoordinationTestSN() + "N" + SPACE;
+            Phrase coordinationTestVal = new Phrase(coordinationTestDSN + visit.getCoordinationTest());
 
             coordination.add(coordinationLabel);
             coordination.add(coordinationVal);
