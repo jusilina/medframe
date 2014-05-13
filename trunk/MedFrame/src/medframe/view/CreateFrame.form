@@ -586,7 +586,7 @@
             </Component>
             <Component class="javax.swing.JTextField" name="consciousText">
             </Component>
-            <Component class="javax.swing.JComboBox" name="emotionViolationBox">
+            <Component class="JComboCheckBox" name="emotionViolationBox">
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new JComboCheckBox(emotionBox)"/>
                 <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="int enotionBoxSize = props.getEmotionViolations().size();&#xa;JCheckBox[] emotionBox = new JCheckBox[enotionBoxSize];&#xa;&#xa;for(int i=0; i&lt;enotionBoxSize; i++)&#xa;{&#xa;    String name = props.getEmotionViolations().get(i);&#xa;    emotionBox[i]= new JCheckBox(name);&#xa;}"/>
@@ -660,7 +660,7 @@
                 </Property>
               </Properties>
             </Component>
-            <Component class="javax.swing.JComboBox" name="dreamDisbalanceBox">
+            <Component class="JComboCheckBox" name="dreamDisbalanceBox">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                   <StringArray count="0"/>
@@ -686,7 +686,7 @@
                 </Property>
               </Properties>
             </Component>
-            <Component class="javax.swing.JComboBox" name="nervousSystemBox">
+            <Component class="JComboCheckBox" name="nervousSystemBox">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                   <StringArray count="0"/>
@@ -760,7 +760,7 @@
                 </Property>
               </Properties>
             </Component>
-            <Component class="javax.swing.JComboBox" name="cranicalNerveBox">
+            <Component class="JComboCheckBox" name="cranicalNerveBox">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                   <StringArray count="0"/>
@@ -938,7 +938,7 @@
                     </Property>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JComboBox" name="rombergBox">
+                <Component class="JComboCheckBox" name="rombergBox">
                   <Properties>
                     <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                       <StringArray count="0"/>
@@ -994,7 +994,7 @@
                     <Property name="text" type="java.lang.String" value="N"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JComboBox" name="coordinationTestBox">
+                <Component class="JComboCheckBox" name="coordinationTestBox">
                   <Properties>
                     <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                       <StringArray count="0"/>
@@ -1014,7 +1014,7 @@
                 </Property>
               </Properties>
             </Component>
-            <Component class="javax.swing.JComboBox" name="sensitivityDisbalanceBox">
+            <Component class="JComboCheckBox" name="sensitivityDisbalanceBox">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                   <StringArray count="0"/>
@@ -1040,7 +1040,7 @@
                 </Property>
               </Properties>
             </Component>
-            <Component class="javax.swing.JComboBox" name="nervousTensionBox">
+            <Component class="JComboCheckBox" name="nervousTensionBox">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                   <StringArray count="0"/>
@@ -1172,7 +1172,7 @@
                     </Property>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JComboBox" name="pReflexesHandBox">
+                <Component class="JComboCheckBox" name="pReflexesHandBox">
                   <Properties>
                     <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                       <StringArray count="0"/>
@@ -1190,7 +1190,7 @@
                     </Property>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JComboBox" name="pReflexesLegBox">
+                <Component class="JComboCheckBox" name="pReflexesLegBox">
                   <Properties>
                     <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                       <StringArray count="0"/>
@@ -1203,7 +1203,7 @@
                 </Component>
               </SubComponents>
             </Container>
-            <Component class="javax.swing.JComboBox" name="aReflexesBox">
+            <Component class="jJComboCheckBox" name="aReflexesBox">
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="aReflexesBox.setVisible(false);"/>
                 <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new JComboCheckBox(aReflexesSource)"/>
@@ -1242,7 +1242,7 @@
                 </Property>
               </Properties>
             </Component>
-            <Component class="javax.swing.JComboBox" name="muscleBox">
+            <Component class="JComboCheckBox" name="muscleBox">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                   <StringArray count="0"/>
@@ -1256,7 +1256,7 @@
                 <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="List &lt;String&gt; muscleList = props.getMuscleToneList();&#xa;int muscleSize = muscleList.size();&#xa;JCheckBox[] muscleBoxSource = new JCheckBox[muscleSize];&#xa;&#xa;for(int i=0; i&lt;muscleSize; i++)&#xa;{&#xa;    String name = muscleList.get(i);&#xa;    //System.out.println(name);&#xa;    muscleBoxSource[i]= new JCheckBox(name);&#xa;}"/>
               </AuxValues>
             </Component>
-            <Component class="javax.swing.JComboBox" name="motionBox">
+            <Component class="JComboCheckBox" name="motionBox">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                   <StringArray count="0"/>
@@ -1282,7 +1282,7 @@
                 </Component>
               </SubComponents>
             </Container>
-            <Component class="javax.swing.JComboBox" name="recommendationBox">
+            <Component class="JComboCheckBox" name="recommendationBox">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                   <StringArray count="0"/>
@@ -1298,11 +1298,8 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="recommendationTextActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JComboBox" name="therapyBox">
+            <Component class="JComboCheckBox" name="therapyBox">
               <Properties>
-                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="0"/>
-                </Property>
               </Properties>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new JComboCheckBox(therapyBoxSource)"/>
