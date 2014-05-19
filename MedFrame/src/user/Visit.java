@@ -46,7 +46,7 @@ public class Visit
 //    private List<String> reflexes = new ArrayList<String>();
     private String upperDSLimb;
     private String lowerDSLimb;
-    private List<String> pReflexes = new ArrayList<String>();
+    private String pReflexes;
     private List pReflexesHand = new ArrayList();
     private List pReflexesLeg = new ArrayList();
 
@@ -170,12 +170,12 @@ public class Visit
         this.upperDSLimb = upperDSLimb;
     }
 
-    public List getpReflexes()
+    public String getpReflexes()
     {
         return pReflexes;
     }
 
-    public void setpReflexes(List pReflexes)
+    public void setpReflexes(String pReflexes)
     {
         this.pReflexes = pReflexes;
     }
@@ -579,10 +579,10 @@ public class Visit
         this.nervousTension.add(0, tension);
     }
 
-    public void addPReflexes(String pReflex)
-    {
-        this.pReflexes.add(pReflex);
-    }
+//    public void addPReflexes(String pReflex)
+//    {
+//        this.pReflexes.add(pReflex);
+//    }
 
     public void addAReflexes(String aReflex)
     {
