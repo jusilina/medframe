@@ -295,8 +295,8 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames {
         upperDSLimbsBox.setSelectedItem(visit.getUpperDSLimb());
         lowerDSLimbsBox.setSelectedItem(visit.getLowerDSLimb());
 
-        List pReflexes = visit.getpReflexes();
-        if (pReflexes.get(0).equals(NO)) {
+//        List pReflexes = visit.getpReflexes();
+        if ( visit.getpReflexes().equals(NO)) {
             pReflexesMainBox.setSelectedIndex(0);
         } else {
             pReflexesMainBox.setSelectedIndex(1);
@@ -410,9 +410,9 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames {
         visit.setLowerDSLimb(lowerDSLimbsBox.getSelectedItem().toString());
 
         if (pReflexesMainBox.getSelectedItem().equals(NO)) {
-            visit.addPReflexes(NO);
+            visit.setpReflexes(NO);
         } else {
-            visit.addPReflexes(THESE_IS);
+            visit.setpReflexes(THESE_IS);
             Object[] pReflexesList = pReflexesHandBox.getSelectedObjects();
             visit.setpReflexesHand(new ArrayList<>(Arrays.asList(pReflexesList)));
             pReflexesList = pReflexesLegBox.getSelectedObjects();
@@ -1372,9 +1372,11 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames {
 
     private void exportItemActionPerformed(java.awt.event.ActionEvent evt) {
         JFileChooser exportFile = new JFileChooser();
-        //  exportFile.setCurrentDirectory(new File("testTest.xml"));
+        FileNameExtensionFilter filter = new FileNameExtensionFilter(
+                "XML File", "xml");
+        exportFile.setFileFilter(filter);
         if (exportFile.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
-            File file = exportFile.getSelectedFile();
+            File file = new File(exportFile.getSelectedFile()+".xml");
             System.out.println(file.getPath());
             populateVisit();
             storage.exportFile(file, visit);
@@ -1407,6 +1409,21 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames {
 
     private void importItemActionPerformed(java.awt.event.ActionEvent evt) {
         JFileChooser importFile = new JFileChooser();
+//        FileNameExtensionFilter filter = new FileNameExtensionFilter(
+//                "XML File", "xml");
+        importFile.setAcceptAllFileFilterUsed(false);
+        importFile.addChoosableFileFilter(new FileFilter() {
+
+            @Override
+            public boolean accept(File f) {
+                return f.getName().endsWith(".xml");
+            }
+
+            @Override
+            public String getDescription() {
+                return "XML files";
+            }
+        });
 
         if (importFile.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
             File file = importFile.getSelectedFile();
@@ -1419,17 +1436,28 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames {
         }
     }
 
-    private void savePDFItemActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_savePDFItemActionPerformed
-    {//GEN-HEADEREND:event_savePDFItemActionPerformed
+    private void savePDFItemActionPerformed(java.awt.event.ActionEvent evt) {
         log.info("savePDFItemActionPerformed");
         JFileChooser pdfFile = new JFileChooser();
+        FileNameExtensionFilter filter = new FileNameExtensionFilter(
+                "PDF File", "pdf");
+        pdfFile.setFileFilter(filter);
         if (pdfFile.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
             populateVisit();
-            File file = pdfFile.getSelectedFile();
+            File file = new File(pdfFile.getSelectedFile()+".pdf");
 
-            storage.savePDF(file, visit);
+            if (storage.savePDF(file, visit)) {
+
+                JOptionPane.showMessageDialog(this,
+                        "File was saved. Location: " + file.getPath());
+            } else {
+                JOptionPane.showMessageDialog(this,
+                        "File was not saved.",
+                        "Save error",
+                        JOptionPane.ERROR_MESSAGE);
+            }
         }
-    }//GEN-LAST:event_savePDFItemActionPerformed
+    }
 
     private void muscleBoxActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_muscleBoxActionPerformed
     {//GEN-HEADEREND:event_muscleBoxActionPerformed

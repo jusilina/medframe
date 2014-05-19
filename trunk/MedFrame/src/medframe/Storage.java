@@ -101,7 +101,7 @@ public class Storage implements PropertyNames
 
     }
 
-    public void savePDF(File file, Visit visit)
+    public boolean savePDF(File file, Visit visit)
     {
         Document document = new Document(PageSize.A4);
         try
@@ -144,12 +144,16 @@ public class Storage implements PropertyNames
             Paragraph socialAnamnesis = new Paragraph();
             socialAnamnesis.setFont(font);
             Phrase job = new Phrase(SOCIAL_ANAMNESIS + SPACE);
-            Phrase jobValue = new Phrase(visit.getSocialAnamnesis() + SPACE + visit.getProfission() + SPACE);
-            Phrase stress = new Phrase(visit.getStress() + SPACE);
-
             socialAnamnesis.add(job);
-            socialAnamnesis.add(jobValue);
-            socialAnamnesis.add(stress);
+            if (visit.getSocialAnamnesis().equals(PENSIONER)) {
+                Phrase jobValue = new Phrase(visit.getSocialAnamnesis() + SPACE);
+                socialAnamnesis.add(jobValue);
+            } else {
+                Phrase jobValue = new Phrase(visit.getSocialAnamnesis() + SPACE + visit.getProfission() + SPACE);
+                Phrase stress = new Phrase(visit.getStress() + SPACE);
+                socialAnamnesis.add(jobValue);
+                socialAnamnesis.add(stress);
+            }
 
             document.add(socialAnamnesis);
 
@@ -258,7 +262,7 @@ public class Storage implements PropertyNames
 
             Phrase pReflexesLabel = new Phrase(P_REFLEXES + SPACE);
             Phrase pReflexesVal;
-            if (visit.getpReflexes().size() == 1)
+            if (visit.getpReflexes().equals(NO))
             {
                 pReflexesVal = new Phrase(visit.getpReflexes().toString());
             }
@@ -409,7 +413,9 @@ public class Storage implements PropertyNames
         catch (Exception ex)
         {
             Logger.getLogger(Storage.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         }
+        return true;
     }
 
 }
