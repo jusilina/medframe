@@ -34,6 +34,8 @@ public class Storage implements PropertyNames
 
     private final String pdfFont = "tahoma.ttf";
     private final String encoding = "cp1251";
+    private final float fontSize = 10;
+
     private static Logger log = Logger.getLogger(Storage.class.getName());
 
     public void exportFile(File file, Visit visit)
@@ -108,6 +110,7 @@ public class Storage implements PropertyNames
         {
             BaseFont times = BaseFont.createFont(pdfFont, encoding, BaseFont.EMBEDDED);
             Font font = new Font(times);
+            font.setSize(fontSize);
             PdfWriter.getInstance(document, new FileOutputStream(file));
             document.open();
 
