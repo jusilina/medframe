@@ -20,6 +20,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
+import javax.swing.event.MenuEvent;
+import javax.swing.event.MenuListener;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
@@ -34,7 +36,7 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames {
     private Map properiesMap = new HashMap();
     private Storage storage;
     private Visit visit = new Visit();
-    ProjectProperties props = ProjectProperties.getProperties();
+    private ProjectProperties props = ProjectProperties.getProperties();
 
     /**
      * Creates new form CreateFrame
@@ -239,6 +241,7 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames {
 //        pack();
 
     }
+
 
     private void updateFormFromVisit() {
         nameField.setText(visit.getName());
@@ -460,6 +463,59 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames {
         return visit;
     }
 
+
+    private Visit populateDefaultVisit()
+    {
+        visit = new Visit();
+        visit.setDate(new Date());
+//        visit.setComplaine(complaineArea.getText());
+//        visit.setSocialAnamnesis(jobComboBox.getSelectedItem().toString());
+//        visit.setProfission(professionField.getText());
+//        visit.setStress(stressComboBox.getSelectedItem().toString());
+//        visit.setAnamnesis(anamnesisArea.getText());
+//        visit.setConscious(consciousBox.getSelectedItem().toString());
+//        visit.setConsciousAdd(consciousText.getText());
+        visit.setEpileptic(NEG);
+        visit.addEmotion(N);
+        visit.addDream(NORM);
+        visit.addSensitivity(NORM);
+        visit.addNervousTension(NO);
+
+//        visit.setUpperDSLimb(upperDSLimbsBox.getSelectedItem().toString());
+//        visit.setLowerDSLimb(lowerDSLimbsBox.getSelectedItem().toString());
+
+
+        visit.setpReflexes(NO);
+        visit.addAReflexes(NO);
+//
+//        visit.setMotionType(motionTypeBox.getSelectedItem().toString());
+//        visit.setMotion(new ArrayList<>(Arrays.asList(motionBox.getSelectedObjects())));
+//
+//        visit.setMuscle(new ArrayList<>(Arrays.asList(muscleBox.getSelectedObjects())));
+//
+//
+//        visit.setCoordination(coordinationMainBox.getSelectedItem().toString());
+//
+//        visit.setRomberg(new ArrayList<>(Arrays.asList(rombergBox.getSelectedObjects())));
+//
+//        visit.setCoordinationTestDS(coordinationTestBoxDS.getSelectedItem().toString());
+//        visit.setCoordinationTestSN(coordinationTestBoxSN.getSelectedItem().toString());
+//        visit.setCoordinationTest(new ArrayList(Arrays.asList(coordinationTestBox.getSelectedObjects())));
+//
+//        visit.setNervousSystem(new ArrayList<>(Arrays.asList(nervousSystemBox.getSelectedObjects())));
+
+            visit.setPelvicOrgan(N);
+//        visit.setDiagnosis(diagnosisArea.getText());
+//
+//        visit.setRecommendations(new ArrayList<>(Arrays.asList(recommendationBox.getSelectedObjects())));
+//        visit.setRecommendationsAdd(recommendationText.getText());
+//
+//        visit.setTherapy(new ArrayList<>(Arrays.asList(therapyBox.getSelectedObjects())));
+
+
+        return visit;
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -502,9 +558,7 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames {
         anamnesisLabel = new javax.swing.JLabel();
         emotionLabel = new javax.swing.JLabel();
         complaineLabel = new javax.swing.JLabel();
-        //JCheckBox box1 = new JCheckBox("1");
-        //        JCheckBox box2 = new JCheckBox("2");
-        //        JCheckBox box3 = new JCheckBox("3");
+
         int size = props.getDisturbed_sleepList().size();
         JCheckBox[] box = new JCheckBox[size];
 
@@ -521,7 +575,6 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames {
 
         for (int i = 0; i < nervousSystemSize; i++) {
             String name = nervousSystemList.get(i);
-            //System.out.println(name);
             nervousSystemBoxSource[i] = new JCheckBox(name);
         }
         nervousSystemBox = new JComboCheckBox(nervousSystemBoxSource);
@@ -690,6 +743,7 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames {
         createForm = new javax.swing.JMenu();
         editProperties = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
+        clearMenu = new javax.swing.JMenu();
         exportItem = new javax.swing.JMenuItem();
         importItem = new javax.swing.JMenuItem();
         javax.swing.JMenuItem savePDFItem = new javax.swing.JMenuItem();
@@ -740,7 +794,7 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames {
 
         emotionMainBox.setModel(new javax.swing.DefaultComboBoxModel(new String[]{N, DISBALANCE}));
 
-        epiText.setText(NEG);
+
 
         professionField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -770,7 +824,7 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames {
 
         gaitLabel.setText(GAIT);
 
-        pelvicOrganField.setText(N);
+
 
         reflexesLabel.setText(REFLEXES);
 
@@ -1297,12 +1351,12 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames {
         categories.setText(CATEGORY);
         jMenuBar1.add(categories);
 
-        createForm.setText("Create Form");
-        jMenuBar1.add(createForm);
-        createForm.getAccessibleContext().setAccessibleName("Create form");
+//        createForm.setText("Create Form");
+//        jMenuBar1.add(createForm);
+//        createForm.getAccessibleContext().setAccessibleName("Create form");
 
-        editProperties.setText("Edit");
-        jMenuBar1.add(editProperties);
+//        editProperties.setText("Edit");
+//        jMenuBar1.add(editProperties);
 
         jMenu2.setText("Import/Export");
 
@@ -1331,6 +1385,40 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames {
         jMenu2.add(savePDFItem);
 
         jMenuBar1.add(jMenu2);
+
+        clearMenu.setText("Очистить форму");
+        clearMenu.addMenuListener(new MenuListener()
+        {
+            @Override
+            public void menuSelected(MenuEvent e)
+            {
+                System.out.println("menuSelected");
+                clearForm();
+                new Timer(200, new ActionListener() {
+
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        clearMenu.setSelected(false);
+                        ((Timer)e.getSource()).stop();
+                    }
+                }).start();
+            }
+
+            @Override
+            public void menuDeselected(MenuEvent e)
+            {
+                System.out.println("menuDeselected");
+
+            }
+
+            @Override
+            public void menuCanceled(MenuEvent e)
+            {
+                System.out.println("menuCanceled");
+
+            }
+        });
+        jMenuBar1.add(clearMenu);
 
         setJMenuBar(jMenuBar1);
 
@@ -1459,6 +1547,12 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames {
         }
     }
 
+    private void clearForm(){
+        log.info("Clear Form");
+        populateDefaultVisit();
+        updateFormFromVisit();
+    }
+
     private void muscleBoxActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_muscleBoxActionPerformed
     {//GEN-HEADEREND:event_muscleBoxActionPerformed
         // TODO add your handling code here:
@@ -1518,6 +1612,7 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames {
     private javax.swing.JMenuItem importItem;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu clearMenu;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
