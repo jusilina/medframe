@@ -131,7 +131,8 @@ public class Visit
 
     public void addSensitivity(String sensitivity)
     {
-        this.sensitivity.add(0, sensitivity);
+        this.sensitivity.clear();
+        this.sensitivity.add(sensitivity);
     }
 
     public void setSensitivity(List sensitivity)
@@ -566,16 +567,19 @@ public class Visit
 
     public void addDream(String dream)
     {
+        this.dream.clear();
         this.dream.addFirst(dream);
     }
 
     public void addEmotion(String emotion)
     {
+        this.emotion.clear();
         this.emotion.add(0, emotion);
     }
 
     public void addNervousTension(String tension)
     {
+        this.nervousTension.clear();
         this.nervousTension.add(0, tension);
     }
 
@@ -586,6 +590,7 @@ public class Visit
 
     public void addAReflexes(String aReflex)
     {
+        this.aReflexes.clear();
         this.aReflexes.add(aReflex);
     }
 

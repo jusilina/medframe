@@ -16,11 +16,9 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 
 /**
- *
  * @author Julia
  */
-public class SAXImportHandler extends DefaultHandler
-{
+public class SAXImportHandler extends DefaultHandler {
 
 //    private ArrayList<String> partOfBody;
 //    private ArrayList<String> joints;
@@ -50,18 +48,17 @@ public class SAXImportHandler extends DefaultHandler
 
     private Visit visit;
     private ArrayList fieldNames = new ArrayList();
-    public SAXImportHandler(Visit visit)
-    {
-       this.visit = visit;
-       Field fld[] = visit.getClass().getDeclaredFields();
-        for (Field field : fld)
-        {
+
+    public SAXImportHandler(Visit visit) {
+        this.visit = visit;
+        Field fld[] = visit.getClass().getDeclaredFields();
+        for (Field field : fld) {
             String fieldName = field.getName();
             fieldNames.add(fieldName);
         }
     }
 
-//    public ArrayList getTherapyList()
+    //    public ArrayList getTherapyList()
 //    {
 //        return therapyList;
 //    }
@@ -161,8 +158,7 @@ public class SAXImportHandler extends DefaultHandler
 //    }
 
     @Override
-    public void startDocument() throws SAXException
-    {
+    public void startDocument() throws SAXException {
 //        partOfBody = new ArrayList<String>();
 //        joints = new ArrayList<String>();
 //        categories = new ArrayList();
@@ -184,8 +180,7 @@ public class SAXImportHandler extends DefaultHandler
     }
 
     @Override
-    public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException
-    {
+    public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
         thisElement = qName;
 
 //        isDrug = false;
@@ -207,13 +202,10 @@ public class SAXImportHandler extends DefaultHandler
     }
 
     @Override
-    public void characters(char[] ch, int start, int length) throws SAXException
-    {
-        if (fieldNames.contains(thisElement))
-        {
+    public void characters(char[] ch, int start, int length) throws SAXException {
+        if (fieldNames.contains(thisElement)) {
             visit.addParameter(thisElement, new String(ch, start, length));
         }
-
 
 
 //        switch (thisElement)
@@ -323,8 +315,7 @@ public class SAXImportHandler extends DefaultHandler
     }
 
     @Override
-    public void endElement(String uri, String localName, String qName) throws SAXException
-    {
+    public void endElement(String uri, String localName, String qName) throws SAXException {
         thisElement = "";
 //        if (qName.equals("category"))
 //        {
@@ -334,8 +325,7 @@ public class SAXImportHandler extends DefaultHandler
     }
 
     @Override
-    public void endDocument() throws SAXException
-    {
+    public void endDocument() throws SAXException {
     }
 
 }

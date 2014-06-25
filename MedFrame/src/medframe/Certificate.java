@@ -7,10 +7,8 @@
 package medframe;
 
 /**
- *
  * @author Julia
  */
-public class Certificate
-{
-    
+public class Certificate {
+
 }

@@ -6,17 +6,16 @@
 package medframe;
 
 import java.util.ArrayList;
+
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 import user.Category;
 
 /**
- *
  * @author Julia
  */
-public class SAXHandler extends DefaultHandler
-{
+public class SAXHandler extends DefaultHandler {
 
     private ArrayList<String> partOfBody;
     private ArrayList<String> joints;
@@ -28,7 +27,7 @@ public class SAXHandler extends DefaultHandler
     private ArrayList rombergList;
     private Category category;
     private ArrayList drugs;
-//     private ArrayList catList;
+    //     private ArrayList catList;
     private boolean isDrug;
     private String thisDrug;
     private ArrayList sensitivityDisbalanceList;
@@ -44,108 +43,89 @@ public class SAXHandler extends DefaultHandler
     private ArrayList therapyList;
     private ArrayList coordinationTest;
 
-    public ArrayList getTherapyList()
-    {
+    public ArrayList getTherapyList() {
         return therapyList;
     }
 
-    public ArrayList getCoordinationTest()
-    {
+    public ArrayList getCoordinationTest() {
         return coordinationTest;
     }
 
-    
-    public ArrayList getaReflexesList()
-    {
+
+    public ArrayList getaReflexesList() {
         return aReflexesList;
     }
 
-    public ArrayList getMotionList()
-    {
+    public ArrayList getMotionList() {
         return motionList;
     }
 
-    public ArrayList getRecommendationList()
-    {
+    public ArrayList getRecommendationList() {
         return recommendationList;
     }
 
-    
-    public ArrayList getMuscleToneList()
-    {
+
+    public ArrayList getMuscleToneList() {
         return muscleToneList;
     }
-    
-    public ArrayList<String> getpReflexesHand()
-    {
+
+    public ArrayList<String> getpReflexesHand() {
         return pReflexesHand;
     }
 
-    public ArrayList<String> getpReflexesLeg()
-    {
+    public ArrayList<String> getpReflexesLeg() {
         return pReflexesLeg;
     }
 
-    public ArrayList getSensitivityDisbalanceList()
-    {
+    public ArrayList getSensitivityDisbalanceList() {
         return sensitivityDisbalanceList;
     }
 
-    public ArrayList getNervousTensionList()
-    {
+    public ArrayList getNervousTensionList() {
         return nervousTensionList;
     }
 
-    public ArrayList getCranicalNerveViolations()
-    {
+    public ArrayList getCranicalNerveViolations() {
         return cranicalNerveViolations;
     }
 
-    public ArrayList getEmotionViolations()
-    {
+    public ArrayList getEmotionViolations() {
         return emotionViolations;
     }
 
-    public ArrayList getDisturbed_sleepList()
-    {
+    public ArrayList getDisturbed_sleepList() {
         return disturbed_sleepList;
     }
 
-    public void setDisturbed_sleepList(ArrayList disturbed_sleepList)
-    {
+    public void setDisturbed_sleepList(ArrayList disturbed_sleepList) {
         this.disturbed_sleepList = disturbed_sleepList;
     }
 
-    public ArrayList<Category> getCategories()
-    {
+    public ArrayList<Category> getCategories() {
         return categories;
     }
+
     // private boolean isPartOfBody = false;
     String thisElement = "";
 
-    public ArrayList getPartOfBodys()
-    {
+    public ArrayList getPartOfBodys() {
         return partOfBody;
     }
 
-    public ArrayList<String> getJoints()
-    {
+    public ArrayList<String> getJoints() {
         return joints;
     }
 
-    public ArrayList getNervousSystemList()
-    {
+    public ArrayList getNervousSystemList() {
         return nervousSystemList;
     }
 
-    public ArrayList getRombergList()
-    {
+    public ArrayList getRombergList() {
         return rombergList;
     }
 
     @Override
-    public void startDocument() throws SAXException
-    {
+    public void startDocument() throws SAXException {
         partOfBody = new ArrayList<String>();
         joints = new ArrayList<String>();
         categories = new ArrayList();
@@ -167,24 +147,21 @@ public class SAXHandler extends DefaultHandler
     }
 
     @Override
-    public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException
-    {
+    public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
         thisElement = qName;
         isDrug = false;
-     //   isDiagnosis = false;
-        if (qName.equals("category"))
-        {
+        //   isDiagnosis = false;
+        if (qName.equals("category")) {
             drugs = new ArrayList();
             diagnosisList = new ArrayList();
             String name = attributes.getValue("name");
             category = new Category(name);
         }
-        if (qName.equals("drug"))
-        {
+        if (qName.equals("drug")) {
             isDrug = true;
             thisDrug = attributes.getValue("id");
         }
-        
+
 //         if (qName.equals("diagnosis"))
 //        {
 //            isDiagnosis = true;
@@ -194,108 +171,86 @@ public class SAXHandler extends DefaultHandler
     }
 
     @Override
-    public void characters(char[] ch, int start, int length) throws SAXException
-    {
+    public void characters(char[] ch, int start, int length) throws SAXException {
 
-        switch (thisElement)
-        {
-            case "partOfBody":
-            {
+        switch (thisElement) {
+            case "partOfBody": {
                 partOfBody.add(new String(ch, start, length));
                 break;
             }
-            case "joint":
-            {
+            case "joint": {
                 joints.add(new String(ch, start, length));
                 break;
             }
-            case "drug":
-            {
+            case "drug": {
                 category.addDrug(thisDrug);
                 break;
             }
-            case "diagnosis":
-            {
-                 category.addDiagnosis(new String(ch, start, length));
-                break;            
+            case "diagnosis": {
+                category.addDiagnosis(new String(ch, start, length));
+                break;
             }
-            case "mark":
-            {
+            case "mark": {
                 category.addMarkForDrug(thisDrug, new String(ch, start, length));
                 break;
             }
-            case "disturbed_sleep":
-            {
+            case "disturbed_sleep": {
                 disturbed_sleepList.add(new String(ch, start, length));
                 break;
             }
-            case "emotion":
-            {
+            case "emotion": {
                 emotionViolations.add(new String(ch, start, length));
                 break;
             }
-            case "cranicalNerve":
-            {
+            case "cranicalNerve": {
                 cranicalNerveViolations.add(new String(ch, start, length));
                 break;
             }
-            case "nervousSystem":
-            {
+            case "nervousSystem": {
                 nervousSystemList.add(new String(ch, start, length));
                 break;
             }
-            case "rombergManeuver":
-            {
+            case "rombergManeuver": {
                 rombergList.add(new String(ch, start, length));
                 break;
             }
-            case "sensitivityDisbalance":
-            {
+            case "sensitivityDisbalance": {
                 sensitivityDisbalanceList.add(new String(ch, start, length));
                 break;
             }
-            case "nervousTension":
-            {
+            case "nervousTension": {
                 nervousTensionList.add(new String(ch, start, length));
                 break;
             }
-            case "pReflexesHand":
-            {
+            case "pReflexesHand": {
                 pReflexesHand.add(new String(ch, start, length));
                 break;
             }
-            case "pReflexesLeg":
-            {
+            case "pReflexesLeg": {
                 pReflexesLeg.add(new String(ch, start, length));
                 break;
             }
-            case "aReflexes":
-            {
+            case "aReflexes": {
                 aReflexesList.add(new String(ch, start, length));
                 break;
             }
-            case "muscleTone":
-            {
+            case "muscleTone": {
                 muscleToneList.add(new String(ch, start, length));
                 break;
             }
-            case "motion":
-            {
+            case "motion": {
                 motionList.add(new String(ch, start, length));
-                break;            
+                break;
             }
-            case "recommendation":
-            {
+            case "recommendation": {
                 recommendationList.add(new String(ch, start, length));
-                break; 
+                break;
             }
-            case "therapy":
-            {
+            case "therapy": {
                 therapyList.add(new String(ch, start, length));
-                break; 
+                break;
             }
-            case "coordinationTest":
-            {
+            case "coordinationTest": {
                 coordinationTest.add(new String(ch, start, length));
                 break;
             }
@@ -304,19 +259,16 @@ public class SAXHandler extends DefaultHandler
     }
 
     @Override
-    public void endElement(String uri, String localName, String qName) throws SAXException
-    {
+    public void endElement(String uri, String localName, String qName) throws SAXException {
         thisElement = "";
-        if (qName.equals("category"))
-        {
+        if (qName.equals("category")) {
             categories.add(category);
 
         }
     }
 
     @Override
-    public void endDocument() throws SAXException
-    {
+    public void endDocument() throws SAXException {
     }
 
 }

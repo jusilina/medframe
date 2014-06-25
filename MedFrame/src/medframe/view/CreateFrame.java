@@ -744,6 +744,8 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames {
             therapyBoxSource[i] = new JCheckBox(name);
         }
         therapyBox = new JComboCheckBox(therapyBoxSource);
+        upperLimbsBox = new javax.swing.JComboBox();
+        downLimbsBox = new javax.swing.JComboBox();
         jMenuBar1 = new javax.swing.JMenuBar();
         categories = new javax.swing.JMenu();
         clearForm = new javax.swing.JMenu();
@@ -805,12 +807,12 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames {
                         .addGroup(complaintsTextPanelLayout.createSequentialGroup()
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(complaintsTextPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(jobLabel)
+                                .addGroup(complaintsTextPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addGroup(complaintsTextPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                                 .addComponent(jobComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addComponent(professionField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addComponent(stressComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                                .addComponent(stressComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(jobLabel))
                                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
@@ -1289,7 +1291,9 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames {
                                         .addComponent(sLabel1)
                                         .addComponent(lowerLimbsLabel)
                                         .addComponent(lowerDSLimbsBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(upperDSLimbsBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(upperDSLimbsBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(upperLimbsBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(downLimbsBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -1357,15 +1361,13 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames {
         jMenuBar1.add(categories);
 
         clearForm.setText("Clear Form");
-//        clearForm.addActionListener(new java.awt.event.ActionListener()
-//        {
-//            public void actionPerformed(java.awt.event.ActionEvent evt)
-//            {
-//                clearFormActionPerformed(evt);
-//            }
-//        });
+        clearForm.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                clearFormActionPerformed(evt);
+            }
+        });
         jMenuBar1.add(clearForm);
-//        clearForm.getAccessibleContext().setAccessibleName("Create form");
+        clearForm.getAccessibleContext().setAccessibleName("Create form");
 
         jMenu2.setText("Import/Export");
 
@@ -1454,22 +1456,6 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames {
 
     }
 
-
-    private void addDrugButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_addDrugButtonActionPerformed
-    {//GEN-HEADEREND:event_addDrugButtonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_addDrugButtonActionPerformed
-
-    private void cranicalNerveBoxActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_cranicalNerveBoxActionPerformed
-    {//GEN-HEADEREND:event_cranicalNerveBoxActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cranicalNerveBoxActionPerformed
-
-    private void professionFieldActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_professionFieldActionPerformed
-    {//GEN-HEADEREND:event_professionFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_professionFieldActionPerformed
-
     private void importItemActionPerformed(java.awt.event.ActionEvent evt) {
         JFileChooser importFile = new JFileChooser();
 //        FileNameExtensionFilter filter = new FileNameExtensionFilter(
@@ -1528,20 +1514,35 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames {
         updateFormFromVisit();
     }
 
-    private void muscleBoxActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_muscleBoxActionPerformed
-    {//GEN-HEADEREND:event_muscleBoxActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_muscleBoxActionPerformed
+    private void clearFormActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_clearFormActionPerformed
+    {//GEN-HEADEREND:event_clearFormActionPerformed
+//        clearForm();
+    }//GEN-LAST:event_clearFormActionPerformed
 
     private void recommendationTextActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_recommendationTextActionPerformed
     {//GEN-HEADEREND:event_recommendationTextActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_recommendationTextActionPerformed
 
-    private void clearFormActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_clearFormActionPerformed
-    {//GEN-HEADEREND:event_clearFormActionPerformed
-//        clearForm();
-    }//GEN-LAST:event_clearFormActionPerformed
+    private void muscleBoxActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_muscleBoxActionPerformed
+    {//GEN-HEADEREND:event_muscleBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_muscleBoxActionPerformed
+
+    private void addDrugButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_addDrugButtonActionPerformed
+    {//GEN-HEADEREND:event_addDrugButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_addDrugButtonActionPerformed
+
+    private void cranicalNerveBoxActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_cranicalNerveBoxActionPerformed
+    {//GEN-HEADEREND:event_cranicalNerveBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cranicalNerveBoxActionPerformed
+
+    private void professionFieldActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_professionFieldActionPerformed
+    {//GEN-HEADEREND:event_professionFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_professionFieldActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1576,6 +1577,7 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames {
     private com.toedter.calendar.JDateChooser dateChooser;
     private javax.swing.JTextArea diagnosisArea;
     private javax.swing.JLabel diagnosisLabel;
+    private javax.swing.JComboBox downLimbsBox;
     private javax.swing.JComboBox dreamComboBox;
     private javax.swing.JComboBox dreamDisbalanceBox;
     private javax.swing.JLabel dreamLabel;
@@ -1642,6 +1644,7 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames {
     private javax.swing.JLabel therapyLabel;
     private javax.swing.JLabel titleLabel;
     private javax.swing.JComboBox upperDSLimbsBox;
+    private javax.swing.JComboBox upperLimbsBox;
     private javax.swing.JLabel upperLimbsLabel;
     // End of variables declaration//GEN-END:variables
 
