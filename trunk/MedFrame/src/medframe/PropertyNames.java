@@ -5,12 +5,11 @@ package medframe;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 /**
- *
  * @author Julia
  */
-public interface PropertyNames
-{
+public interface PropertyNames {
 
     static final String SPACE = " ";
     static final String COLON = ":";
@@ -32,7 +31,7 @@ public interface PropertyNames
      */
     static final String CONSCIOUS = "Сознание:";
     static final String CONSCIOUS_CLEAR = "ясное";
-    static final String CONSCIOUS_OBNUBILATION="оглушенность";
+    static final String CONSCIOUS_OBNUBILATION = "оглушенность";
 
     static final String NEG = "отр";
     static final String EMOTION = "Эмоциональная сфера:";
@@ -48,7 +47,7 @@ public interface PropertyNames
     /**
      * Эпи.приступ
      */
-    static final String EPILEPTIC_SEIZURE="Эпи.приступ:";
+    static final String EPILEPTIC_SEIZURE = "Эпи.приступ:";
 
     static final String DREAM = "Сон:";
     static final String NORM = "норма";
@@ -56,10 +55,9 @@ public interface PropertyNames
     static final String N = "N";
     static final String NO = "нет";
     static final String THESE_IS = "есть";
-    
+
     static final String CRANICAL_NERVE_N = "без очаговости";
-    
-    
+
 
     static final String DREAM_DISB_ASLEEP = "трудность засыпания";
     static final String DREAM_DISB_F_AWAKENINGS = "частые пробуждения";
@@ -79,12 +77,11 @@ public interface PropertyNames
     static final String LIMBS = "с конечностей";
     static final String UPPER = "верхних";
     static final String LOWER = "нижних";
-    
+
     static final String HAND = "с рук";
     static final String LEG = "с ног";
 
-            
-    
+
     static final String CORTICAL_FUNCTIONS = "Высшие корковые функции:";
     static final String NERVOUS_SYSTEM = "Вегетативная   нервная  система:";
     static final String PELVIC_ORGAN = "Функции тазовых органов:";
@@ -97,7 +94,7 @@ public interface PropertyNames
     static final String MOTION = "движения:";
     static final String ACTIVE = "активные";
     static final String PASSIVE = "пассивные";
-    static final String MUSCLE_TONE = "мышечный тонус";
-    static final String ANTALGIC="анталгическая";
+    static final String MUSCLE_TONE = "мышечный тонус:";
+    static final String ANTALGIC = "анталгическая";
 
 }

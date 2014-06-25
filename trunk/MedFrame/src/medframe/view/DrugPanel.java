@@ -10,45 +10,39 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
- *
  * @author Julia
  */
-public class DrugPanel extends javax.swing.JPanel
-{
-    private String [] drugs = {};
-    private String [] doses ={};
+public class DrugPanel extends javax.swing.JPanel {
+    private String[] drugs = {};
+    private String[] doses = {};
 
     /**
      * Creates new form drugPanel
      */
-    public DrugPanel()
-    {
+    public DrugPanel() {
 //        drugs = {""};
 //        doses = new ArrayList();
         initComponents();
     }
-    
-    public DrugPanel(List drugs, List doses)
-    {
+
+    public DrugPanel(List drugs, List doses) {
         Iterator it = drugs.iterator();
-        while(it.hasNext())
-        {
+        while (it.hasNext()) {
             String o = (String) it.next();
             drugs.add(o);
         }
-         it = doses.iterator();
-        while(it.hasNext())
-        {
+        it = doses.iterator();
+        while (it.hasNext()) {
             String o = (String) it.next();
             doses.add(o);
         }
 //        this.drugs = drugs;
 //        this.doses = doses;
-        
-        initComponents();      
-        
+
+        initComponents();
+
     }
-    
+
 //    private void addProperties()
 //    {
 //
@@ -61,17 +55,14 @@ public class DrugPanel extends javax.swing.JPanel
      */
     @SuppressWarnings("unchecked")
 
-    private void initComponents()
-    {
+    private void initComponents() {
 
         drugsBox = new javax.swing.JComboBox(drugs);
         doseBox = new javax.swing.JComboBox(doses);
         additDoseField = new javax.swing.JTextField();
 
-        drugsBox.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        drugsBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 drugsBoxActionPerformed(evt);
             }
         });
@@ -79,20 +70,20 @@ public class DrugPanel extends javax.swing.JPanel
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(drugsBox, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(doseBox, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(additDoseField, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                                .addComponent(drugsBox, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(doseBox, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(additDoseField, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                .addComponent(drugsBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addComponent(doseBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addComponent(additDoseField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(drugsBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(doseBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(additDoseField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
     }// </editor-fold>//GEN-END:initComponents
 

@@ -23,14 +23,13 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import medframe.view.CreateFrame;
 
 /**
- *
  * @author Julia
  */
-public class Storage implements PropertyNames
-{
+public class Storage implements PropertyNames {
 
     private final String pdfFont = "tahoma.ttf";
     private final String encoding = "cp1251";
@@ -38,13 +37,11 @@ public class Storage implements PropertyNames
 
     private static Logger log = Logger.getLogger(Storage.class.getName());
 
-    public void exportFile(File file, Visit visit)
-    {
-        Multimap <String, String> elements = visit.getParametersMap();
+    public void exportFile(File file, Visit visit) {
+        Multimap<String, String> elements = visit.getParametersMap();
         OutputStream outputStream;
         XMLStreamWriter out = null;
-        try
-        {
+        try {
             outputStream = new FileOutputStream(file);
             System.out.println("exportFile");
 
@@ -54,10 +51,8 @@ public class Storage implements PropertyNames
             out.writeStartDocument();
 
             out.writeStartElement("parameters");
-            for (String key : elements.keySet())
-            {
-                for (String value : elements.get(key))
-                {
+            for (String key : elements.keySet()) {
+                for (String value : elements.get(key)) {
                     out.writeStartElement(key);
                     out.writeCharacters(value);
                     out.writeEndElement();
@@ -71,30 +66,23 @@ public class Storage implements PropertyNames
             out.close();
             outputStream.close();
 
-        }
-        catch (Exception ex)
-        {
+        } catch (Exception ex) {
             Logger.getLogger(Storage.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
 
-    public Visit importFile(File file)
-    {
+    public Visit importFile(File file) {
         Visit visit = new Visit();
 
-        try
-        {
+        try {
             SAXParserFactory factory = SAXParserFactory.newInstance();
             SAXParser parser = factory.newSAXParser();
             SAXImportHandler handler = new SAXImportHandler(visit);
             parser.parse(file, handler);
-        }
-        catch (ParserConfigurationException e)
-        {
+        } catch (ParserConfigurationException e) {
             e.printStackTrace();
-        } catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -103,11 +91,9 @@ public class Storage implements PropertyNames
 
     }
 
-    public boolean savePDF(File file, Visit visit)
-    {
+    public boolean savePDF(File file, Visit visit) {
         Document document = new Document(PageSize.A4);
-        try
-        {
+        try {
             BaseFont times = BaseFont.createFont(pdfFont, encoding, BaseFont.EMBEDDED);
             Font font = new Font(times);
             font.setSize(fontSize);
@@ -122,7 +108,7 @@ public class Storage implements PropertyNames
             mainPart.setFont(font);
             mainPart.setAlignment(Element.ALIGN_LEFT);
 
-               Chunk date = new Chunk(DATE + SPACE + visit.getStringDate() + "   ");
+            Chunk date = new Chunk(DATE + SPACE + visit.getStringDate() + "   ");
 //            Chunk date = new Chunk(DATE + SPACE + visit.getDate().toString() + "   ");
             Chunk name = new Chunk(NAME + SPACE + visit.getName());
             Phrase dateAndName = new Phrase();
@@ -265,12 +251,9 @@ public class Storage implements PropertyNames
 
             Phrase pReflexesLabel = new Phrase(P_REFLEXES + SPACE);
             Phrase pReflexesVal;
-            if (visit.getpReflexes().equals(NO))
-            {
+            if (visit.getpReflexes().equals(NO)) {
                 pReflexesVal = new Phrase(visit.getpReflexes().toString());
-            }
-            else
-            {
+            } else {
                 pReflexesVal = new Phrase(HAND + SPACE + visit.getpReflexesHand().toString() + SPACE + LEG + SPACE + visit.getpReflexesLeg().toString());
             }
 
@@ -292,30 +275,33 @@ public class Storage implements PropertyNames
 
             log.info("Print gait to PDF");
 
-            Paragraph gaite = new Paragraph();
-            gaite.setFont(font);
+            Paragraph gaitAndMotion = new Paragraph();
+            gaitAndMotion.setFont(font);
 
             Phrase gaiteLabel = new Phrase(GAIT + SPACE);
             Phrase gaiteVal;
             gaiteVal = new Phrase(visit.getGait());
-            gaite.add(gaiteLabel);
-            gaite.add(gaiteVal);
+            gaitAndMotion.add(gaiteLabel);
+            gaitAndMotion.add(gaiteVal);
+            gaitAndMotion.add(SPACE);
 
-            document.add(gaite);
 
             log.info("Print motion to PDF");
-            Paragraph motion = new Paragraph();
-            motion.setFont(font);
+//            Paragraph motion = new Paragraph();
+//            motion.setFont(font);
 
             Phrase motionTypeValue = new Phrase(visit.getMotionType() + SPACE);
             Phrase motionLabel = new Phrase(MOTION + SPACE);
             Phrase motionVal;
             motionVal = new Phrase(visit.getMotion().toString());
-            motion.add(motionTypeValue);
-            motion.add(motionLabel);
-            motion.add(motionVal);
 
-            document.add(motion);
+            gaitAndMotion.add(motionTypeValue);
+            gaitAndMotion.add(motionLabel);
+            gaitAndMotion.add(motionVal);
+
+//            document.add(motion);
+
+            document.add(gaitAndMotion);
 
             log.info("Print muscle to PDF");
             Paragraph muscle = new Paragraph();
@@ -339,8 +325,7 @@ public class Storage implements PropertyNames
             coordination.add(coordinationLabel);
             coordination.add(coordinationVal);
 
-            if(!visit.getCoordination().equals(NORM))
-            {
+            if (!visit.getCoordination().equals(NORM)) {
                 Phrase coordinationRombergLabel = new Phrase(ROMBERG_MANEUVER + SPACE);
                 Phrase coordinationRombergVal = new Phrase(visit.getRomberg().toString() + SPACE);
 
@@ -355,10 +340,6 @@ public class Storage implements PropertyNames
 
                 coordination.add(coordinationTestVal);
             }
-
-
-
-
 
 
             document.add(coordination);
@@ -423,9 +404,7 @@ public class Storage implements PropertyNames
             document.add(therapy);
 
             document.close();
-        }
-        catch (Exception ex)
-        {
+        } catch (Exception ex) {
             Logger.getLogger(Storage.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }

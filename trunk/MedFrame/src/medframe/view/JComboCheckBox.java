@@ -19,8 +19,7 @@ import javax.swing.*;
 /**
  * @author Julia
  */
-public class JComboCheckBox extends JComboBox
-{
+public class JComboCheckBox extends JComboBox {
     private JCheckBox[] items;
 
     public JComboCheckBox() {
@@ -45,19 +44,16 @@ public class JComboCheckBox extends JComboBox
 
     private void addStuff() {
         setRenderer(new ComboBoxRenderer());
-        addActionListener(new ActionListener()
-        {
+        addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ae) {
                 itemSelected();
             }
         });
 
-        addItemListener(new ItemListener()
-        {
+        addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
-                SwingUtilities.invokeLater(new Runnable()
-                {
+                SwingUtilities.invokeLater(new Runnable() {
                     @Override
                     public void run() {
                         showPopup();
@@ -117,8 +113,7 @@ public class JComboCheckBox extends JComboBox
         }
     }
 
-    class ComboBoxRenderer implements ListCellRenderer
-    {
+    class ComboBoxRenderer implements ListCellRenderer {
         private JLabel defaultLabel;
 
         public ComboBoxRenderer() {
