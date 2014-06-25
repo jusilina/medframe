@@ -51,7 +51,7 @@ public class Visit
     private List pReflexesLeg = new ArrayList();
 
     private List<String> aReflexes = new ArrayList<String>();
-    private String gaite;
+    private String gait;
     private List<String> motion = new ArrayList<String>();
     private String motionType;
     private List<String> muscle = new ArrayList<String>();
@@ -210,14 +210,14 @@ public class Visit
         this.aReflexes = aReflexes;
     }
 
-    public String getGaite()
+    public String getGait()
     {
-        return gaite;
+        return gait;
     }
 
-    public void setGaite(String gaite)
+    public void setGait(String gait)
     {
-        this.gaite = gaite;
+        this.gait = gait;
     }
 
     public String getCoordination()

@@ -185,31 +185,31 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames {
 //    dreamPanel.revalidate();
 //    dreamPanel.repaint();
         //  dreamComboBox.add(this)
-        createForm.addMouseListener(new MouseListener() {
-
+        clearForm.addMenuListener(new MenuListener() {
             @Override
-            public void mouseClicked(MouseEvent e) {
-                //      createPanel.setVisible(true);
+            public void menuSelected(MenuEvent e) {
+                System.out.println("menuSelected");
+                clearForm();
+                new Timer(200, new ActionListener() {
+
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        clearForm.setSelected(false);
+                        ((Timer) e.getSource()).stop();
+                    }
+                }).start();
             }
 
             @Override
-            public void mousePressed(MouseEvent e) {
-                // throw new UnsupportedOperationException("Not supported yet.");
+            public void menuDeselected(MenuEvent e) {
+                System.out.println("menuDeselected");
+
             }
 
             @Override
-            public void mouseReleased(MouseEvent e) {
-                //   throw new UnsupportedOperationException("Not supported yet.");
-            }
+            public void menuCanceled(MenuEvent e) {
+                System.out.println("menuCanceled");
 
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                //   throw new UnsupportedOperationException("Not supported yet.");
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-                //   throw new UnsupportedOperationException("Not supported yet.");
             }
         });
 
@@ -259,7 +259,7 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames {
             emotionMainBox.setSelectedIndex(0);
         } else {
             emotionMainBox.setSelectedIndex(1);
-            emotionViolationBox.setSelectedObjects(visit.getEmotion());
+            ((JComboCheckBox) emotionViolationBox).setSelectedObjects(visit.getEmotion());
         }
 
         log.info("Import Dreams");
@@ -269,11 +269,11 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames {
             dreamComboBox.setSelectedIndex(1);
             List dreams = visit.getDream();
             dreams.remove(0);
-            dreamDisbalanceBox.setSelectedObjects(dreams);
+            ((JComboCheckBox) dreamDisbalanceBox).setSelectedObjects(dreams);
         }
 
         log.info("Import cranicalNerve");
-        cranicalNerveBox.setSelectedObjects(visit.getCranicalNerve());
+        ((JComboCheckBox) cranicalNerveBox).setSelectedObjects(visit.getCranicalNerve());
 
         log.info("Import Sensitivity");
         if (visit.getSensitivity().get(0).equals(NORM)) {
@@ -282,7 +282,7 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames {
             sensitivityMainBox.setSelectedIndex(1);
             List sensitivities = visit.getSensitivity();
             sensitivities.remove(0);
-            sensitivityDisbalanceBox.setSelectedObjects(sensitivities);
+            ((JComboCheckBox) sensitivityDisbalanceBox).setSelectedObjects(sensitivities);
         }
 
         log.info("Import NervousTension");
@@ -292,19 +292,19 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames {
         } else {
             nervousTensionMainBox.setSelectedIndex(1);
             nervousTensions.remove(0);
-            nervousTensionBox.setSelectedObjects(nervousTensions);
+            ((JComboCheckBox) nervousTensionBox).setSelectedObjects(nervousTensions);
         }
 
         upperDSLimbsBox.setSelectedItem(visit.getUpperDSLimb());
         lowerDSLimbsBox.setSelectedItem(visit.getLowerDSLimb());
 
 //        List pReflexes = visit.getpReflexes();
-        if ( visit.getpReflexes().equals(NO)) {
+        if (visit.getpReflexes().equals(NO)) {
             pReflexesMainBox.setSelectedIndex(0);
         } else {
             pReflexesMainBox.setSelectedIndex(1);
-            pReflexesLegBox.setSelectedObjects(visit.getpReflexesLeg());
-            pReflexesHandBox.setSelectedObjects(visit.getpReflexesHand());
+            ((JComboCheckBox) pReflexesLegBox).setSelectedObjects(visit.getpReflexesLeg());
+            ((JComboCheckBox) pReflexesHandBox).setSelectedObjects(visit.getpReflexesHand());
         }
 
         List aReflexes = visit.getaReflexes();
@@ -312,30 +312,32 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames {
             aReflexesMainBox.setSelectedIndex(0);
         } else {
             aReflexesMainBox.setSelectedIndex(1);
-            aReflexesBox.setSelectedObjects(aReflexes);
+            ((JComboCheckBox) aReflexesBox).setSelectedObjects(aReflexes);
         }
+
+        gaitBox.setSelectedItem(visit.getGait());
 
         motionTypeBox.setSelectedItem(visit.getMotionType());
 
-        motionBox.setSelectedObjects(visit.getMotion());
-        muscleBox.setSelectedObjects(visit.getMuscle());
+        ((JComboCheckBox) motionBox).setSelectedObjects(visit.getMotion());
+        ((JComboCheckBox) muscleBox).setSelectedObjects(visit.getMuscle());
 
         coordinationMainBox.setSelectedItem(visit.getCoordination());
-        rombergBox.setSelectedObjects(visit.getRomberg());
+        ((JComboCheckBox) rombergBox).setSelectedObjects(visit.getRomberg());
 
         coordinationTestBoxDS.setSelectedItem(visit.getCoordinationTestDS());
         coordinationTestBoxSN.setSelectedItem(visit.getCoordinationTestSN());
 
-        coordinationTestBox.setSelectedObjects(visit.getCoordinationTest());
+        ((JComboCheckBox) coordinationTestBox).setSelectedObjects(visit.getCoordinationTest());
 
-        nervousSystemBox.setSelectedObjects(visit.getNervousSystem());
+        ((JComboCheckBox) nervousSystemBox).setSelectedObjects(visit.getNervousSystem());
         pelvicOrganField.setText(visit.getPelvicOrgan());
         diagnosisArea.setText(visit.getDiagnosis());
 
-        recommendationBox.setSelectedObjects(visit.getRecommendations());
+        ((JComboCheckBox) recommendationBox).setSelectedObjects(visit.getRecommendations());
         recommendationText.setText(visit.getRecommendationsAdd());
 
-        therapyBox.setSelectedObjects(visit.getTherapy());
+        ((JComboCheckBox) therapyBox).setSelectedObjects(visit.getTherapy());
 
 
     }
@@ -429,6 +431,8 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames {
             visit.setaReflexes(new ArrayList<>(Arrays.asList(aReflexesList)));
         }
 
+        visit.setGait(gaitBox.getSelectedItem().toString());
+
         visit.setMotionType(motionTypeBox.getSelectedItem().toString());
         visit.setMotion(new ArrayList<>(Arrays.asList(motionBox.getSelectedObjects())));
 
@@ -464,8 +468,7 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames {
     }
 
 
-    private Visit populateDefaultVisit()
-    {
+    private Visit populateDefaultVisit() {
         visit = new Visit();
         visit.setDate(new Date());
 //        visit.setComplaine(complaineArea.getText());
@@ -504,7 +507,7 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames {
 //
 //        visit.setNervousSystem(new ArrayList<>(Arrays.asList(nervousSystemBox.getSelectedObjects())));
 
-            visit.setPelvicOrgan(N);
+        visit.setPelvicOrgan(N);
 //        visit.setDiagnosis(diagnosisArea.getText());
 //
 //        visit.setRecommendations(new ArrayList<>(Arrays.asList(recommendationBox.getSelectedObjects())));
@@ -536,6 +539,10 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames {
         complaintsTextPanel = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         complaineArea = new javax.swing.JTextArea();
+        jobLabel = new javax.swing.JLabel();
+        professionField = new javax.swing.JTextField();
+        stressComboBox = new javax.swing.JComboBox();
+        jobComboBox = new javax.swing.JComboBox();
         jScrollPane2 = new javax.swing.JScrollPane();
         anamnesisArea = new javax.swing.JTextArea();
         epiLabel = new javax.swing.JLabel();
@@ -551,14 +558,12 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames {
         emotionViolationBox = new JComboCheckBox(emotionBox);
         emotionMainBox = new javax.swing.JComboBox();
         epiText = new javax.swing.JTextField();
-        professionField = new javax.swing.JTextField();
-        stressComboBox = new javax.swing.JComboBox();
-        jobComboBox = new javax.swing.JComboBox();
-        jobLabel = new javax.swing.JLabel();
         anamnesisLabel = new javax.swing.JLabel();
         emotionLabel = new javax.swing.JLabel();
         complaineLabel = new javax.swing.JLabel();
-
+        //JCheckBox box1 = new JCheckBox("1");
+        //        JCheckBox box2 = new JCheckBox("2");
+        //        JCheckBox box3 = new JCheckBox("3");
         int size = props.getDisturbed_sleepList().size();
         JCheckBox[] box = new JCheckBox[size];
 
@@ -575,6 +580,7 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames {
 
         for (int i = 0; i < nervousSystemSize; i++) {
             String name = nervousSystemList.get(i);
+            //System.out.println(name);
             nervousSystemBoxSource[i] = new JCheckBox(name);
         }
         nervousSystemBox = new JComboCheckBox(nervousSystemBoxSource);
@@ -694,7 +700,7 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames {
             aReflexesSource[i] = new JCheckBox(name);
         }
         aReflexesBox = new JComboCheckBox(aReflexesSource);
-        javax.swing.JComboBox gaitBox = new javax.swing.JComboBox();
+        gaitBox = new javax.swing.JComboBox();
         motionTypeBox = new javax.swing.JComboBox();
         motionLabel = new javax.swing.JLabel();
         muscleLabel = new javax.swing.JLabel();
@@ -740,10 +746,8 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames {
         therapyBox = new JComboCheckBox(therapyBoxSource);
         jMenuBar1 = new javax.swing.JMenuBar();
         categories = new javax.swing.JMenu();
-        createForm = new javax.swing.JMenu();
-        editProperties = new javax.swing.JMenu();
+        clearForm = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
-        clearMenu = new javax.swing.JMenu();
         exportItem = new javax.swing.JMenuItem();
         importItem = new javax.swing.JMenuItem();
         javax.swing.JMenuItem savePDFItem = new javax.swing.JMenuItem();
@@ -767,19 +771,47 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames {
         complaineArea.setRows(5);
         jScrollPane1.setViewportView(complaineArea);
 
+        jobLabel.setText(PropertyNames.SOCIAL_ANAMNESIS);
+
+        professionField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                professionFieldActionPerformed(evt);
+            }
+        });
+
+        stressComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[]{PropertyNames.EXERCISE_STRESS, PropertyNames.STATIC_LOAD}));
+
+        jobComboBox.setModel(new DefaultComboBoxModel(new String[]{PropertyNames.WORKING, PropertyNames.NOT_WORKING, PropertyNames.PENSIONER, PropertyNames.CRIPPLE}));
+
         javax.swing.GroupLayout complaintsTextPanelLayout = new javax.swing.GroupLayout(complaintsTextPanel);
         complaintsTextPanel.setLayout(complaintsTextPanelLayout);
         complaintsTextPanelLayout.setHorizontalGroup(
                 complaintsTextPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(complaintsTextPanelLayout.createSequentialGroup()
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 664, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 39, Short.MAX_VALUE))
+                                .addGroup(complaintsTextPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 664, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGroup(complaintsTextPanelLayout.createSequentialGroup()
+                                                .addComponent(jobLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(jobComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(professionField, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(stressComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(0, 1, Short.MAX_VALUE))
         );
         complaintsTextPanelLayout.setVerticalGroup(
                 complaintsTextPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(complaintsTextPanelLayout.createSequentialGroup()
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 8, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(complaintsTextPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(jobLabel)
+                                        .addGroup(complaintsTextPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                                .addComponent(jobComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(professionField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(stressComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         anamnesisArea.setColumns(20);
@@ -794,19 +826,7 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames {
 
         emotionMainBox.setModel(new javax.swing.DefaultComboBoxModel(new String[]{N, DISBALANCE}));
 
-
-
-        professionField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                professionFieldActionPerformed(evt);
-            }
-        });
-
-        stressComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[]{PropertyNames.EXERCISE_STRESS, PropertyNames.STATIC_LOAD}));
-
-        jobComboBox.setModel(new DefaultComboBoxModel(new String[]{PropertyNames.WORKING, PropertyNames.NOT_WORKING, PropertyNames.PENSIONER, PropertyNames.CRIPPLE}));
-
-        jobLabel.setText(PropertyNames.SOCIAL_ANAMNESIS);
+        epiText.setText(NEG);
 
         anamnesisLabel.setText(PropertyNames.ANAMNESIS);
         anamnesisLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -824,7 +844,7 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames {
 
         gaitLabel.setText(GAIT);
 
-
+        pelvicOrganField.setText(N);
 
         reflexesLabel.setText(REFLEXES);
 
@@ -1100,19 +1120,10 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames {
                                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                                                 .addComponent(emotionViolationBox, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE))
                                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                                                                         .addComponent(anamnesisLabel)
-                                                                        .addGap(24, 24, 24)
+                                                                        .addGap(18, 18, 18)
                                                                         .addComponent(jScrollPane2))
-                                                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                                                        .addComponent(jobLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                                        .addComponent(jobComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                                        .addComponent(professionField, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                                        .addComponent(stressComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                        .addGap(115, 115, 115))
                                                                 .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                                                                         .addComponent(consciousLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1228,16 +1239,10 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames {
                                 .addGap(12, 12, 12)
                                 .addComponent(complaintsTextPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(jobLabel)
-                                        .addComponent(jobComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(professionField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(stressComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(anamnesisLabel)
                                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGap(37, 37, 37)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                         .addComponent(consciousLabel)
                                         .addComponent(consciousBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1351,12 +1356,16 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames {
         categories.setText(CATEGORY);
         jMenuBar1.add(categories);
 
-//        createForm.setText("Create Form");
-//        jMenuBar1.add(createForm);
-//        createForm.getAccessibleContext().setAccessibleName("Create form");
-
-//        editProperties.setText("Edit");
-//        jMenuBar1.add(editProperties);
+        clearForm.setText("Clear Form");
+//        clearForm.addActionListener(new java.awt.event.ActionListener()
+//        {
+//            public void actionPerformed(java.awt.event.ActionEvent evt)
+//            {
+//                clearFormActionPerformed(evt);
+//            }
+//        });
+        jMenuBar1.add(clearForm);
+//        clearForm.getAccessibleContext().setAccessibleName("Create form");
 
         jMenu2.setText("Import/Export");
 
@@ -1386,40 +1395,6 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames {
 
         jMenuBar1.add(jMenu2);
 
-        clearMenu.setText("Очистить форму");
-        clearMenu.addMenuListener(new MenuListener()
-        {
-            @Override
-            public void menuSelected(MenuEvent e)
-            {
-                System.out.println("menuSelected");
-                clearForm();
-                new Timer(200, new ActionListener() {
-
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        clearMenu.setSelected(false);
-                        ((Timer)e.getSource()).stop();
-                    }
-                }).start();
-            }
-
-            @Override
-            public void menuDeselected(MenuEvent e)
-            {
-                System.out.println("menuDeselected");
-
-            }
-
-            @Override
-            public void menuCanceled(MenuEvent e)
-            {
-                System.out.println("menuCanceled");
-
-            }
-        });
-        jMenuBar1.add(clearMenu);
-
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -1430,7 +1405,7 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames {
         );
         layout.setVerticalGroup(
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 679, Short.MAX_VALUE)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 679, Short.MAX_VALUE)
         );
 
         pack();
@@ -1464,7 +1439,7 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames {
                 "XML File", "xml");
         exportFile.setFileFilter(filter);
         if (exportFile.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
-            File file = new File(exportFile.getSelectedFile()+".xml");
+            File file = new File(exportFile.getSelectedFile() + ".xml");
             System.out.println(file.getPath());
             populateVisit();
             storage.exportFile(file, visit);
@@ -1532,7 +1507,7 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames {
         pdfFile.setFileFilter(filter);
         if (pdfFile.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
             populateVisit();
-            File file = new File(pdfFile.getSelectedFile()+".pdf");
+            File file = new File(pdfFile.getSelectedFile() + ".pdf");
 
             if (storage.savePDF(file, visit)) {
 
@@ -1547,7 +1522,7 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames {
         }
     }
 
-    private void clearForm(){
+    private void clearForm() {
         log.info("Clear Form");
         populateDefaultVisit();
         updateFormFromVisit();
@@ -1563,15 +1538,21 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames {
         // TODO add your handling code here:
     }//GEN-LAST:event_recommendationTextActionPerformed
 
+    private void clearFormActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_clearFormActionPerformed
+    {//GEN-HEADEREND:event_clearFormActionPerformed
+//        clearForm();
+    }//GEN-LAST:event_clearFormActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private JComboCheckBox aReflexesBox;
+    private javax.swing.JComboBox aReflexesBox;
     private javax.swing.JLabel aReflexesLabelLabel;
     private javax.swing.JComboBox aReflexesMainBox;
     private javax.swing.JButton addDrugButton;
     private javax.swing.JTextArea anamnesisArea;
     private javax.swing.JLabel anamnesisLabel;
     private javax.swing.JMenu categories;
+    private javax.swing.JMenu clearForm;
     private javax.swing.JTextArea complaineArea;
     private javax.swing.JLabel complaineLabel;
     private javax.swing.JPanel complaintsTextPanel;
@@ -1581,38 +1562,36 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames {
     private javax.swing.JLabel coordinationLabel;
     private javax.swing.JComboBox coordinationMainBox;
     private javax.swing.JPanel coordinationPanel;
-    private JComboCheckBox coordinationTestBox;
+    private javax.swing.JComboBox coordinationTestBox;
     private javax.swing.JComboBox coordinationTestBoxDS;
     private javax.swing.JComboBox coordinationTestBoxSN;
     private javax.swing.JLabel coordinationTestD;
     private javax.swing.JLabel coordinationTestLabel;
     private javax.swing.JLabel coordinationTestN;
     private javax.swing.JLabel coordinationTestS;
-    private JComboCheckBox cranicalNerveBox;
+    private javax.swing.JComboBox cranicalNerveBox;
     private javax.swing.JLabel cranicalNerveLabel;
-    private javax.swing.JMenu createForm;
     private javax.swing.JLabel dLabel;
     private javax.swing.JLabel dLabel1;
     private com.toedter.calendar.JDateChooser dateChooser;
     private javax.swing.JTextArea diagnosisArea;
     private javax.swing.JLabel diagnosisLabel;
     private javax.swing.JComboBox dreamComboBox;
-    private JComboCheckBox dreamDisbalanceBox;
+    private javax.swing.JComboBox dreamDisbalanceBox;
     private javax.swing.JLabel dreamLabel;
     private javax.swing.JPanel dreamPanel;
     private javax.swing.JPanel drugsPanel;
-    private javax.swing.JMenu editProperties;
     private javax.swing.JLabel emotionLabel;
     private javax.swing.JComboBox emotionMainBox;
-    private JComboCheckBox emotionViolationBox;
+    private javax.swing.JComboBox emotionViolationBox;
     private javax.swing.JLabel epiLabel;
     private javax.swing.JTextField epiText;
     private javax.swing.JMenuItem exportItem;
+    private javax.swing.JComboBox gaitBox;
     private javax.swing.JLabel gaitLabel;
     private javax.swing.JMenuItem importItem;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu clearMenu;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -1625,41 +1604,41 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames {
     private javax.swing.JLabel limbsLabel;
     private javax.swing.JComboBox lowerDSLimbsBox;
     private javax.swing.JLabel lowerLimbsLabel;
-    private JComboCheckBox motionBox;
+    private javax.swing.JComboBox motionBox;
     private javax.swing.JLabel motionLabel;
     private javax.swing.JComboBox motionTypeBox;
-    private JComboCheckBox muscleBox;
+    private javax.swing.JComboBox muscleBox;
     private javax.swing.JLabel muscleLabel;
     private javax.swing.JTextField nameField;
     private javax.swing.JLabel nameLabel;
     private javax.swing.JLabel nervousLabel;
-    private JComboCheckBox nervousSystemBox;
-    private JComboCheckBox nervousTensionBox;
+    private javax.swing.JComboBox nervousSystemBox;
+    private javax.swing.JComboBox nervousTensionBox;
     private javax.swing.JLabel nervousTensionLabel;
     private javax.swing.JComboBox nervousTensionMainBox;
-    private JComboCheckBox pReflexesHandBox;
+    private javax.swing.JComboBox pReflexesHandBox;
     private javax.swing.JLabel pReflexesHandLabel;
     private javax.swing.JLabel pReflexesLabelLabel;
-    private JComboCheckBox pReflexesLegBox;
+    private javax.swing.JComboBox pReflexesLegBox;
     private javax.swing.JLabel pReflexesLegLabel;
     private javax.swing.JComboBox pReflexesMainBox;
     private javax.swing.JPanel pReflexesPanel;
     private javax.swing.JTextField pelvicOrganField;
     private javax.swing.JLabel pelvicOrganLabel;
     private javax.swing.JTextField professionField;
-    private JComboCheckBox recommendationBox;
+    private javax.swing.JComboBox recommendationBox;
     private javax.swing.JLabel recommendationLabel;
     private javax.swing.JTextField recommendationText;
     private javax.swing.JLabel reflexesLabel;
-    private JComboCheckBox rombergBox;
+    private javax.swing.JComboBox rombergBox;
     private javax.swing.JLabel rombergLabel;
     private javax.swing.JLabel sLabel;
     private javax.swing.JLabel sLabel1;
-    private JComboCheckBox sensitivityDisbalanceBox;
+    private javax.swing.JComboBox sensitivityDisbalanceBox;
     private javax.swing.JLabel sensitivityLabel;
     private javax.swing.JComboBox sensitivityMainBox;
     private javax.swing.JComboBox stressComboBox;
-    private JComboCheckBox therapyBox;
+    private javax.swing.JComboBox therapyBox;
     private javax.swing.JLabel therapyLabel;
     private javax.swing.JLabel titleLabel;
     private javax.swing.JComboBox upperDSLimbsBox;
