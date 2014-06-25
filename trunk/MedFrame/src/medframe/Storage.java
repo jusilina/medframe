@@ -148,14 +148,14 @@ public class Storage implements PropertyNames
             socialAnamnesis.setFont(font);
             Phrase job = new Phrase(SOCIAL_ANAMNESIS + SPACE);
             socialAnamnesis.add(job);
-            if (visit.getSocialAnamnesis().equals(PENSIONER)) {
-                Phrase jobValue = new Phrase(visit.getSocialAnamnesis() + SPACE);
-                socialAnamnesis.add(jobValue);
-            } else {
+            if (visit.getSocialAnamnesis().equals(WORKING)) {
                 Phrase jobValue = new Phrase(visit.getSocialAnamnesis() + SPACE + visit.getProfission() + SPACE);
                 Phrase stress = new Phrase(visit.getStress() + SPACE);
                 socialAnamnesis.add(jobValue);
                 socialAnamnesis.add(stress);
+            } else {
+                Phrase jobValue = new Phrase(visit.getSocialAnamnesis() + SPACE);
+                socialAnamnesis.add(jobValue);
             }
 
             document.add(socialAnamnesis);
@@ -297,7 +297,7 @@ public class Storage implements PropertyNames
 
             Phrase gaiteLabel = new Phrase(GAIT + SPACE);
             Phrase gaiteVal;
-            gaiteVal = new Phrase(visit.getGaite());
+            gaiteVal = new Phrase(visit.getGait());
             gaite.add(gaiteLabel);
             gaite.add(gaiteVal);
 
@@ -334,21 +334,32 @@ public class Storage implements PropertyNames
             coordination.setFont(font);
 
             Phrase coordinationLabel = new Phrase(COORDINATION + SPACE);
-            Phrase coordinationTestLabel = new Phrase(COORDINATION_TESTS + SPACE);
-            Phrase coordinationRombergLabel = new Phrase(ROMBERG_MANEUVER + SPACE);
             Phrase coordinationVal = new Phrase(visit.getCoordination() + SPACE);
-            Phrase coordinationRombergVal = new Phrase(visit.getRomberg().toString() + SPACE);
-
-            String coordinationTestDSN = "D" + visit.getCoordinationTestDS() + "S" + visit.getCoordinationTestSN() + "N" + SPACE;
-            Phrase coordinationTestVal = new Phrase(coordinationTestDSN + visit.getCoordinationTest());
 
             coordination.add(coordinationLabel);
             coordination.add(coordinationVal);
-            coordination.add(coordinationRombergLabel);
-            coordination.add(coordinationRombergVal);
-            coordination.add(coordinationTestLabel);
 
-            coordination.add(coordinationTestVal);
+            if(!visit.getCoordination().equals(NORM))
+            {
+                Phrase coordinationRombergLabel = new Phrase(ROMBERG_MANEUVER + SPACE);
+                Phrase coordinationRombergVal = new Phrase(visit.getRomberg().toString() + SPACE);
+
+                Phrase coordinationTestLabel = new Phrase(COORDINATION_TESTS + SPACE);
+                String coordinationTestDSN = "D" + visit.getCoordinationTestDS() + "S" + visit.getCoordinationTestSN() + "N" + SPACE;
+                Phrase coordinationTestVal = new Phrase(coordinationTestDSN + visit.getCoordinationTest());
+
+
+                coordination.add(coordinationRombergLabel);
+                coordination.add(coordinationRombergVal);
+                coordination.add(coordinationTestLabel);
+
+                coordination.add(coordinationTestVal);
+            }
+
+
+
+
+
 
             document.add(coordination);
 

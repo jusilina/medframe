@@ -11,18 +11,16 @@
             </Property>
           </Properties>
         </Menu>
-        <Menu class="javax.swing.JMenu" name="createForm">
+        <Menu class="javax.swing.JMenu" name="clearForm">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Create Form"/>
+            <Property name="text" type="java.lang.String" value="Clear Form"/>
           </Properties>
           <AccessibilityProperties>
             <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="Create form"/>
           </AccessibilityProperties>
-        </Menu>
-        <Menu class="javax.swing.JMenu" name="editProperties">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Edit"/>
-          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="clearFormActionPerformed"/>
+          </Events>
         </Menu>
         <Menu class="javax.swing.JMenu" name="jMenu2">
           <Properties>
@@ -93,7 +91,7 @@
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="jScrollPane3" alignment="0" pref="679" max="32767" attributes="0"/>
+          <Component id="jScrollPane3" alignment="1" pref="679" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
   </Layout>
@@ -173,20 +171,10 @@
                                       <Component id="emotionViolationBox" min="-2" pref="179" max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                                      <Group type="102" alignment="1" attributes="0">
+                                      <Group type="102" alignment="0" attributes="0">
                                           <Component id="anamnesisLabel" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
+                                          <EmptySpace type="separate" max="-2" attributes="0"/>
                                           <Component id="jScrollPane2" max="32767" attributes="0"/>
-                                      </Group>
-                                      <Group type="102" alignment="1" attributes="0">
-                                          <Component id="jobLabel" min="-2" pref="80" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="jobComboBox" min="-2" pref="117" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="professionField" min="-2" pref="188" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="stressComboBox" min="-2" pref="150" max="-2" attributes="0"/>
-                                          <EmptySpace min="-2" pref="115" max="-2" attributes="0"/>
                                       </Group>
                                       <Group type="102" alignment="0" attributes="0">
                                           <Component id="consciousLabel" min="-2" pref="80" max="-2" attributes="0"/>
@@ -332,18 +320,11 @@
                       <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                       <Component id="complaintsTextPanel" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jobLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jobComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="professionField" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="stressComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="anamnesisLabel" min="-2" max="-2" attributes="0"/>
                           <Component id="jScrollPane2" min="-2" pref="26" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="consciousLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="consciousBox" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -519,9 +500,20 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <Component id="jScrollPane1" min="-2" pref="664" max="-2" attributes="0"/>
-                          <EmptySpace min="0" pref="39" max="32767" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="jScrollPane1" min="-2" pref="664" max="-2" attributes="0"/>
+                              <Group type="102" attributes="0">
+                                  <Component id="jobLabel" min="-2" pref="80" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="jobComboBox" min="-2" pref="117" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="professionField" min="-2" pref="188" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="stressComboBox" min="-2" pref="150" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <EmptySpace min="0" pref="1" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -529,7 +521,16 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="jScrollPane1" min="-2" pref="58" max="-2" attributes="0"/>
-                          <EmptySpace min="0" pref="8" max="32767" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="jobLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" alignment="3" groupAlignment="3" attributes="0">
+                                  <Component id="jobComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="professionField" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="stressComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -553,6 +554,32 @@
                     </Component>
                   </SubComponents>
                 </Container>
+                <Component class="javax.swing.JLabel" name="jobLabel">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                      <Connection code="PropertyNames.SOCIAL_ANAMNESIS" type="code"/>
+                    </Property>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JTextField" name="professionField">
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="professionFieldActionPerformed"/>
+                  </Events>
+                </Component>
+                <Component class="javax.swing.JComboBox" name="stressComboBox">
+                  <Properties>
+                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                      <Connection code="new javax.swing.DefaultComboBoxModel(new String[] {PropertyNames.EXERCISE_STRESS, PropertyNames.STATIC_LOAD})" type="code"/>
+                    </Property>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JComboBox" name="jobComboBox">
+                  <Properties>
+                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                      <Connection code="new DefaultComboBoxModel(new String[] { PropertyNames.WORKING, PropertyNames.NOT_WORKING, PropertyNames.PENSIONER, PropertyNames.CRIPPLE })" type="code"/>
+                    </Property>
+                  </Properties>
+                </Component>
               </SubComponents>
             </Container>
             <Container class="javax.swing.JScrollPane" name="jScrollPane2">
@@ -586,7 +613,7 @@
             </Component>
             <Component class="javax.swing.JTextField" name="consciousText">
             </Component>
-            <Component class="JComboCheckBox" name="emotionViolationBox">
+            <Component class="javax.swing.JComboBox" name="emotionViolationBox">
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new JComboCheckBox(emotionBox)"/>
                 <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="int enotionBoxSize = props.getEmotionViolations().size();&#xa;JCheckBox[] emotionBox = new JCheckBox[enotionBoxSize];&#xa;&#xa;for(int i=0; i&lt;enotionBoxSize; i++)&#xa;{&#xa;    String name = props.getEmotionViolations().get(i);&#xa;    emotionBox[i]= new JCheckBox(name);&#xa;}"/>
@@ -604,32 +631,6 @@
               <Properties>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                   <Connection code="NEG" type="code"/>
-                </Property>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JTextField" name="professionField">
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="professionFieldActionPerformed"/>
-              </Events>
-            </Component>
-            <Component class="javax.swing.JComboBox" name="stressComboBox">
-              <Properties>
-                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="new javax.swing.DefaultComboBoxModel(new String[] {PropertyNames.EXERCISE_STRESS, PropertyNames.STATIC_LOAD})" type="code"/>
-                </Property>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JComboBox" name="jobComboBox">
-              <Properties>
-                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="new DefaultComboBoxModel(new String[] { PropertyNames.WORKING, PropertyNames.NOT_WORKING, PropertyNames.PENSIONER, PropertyNames.CRIPPLE })" type="code"/>
-                </Property>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JLabel" name="jobLabel">
-              <Properties>
-                <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="PropertyNames.SOCIAL_ANAMNESIS" type="code"/>
                 </Property>
               </Properties>
             </Component>
@@ -660,7 +661,7 @@
                 </Property>
               </Properties>
             </Component>
-            <Component class="JComboCheckBox" name="dreamDisbalanceBox">
+            <Component class="javax.swing.JComboBox" name="dreamDisbalanceBox">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                   <StringArray count="0"/>
@@ -686,7 +687,7 @@
                 </Property>
               </Properties>
             </Component>
-            <Component class="JComboCheckBox" name="nervousSystemBox">
+            <Component class="javax.swing.JComboBox" name="nervousSystemBox">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                   <StringArray count="0"/>
@@ -760,7 +761,7 @@
                 </Property>
               </Properties>
             </Component>
-            <Component class="JComboCheckBox" name="cranicalNerveBox">
+            <Component class="javax.swing.JComboBox" name="cranicalNerveBox">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                   <StringArray count="0"/>
@@ -938,7 +939,7 @@
                     </Property>
                   </Properties>
                 </Component>
-                <Component class="JComboCheckBox" name="rombergBox">
+                <Component class="javax.swing.JComboBox" name="rombergBox">
                   <Properties>
                     <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                       <StringArray count="0"/>
@@ -994,7 +995,7 @@
                     <Property name="text" type="java.lang.String" value="N"/>
                   </Properties>
                 </Component>
-                <Component class="JComboCheckBox" name="coordinationTestBox">
+                <Component class="javax.swing.JComboBox" name="coordinationTestBox">
                   <Properties>
                     <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                       <StringArray count="0"/>
@@ -1014,7 +1015,7 @@
                 </Property>
               </Properties>
             </Component>
-            <Component class="JComboCheckBox" name="sensitivityDisbalanceBox">
+            <Component class="javax.swing.JComboBox" name="sensitivityDisbalanceBox">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                   <StringArray count="0"/>
@@ -1040,7 +1041,7 @@
                 </Property>
               </Properties>
             </Component>
-            <Component class="JComboCheckBox" name="nervousTensionBox">
+            <Component class="javax.swing.JComboBox" name="nervousTensionBox">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                   <StringArray count="0"/>
@@ -1172,7 +1173,7 @@
                     </Property>
                   </Properties>
                 </Component>
-                <Component class="JComboCheckBox" name="pReflexesHandBox">
+                <Component class="javax.swing.JComboBox" name="pReflexesHandBox">
                   <Properties>
                     <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                       <StringArray count="0"/>
@@ -1190,7 +1191,7 @@
                     </Property>
                   </Properties>
                 </Component>
-                <Component class="JComboCheckBox" name="pReflexesLegBox">
+                <Component class="javax.swing.JComboBox" name="pReflexesLegBox">
                   <Properties>
                     <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                       <StringArray count="0"/>
@@ -1203,7 +1204,7 @@
                 </Component>
               </SubComponents>
             </Container>
-            <Component class="jJComboCheckBox" name="aReflexesBox">
+            <Component class="javax.swing.JComboBox" name="aReflexesBox">
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="aReflexesBox.setVisible(false);"/>
                 <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new JComboCheckBox(aReflexesSource)"/>
@@ -1216,10 +1217,6 @@
                   <Connection code="new javax.swing.DefaultComboBoxModel(new String[] { N, ANTALGIC })" type="code"/>
                 </Property>
               </Properties>
-              <AuxValues>
-                <AuxValue name="JavaCodeGenerator_VariableLocal" type="java.lang.Boolean" value="true"/>
-                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="0"/>
-              </AuxValues>
             </Component>
             <Component class="javax.swing.JComboBox" name="motionTypeBox">
               <Properties>
@@ -1242,7 +1239,7 @@
                 </Property>
               </Properties>
             </Component>
-            <Component class="JComboCheckBox" name="muscleBox">
+            <Component class="javax.swing.JComboBox" name="muscleBox">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                   <StringArray count="0"/>
@@ -1256,7 +1253,7 @@
                 <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="List &lt;String&gt; muscleList = props.getMuscleToneList();&#xa;int muscleSize = muscleList.size();&#xa;JCheckBox[] muscleBoxSource = new JCheckBox[muscleSize];&#xa;&#xa;for(int i=0; i&lt;muscleSize; i++)&#xa;{&#xa;    String name = muscleList.get(i);&#xa;    //System.out.println(name);&#xa;    muscleBoxSource[i]= new JCheckBox(name);&#xa;}"/>
               </AuxValues>
             </Component>
-            <Component class="JComboCheckBox" name="motionBox">
+            <Component class="javax.swing.JComboBox" name="motionBox">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                   <StringArray count="0"/>
@@ -1282,7 +1279,7 @@
                 </Component>
               </SubComponents>
             </Container>
-            <Component class="JComboCheckBox" name="recommendationBox">
+            <Component class="javax.swing.JComboBox" name="recommendationBox">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                   <StringArray count="0"/>
@@ -1298,9 +1295,7 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="recommendationTextActionPerformed"/>
               </Events>
             </Component>
-            <Component class="JComboCheckBox" name="therapyBox">
-              <Properties>
-              </Properties>
+            <Component class="javax.swing.JComboBox" name="therapyBox">
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new JComboCheckBox(therapyBoxSource)"/>
                 <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="List &lt;String&gt; therapyList = props.getTherapy();&#xa;int therapySize = therapyList.size();&#xa;JCheckBox[] therapyBoxSource = new JCheckBox[therapySize];&#xa;&#xa;for(int i=0; i&lt;therapySize; i++)&#xa;{&#xa;    String name = therapyList.get(i);&#xa;    therapyBoxSource[i]= new JCheckBox(name);&#xa;}"/>

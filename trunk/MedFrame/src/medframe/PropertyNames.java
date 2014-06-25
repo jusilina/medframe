@@ -33,7 +33,7 @@ public interface PropertyNames
     static final String CONSCIOUS = "Сознание:";
     static final String CONSCIOUS_CLEAR = "ясное";
     static final String CONSCIOUS_OBNUBILATION="оглушенность";
-    static final String EPILEPTIC_SEIZURE="Эпи.приступ";
+
     static final String NEG = "отр";
     static final String EMOTION = "Эмоциональная сфера:";
     static final String WORKING = "работает";
@@ -46,9 +46,9 @@ public interface PropertyNames
     static final String AND = "и";
     static final String OR = "или";
     /**
-     * Эпи.приступы
+     * Эпи.приступ
      */
-    static final String ATTACKS = "Эпи.приступы";
+    static final String EPILEPTIC_SEIZURE="Эпи.приступ:";
 
     static final String DREAM = "Сон:";
     static final String NORM = "норма";
