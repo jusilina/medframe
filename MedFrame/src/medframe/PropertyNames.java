@@ -15,7 +15,7 @@ public interface PropertyNames {
     static final String COLON = ":";
     static final String TITLE = "Осмотр невролога (на дому)";
     static final String DATE = "Дата:";
-    static final String COMPLAINE = "Жалобы:";
+    static final String COMPLAINTS = "Жалобы:";
     static final String COMPLAINE_DESCR = "умеренный,интенсивный болевой синдром в";
     static final String DIFFICULTY = "затруднение движений в ШОП, ГОП, ПКО, в суставе";
     static final String NUMBNESS = ", онемение в";
@@ -66,7 +66,7 @@ public interface PropertyNames {
     static final String NAME = "ФИО:";
     static final String CRANIAL_NERVE = "ЧМН:";
     static final String SENSITIVITY = "Чувствительность:";
-    static final String REFLEXES = "Рефлексы";
+    static final String REFLEXES = "Рефлексы c";
     static final String P_REFLEXES = "Патологические рефлексы:";
     static final String A_REFLEXES = "Рефлексы орального автоматизма";
     static final String GAIT = "Двигательные функции походка:";
@@ -74,7 +74,7 @@ public interface PropertyNames {
     static final String ROMBERG_MANEUVER = "Поза Ромберга";
     static final String COORDINATION_TESTS = "координаторные пробы:";
     static final String NERVOUS_TENSION = "болевые симптомы натяжения нервных стволов:";
-    static final String LIMBS = "с конечностей";
+    static final String LIMBS = "конечностей";
     static final String UPPER = "верхних";
     static final String LOWER = "нижних";
 
@@ -96,5 +96,14 @@ public interface PropertyNames {
     static final String PASSIVE = "пассивные";
     static final String MUSCLE_TONE = "мышечный тонус:";
     static final String ANTALGIC = "анталгическая";
+    
+    static final String WORK_CAPACITY_LIST = "лист нетрудоспособности";
+    static final String APPEARANCE = "явка";
+     static final String FROM = "с";
+      static final String TO = "по";
+      static final String ABLE_TO_WORK = "трудоспособен";
+              static final String UNABLE_TO_WORK = "нетрудоспособен";
+
+    
 
 }
