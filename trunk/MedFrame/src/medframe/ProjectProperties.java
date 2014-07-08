@@ -35,6 +35,7 @@ public class ProjectProperties implements PropertyNames {
     private ArrayList<String> nervousSystemList;
     private ArrayList<String> rombergList;
     private ArrayList<String> sensitivityDisbalanceList;
+    private ArrayList<String> limbReflexesList;
     private ArrayList<String> nervousTensionList;
     private ArrayList<String> pReflexesHand;
     private ArrayList<String> pReflexesLeg;
@@ -44,6 +45,8 @@ public class ProjectProperties implements PropertyNames {
     private ArrayList<String> recommendationList;
     private ArrayList<String> therapy;
     private ArrayList coordinationTest;
+    private ArrayList pelvicOrganList;
+    private ArrayList complaints;
 
     public ArrayList<String> getTherapy() {
         return therapy;
@@ -77,6 +80,14 @@ public class ProjectProperties implements PropertyNames {
 
     public ArrayList<String> getNervousTensionList() {
         return nervousTensionList;
+    }
+
+    public ArrayList<String> getLimbReflexesList() {
+        return limbReflexesList;
+    }
+
+    public void setLimbReflexesList(ArrayList<String> limbReflexesList) {
+        this.limbReflexesList = limbReflexesList;
     }
 
     public ArrayList<String> getSensitivityDisbalanceList() {
@@ -126,6 +137,13 @@ public class ProjectProperties implements PropertyNames {
         return coordinationTest;
     }
 
+    public ArrayList getPelvicOrganList() {
+        return pelvicOrganList;
+    }
+
+    public ArrayList getComplaints() {
+        return complaints;
+    }
 
     public ArrayList<String> getCategoriesNames() {
         ArrayList categoriesNames = new ArrayList();
@@ -176,6 +194,7 @@ public class ProjectProperties implements PropertyNames {
             rombergList = handler.getRombergList();
             sensitivityDisbalanceList = handler.getSensitivityDisbalanceList();
             nervousTensionList = handler.getNervousTensionList();
+            limbReflexesList = handler.getLimbReflexesList();
             pReflexesHand = handler.getpReflexesHand();
             pReflexesLeg = handler.getpReflexesLeg();
             aReflexesList = handler.getaReflexesList();
@@ -185,6 +204,8 @@ public class ProjectProperties implements PropertyNames {
             recommendationList = handler.getRecommendationList();
             therapy = handler.getTherapyList();
             coordinationTest = handler.getCoordinationTest();
+            pelvicOrganList = handler.getPelvicOrganList();
+            complaints = handler.getComplaints();
         } catch (ParserConfigurationException ex) {
             Logger.getLogger(CreateFrame.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SAXException ex) {

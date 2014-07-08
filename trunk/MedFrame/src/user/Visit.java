@@ -30,7 +30,8 @@ public class Visit
 
     private String name;
     private Date date;
-    private String complaine;
+    private String complaint;
+    private List<String> complaintList = new ArrayList<String>();
     private String socialAnamnesis;
     private String profission;
     private String stress;
@@ -43,6 +44,8 @@ public class Visit
     private List<String> cranicalNerve = new ArrayList<String>();
     private List<String> sensitivity = new ArrayList<String>();
     private List<String> nervousTension = new ArrayList<String>();
+    private String upperLimbReflexes;
+    private String downLimbReflexes;
 //    private List<String> reflexes = new ArrayList<String>();
     private String upperDSLimb;
     private String lowerDSLimb;
@@ -63,9 +66,15 @@ public class Visit
     private List<String> nervousSystem = new ArrayList<String>();
     private String diagnosis;
     private String pelvicOrgan;
+    private List<String> pelvicOrganList = new ArrayList<String>();
     private List<String> recommendations = new ArrayList<String>();
     private String recommendationsAdd;
     private List<String> therapy = new ArrayList<String>();
+    private Date appearanceDate;
+    private String workCapacity;
+    private Date workCapacityListDateFrom;
+    private Date workCapacityListDateTo;
+
     private static Logger log = Logger.getLogger(Visit.class.getName());
 
     public String getCoordinationTestDS() {
@@ -114,7 +123,7 @@ public class Visit
         this.emotion = emotion;
     }
 
-    public List<String> getDream()
+    public LinkedList<String> getDream()
     {
         return dream;
     }
@@ -124,9 +133,49 @@ public class Visit
         this.dream = dream;
     }
 
+    public Date getWorkCapacityListDateTo() {
+        return workCapacityListDateTo;
+    }
+
+    public void setWorkCapacityListDateTo(Date workCapacityListDateTo) {
+        this.workCapacityListDateTo = workCapacityListDateTo;
+    }
+
+    public Date getAppearanceDate() {
+        return appearanceDate;
+    }
+
+    public void setAppearanceDate(Date appearanceDate) {
+        this.appearanceDate = appearanceDate;
+    }
+
+    public String getWorkCapacity() {
+        return workCapacity;
+    }
+
+    public void setWorkCapacity(String workCapacity) {
+        this.workCapacity = workCapacity;
+    }
+
+    public Date getWorkCapacityListDateFrom() {
+        return workCapacityListDateFrom;
+    }
+
+    public void setWorkCapacityListDateFrom(Date workCapacityListDateFrom) {
+        this.workCapacityListDateFrom = workCapacityListDateFrom;
+    }
+
     public List<String> getSensitivity()
     {
         return sensitivity;
+    }
+
+    public List<String> getPelvicOrganList() {
+        return pelvicOrganList;
+    }
+
+    public void setPelvicOrganList(List pelvicOrganList) {
+        this.pelvicOrganList = pelvicOrganList;
     }
 
     public void addSensitivity(String sensitivity)
@@ -154,6 +203,22 @@ public class Visit
     public String getLowerDSLimb()
     {
         return lowerDSLimb;
+    }
+
+    public String getUpperLimbReflexes() {
+        return upperLimbReflexes;
+    }
+
+    public void setUpperLimbReflexes(String upperLimbReflexes) {
+        this.upperLimbReflexes = upperLimbReflexes;
+    }
+
+    public String getDownLimbReflexes() {
+        return downLimbReflexes;
+    }
+
+    public void setDownLimbReflexes(String downLimbReflexes) {
+        this.downLimbReflexes = downLimbReflexes;
     }
 
     public void setLowerDSLimb(String lowerDSLimb)
@@ -261,14 +326,22 @@ public class Visit
         this.therapy = therapy;
     }
 
-    public String getComplaine()
+    public String getComplaint()
     {
-        return complaine;
+        return complaint;
     }
 
-    public void setComplaine(String complaine)
+    public void setComplaint(String complaint)
     {
-        this.complaine = complaine;
+        this.complaint = complaint;
+    }
+
+    public List<String> getComplaintList() {
+        return complaintList;
+    }
+
+    public void setComplaintList(List complaintList) {
+        this.complaintList = complaintList;
     }
 
     public String getSocialAnamnesis()
@@ -311,7 +384,7 @@ public class Visit
         return date;
     }
 
-    public String getStringDate()
+    public String getStringDate(Date date)
     {
         if (null != date)
         {
@@ -517,9 +590,9 @@ public class Visit
                 if (typeName.equals(Logger.class.getName()))
                 {
                     continue;
-                } else if (fieldName.equals("date"))
+                } else if (typeName.equals(Date.class.getName()))
                 {
-                    fieldValue = getStringDate();
+                    fieldValue = getStringDate((Date)field.get(this));
                 } else if (fieldName.equals("coordinationTest"))
                 {
                     log.info("coordinationTest");
@@ -570,6 +643,7 @@ public class Visit
         this.dream.clear();
         this.dream.addFirst(dream);
     }
+
 
     public void addEmotion(String emotion)
     {

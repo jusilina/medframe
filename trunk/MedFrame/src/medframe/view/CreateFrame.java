@@ -10,6 +10,7 @@ import medframe.Storage;
 import user.Visit;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
 import java.util.ArrayList;
@@ -246,7 +247,10 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames {
     private void updateFormFromVisit() {
         nameField.setText(visit.getName());
         dateChooser.setDate(visit.getDate());
-        complaineArea.setText(visit.getComplaine());
+
+        complaintArea.setText(visit.getComplaint());
+        ((JComboCheckBox)complaintBox).setSelectedObjects(visit.getComplaintList());
+
         jobComboBox.setSelectedItem(visit.getSocialAnamnesis());
         professionField.setText(visit.getProfission());
         stressComboBox.setSelectedItem(visit.getStress());
@@ -268,7 +272,7 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames {
         } else {
             dreamComboBox.setSelectedIndex(1);
             List dreams = visit.getDream();
-            dreams.remove(0);
+//            dreams.remove(0);
             ((JComboCheckBox) dreamDisbalanceBox).setSelectedObjects(dreams);
         }
 
@@ -281,7 +285,7 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames {
         } else {
             sensitivityMainBox.setSelectedIndex(1);
             List sensitivities = visit.getSensitivity();
-            sensitivities.remove(0);
+//            sensitivities.remove(0);
             ((JComboCheckBox) sensitivityDisbalanceBox).setSelectedObjects(sensitivities);
         }
 
@@ -291,9 +295,12 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames {
             nervousTensionMainBox.setSelectedIndex(0);
         } else {
             nervousTensionMainBox.setSelectedIndex(1);
-            nervousTensions.remove(0);
+//            nervousTensions.remove(0);
             ((JComboCheckBox) nervousTensionBox).setSelectedObjects(nervousTensions);
         }
+
+        upperLimbsBox.setSelectedItem(visit.getUpperLimbReflexes());
+        downLimbsBox.setSelectedItem(visit.getDownLimbReflexes());
 
         upperDSLimbsBox.setSelectedItem(visit.getUpperDSLimb());
         lowerDSLimbsBox.setSelectedItem(visit.getLowerDSLimb());
@@ -331,7 +338,10 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames {
         ((JComboCheckBox) coordinationTestBox).setSelectedObjects(visit.getCoordinationTest());
 
         ((JComboCheckBox) nervousSystemBox).setSelectedObjects(visit.getNervousSystem());
+
         pelvicOrganField.setText(visit.getPelvicOrgan());
+        ((JComboCheckBox)pelvicOrganBox).setSelectedObjects(visit.getPelvicOrganList());
+
         diagnosisArea.setText(visit.getDiagnosis());
 
         ((JComboCheckBox) recommendationBox).setSelectedObjects(visit.getRecommendations());
@@ -340,6 +350,11 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames {
         ((JComboCheckBox) therapyBox).setSelectedObjects(visit.getTherapy());
 
 
+        workCapacityBox.setSelectedItem(visit.getWorkCapacity());
+        workСapacityFromDateChooser.setDate(visit.getWorkCapacityListDateFrom());
+        workСapacityToDateChooser.setDate(visit.getWorkCapacityListDateTo());
+
+        appearanceDateChooser.setDate(visit.getAppearanceDate());
     }
 
     private void categoryItemActionPerformed(ActionEvent evt) {
@@ -366,12 +381,24 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames {
     private Visit populateVisit() {
         visit.setName(nameField.getText());
         visit.setDate(dateChooser.getDate());
-        visit.setComplaine(complaineArea.getText());
-        visit.setSocialAnamnesis(jobComboBox.getSelectedItem().toString());
+
+        visit.setComplaint(complaintArea.getText());
+        visit.setComplaintList(new ArrayList<>(Arrays.asList(complaintBox.getSelectedObjects())));
+
+        String job = jobComboBox.getSelectedItem()==null?"":jobComboBox.getSelectedItem().toString();
+       visit.setSocialAnamnesis(job);
+
+
         visit.setProfission(professionField.getText());
-        visit.setStress(stressComboBox.getSelectedItem().toString());
+
+        String stress = null == stressComboBox.getSelectedItem()?"":stressComboBox.getSelectedItem().toString();
+        visit.setStress(stress);
+
         visit.setAnamnesis(anamnesisArea.getText());
-        visit.setConscious(consciousBox.getSelectedItem().toString());
+
+        String conscious = consciousBox.getSelectedItem()==null?"":consciousBox.getSelectedItem().toString();
+        visit.setConscious(conscious);
+
         visit.setConsciousAdd(consciousText.getText());
         visit.setEpileptic(epiText.getText());
         if (emotionMainBox.getSelectedIndex() == 0) {
@@ -381,15 +408,16 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames {
             System.out.println(emotions);
             visit.setEmotion(new ArrayList<>(Arrays.asList(emotions)));
         }
+        LinkedList dreams =  visit.getDream();
         if (dreamComboBox.getSelectedItem().equals(NORM)) {
-            visit.addDream(NORM);
+            dreams.clear();
+            dreams.add(NORM);
         } else {
             Object[] dreamDisbalances = dreamDisbalanceBox.getSelectedObjects();
             System.out.println(dreamDisbalances);
-            visit.setDream(new LinkedList(Arrays.asList(dreamDisbalances)));
-            visit.addDream(DISBALANCE);
+            dreams.addAll(new LinkedList(Arrays.asList(dreamDisbalances)));
+//            dreams.addFirst(DISBALANCE);
         }
-
 
         Object[] cranicalNerveList = cranicalNerveBox.getSelectedObjects();
         visit.setCranicalNerve(new ArrayList<>(Arrays.asList(cranicalNerveList)));
@@ -410,9 +438,18 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames {
             visit.setNervousTension(new ArrayList<>(Arrays.asList(nervousTensionList)));
         }
 
+        String limbReflexes = upperLimbsBox.getSelectedItem()==null?"":upperLimbsBox.getSelectedItem().toString();
+        visit.setUpperLimbReflexes(limbReflexes);
+        limbReflexes= downLimbsBox.getSelectedItem()==null?"":downLimbsBox.getSelectedItem().toString();
+        visit.setDownLimbReflexes(limbReflexes);
+
 //        visit.setReflexes(new ArrayList<>(Arrays.asList(upperDSLimbsBox.getSelectedItem(), lowerDSLimbsBox.getSelectedItem())));
-        visit.setUpperDSLimb(upperDSLimbsBox.getSelectedItem().toString());
-        visit.setLowerDSLimb(lowerDSLimbsBox.getSelectedItem().toString());
+
+        String upperDSLimbs = upperDSLimbsBox.getSelectedItem()==null?"":upperDSLimbsBox.getSelectedItem().toString();
+        visit.setUpperDSLimb(upperDSLimbs);
+
+        String lowerLimbs =  lowerDSLimbsBox.getSelectedItem()==null?"":lowerDSLimbsBox.getSelectedItem().toString();
+        visit.setLowerDSLimb(lowerLimbs);
 
         if (pReflexesMainBox.getSelectedItem().equals(NO)) {
             visit.setpReflexes(NO);
@@ -431,31 +468,34 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames {
             visit.setaReflexes(new ArrayList<>(Arrays.asList(aReflexesList)));
         }
 
-        visit.setGait(gaitBox.getSelectedItem().toString());
+        String gait = gaitBox.getSelectedItem()==null?"":gaitBox.getSelectedItem().toString();
+        visit.setGait(gait);
 
-        visit.setMotionType(motionTypeBox.getSelectedItem().toString());
+        String motion =  motionTypeBox.getSelectedItem() == null?"":motionTypeBox.getSelectedItem().toString();
+        visit.setMotionType(motion);
+
         visit.setMotion(new ArrayList<>(Arrays.asList(motionBox.getSelectedObjects())));
 
         visit.setMuscle(new ArrayList<>(Arrays.asList(muscleBox.getSelectedObjects())));
 
+        String coordination = coordinationMainBox.getSelectedItem()==null?"":coordinationMainBox.getSelectedItem().toString();
+        visit.setCoordination(coordination);
 
-        visit.setCoordination(coordinationMainBox.getSelectedItem().toString());
-//        }
-//        else
-//        {
-        //   Object[] aReflexesList = aReflexesBox.getSelectedObjects();
         visit.setRomberg(new ArrayList<>(Arrays.asList(rombergBox.getSelectedObjects())));
-//            ArrayList coordinationTest = new ArrayList();
-//            coordinationTest.add(new ArrayList(Arrays.asList(coordinationTestBoxDS.getSelectedItem(), coordinationTestBoxSN.getSelectedItem())));
-        visit.setCoordinationTestDS(coordinationTestBoxDS.getSelectedItem().toString());
-        visit.setCoordinationTestSN(coordinationTestBoxSN.getSelectedItem().toString());
-        visit.setCoordinationTest(new ArrayList(Arrays.asList(coordinationTestBox.getSelectedObjects())));
 
-//        }
+        String coordinationTest = coordinationTestBoxDS.getSelectedItem()==null?"":coordinationTestBoxDS.getSelectedItem().toString();
+        visit.setCoordinationTestDS(coordinationTest);
+
+        coordinationTest = coordinationTestBoxSN.getSelectedItem()==null?"":coordinationTestBoxSN.getSelectedItem().toString();
+        visit.setCoordinationTestSN(coordinationTest);
+
+        visit.setCoordinationTest(new ArrayList(Arrays.asList(coordinationTestBox.getSelectedObjects())));
 
         visit.setNervousSystem(new ArrayList<>(Arrays.asList(nervousSystemBox.getSelectedObjects())));
 
         visit.setPelvicOrgan(pelvicOrganField.getText());
+        visit.setPelvicOrganList(new ArrayList<>(Arrays.asList(pelvicOrganBox.getSelectedObjects())));
+
         visit.setDiagnosis(diagnosisArea.getText());
 
         visit.setRecommendations(new ArrayList<>(Arrays.asList(recommendationBox.getSelectedObjects())));
@@ -463,6 +503,13 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames {
 
         visit.setTherapy(new ArrayList<>(Arrays.asList(therapyBox.getSelectedObjects())));
 
+        String work = workCapacityBox.getSelectedItem()==null?"":workCapacityBox.getSelectedItem().toString();
+        visit.setWorkCapacity(work);
+
+        visit.setWorkCapacityListDateFrom(workСapacityFromDateChooser.getDate());
+        visit.setWorkCapacityListDateTo(workСapacityToDateChooser.getDate());
+
+        visit.setAppearanceDate(appearanceDateChooser.getDate());
 
         return visit;
     }
@@ -538,7 +585,7 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames {
         consciousLabel = new javax.swing.JLabel();
         complaintsTextPanel = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        complaineArea = new javax.swing.JTextArea();
+        complaintArea = new javax.swing.JTextArea();
         jobLabel = new javax.swing.JLabel();
         professionField = new javax.swing.JTextField();
         stressComboBox = new javax.swing.JComboBox();
@@ -551,37 +598,40 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames {
         int enotionBoxSize = props.getEmotionViolations().size();
         JCheckBox[] emotionBox = new JCheckBox[enotionBoxSize];
 
-        for (int i = 0; i < enotionBoxSize; i++) {
+        for(int i=0; i<enotionBoxSize; i++)
+        {
             String name = props.getEmotionViolations().get(i);
-            emotionBox[i] = new JCheckBox(name);
+            emotionBox[i]= new JCheckBox(name);
         }
         emotionViolationBox = new JComboCheckBox(emotionBox);
         emotionMainBox = new javax.swing.JComboBox();
         epiText = new javax.swing.JTextField();
         anamnesisLabel = new javax.swing.JLabel();
         emotionLabel = new javax.swing.JLabel();
-        complaineLabel = new javax.swing.JLabel();
+        complaintLabel = new javax.swing.JLabel();
         //JCheckBox box1 = new JCheckBox("1");
         //        JCheckBox box2 = new JCheckBox("2");
         //        JCheckBox box3 = new JCheckBox("3");
         int size = props.getDisturbed_sleepList().size();
         JCheckBox[] box = new JCheckBox[size];
 
-        for (int i = 0; i < size; i++) {
+        for(int i=0; i<size; i++)
+        {
             String name = props.getDisturbed_sleepList().get(i);
-            box[i] = new JCheckBox(name);
+            box[i]= new JCheckBox(name);
         }
         dreamDisbalanceBox = new JComboCheckBox(box);
         dreamComboBox = new javax.swing.JComboBox();
         dreamLabel = new javax.swing.JLabel();
-        List<String> nervousSystemList = props.getNervousSystemList();
+        List <String> nervousSystemList = props.getNervousSystemList();
         int nervousSystemSize = nervousSystemList.size();
         JCheckBox[] nervousSystemBoxSource = new JCheckBox[nervousSystemSize];
 
-        for (int i = 0; i < nervousSystemSize; i++) {
+        for(int i=0; i<nervousSystemSize; i++)
+        {
             String name = nervousSystemList.get(i);
             //System.out.println(name);
-            nervousSystemBoxSource[i] = new JCheckBox(name);
+            nervousSystemBoxSource[i]= new JCheckBox(name);
         }
         nervousSystemBox = new JComboCheckBox(nervousSystemBoxSource);
         gaitLabel = new javax.swing.JLabel();
@@ -596,9 +646,10 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames {
         int cranicalNerveSize = props.getCranicalNerveViolations().size();
         JCheckBox[] cranicalNerveBoxSource = new JCheckBox[cranicalNerveSize];
 
-        for (int i = 0; i < cranicalNerveSize; i++) {
+        for(int i=0; i<cranicalNerveSize; i++)
+        {
             String name = props.getCranicalNerveViolations().get(i);
-            cranicalNerveBoxSource[i] = new JCheckBox(name);
+            cranicalNerveBoxSource[i]= new JCheckBox(name);
         }
         cranicalNerveBox = new JComboCheckBox(cranicalNerveBoxSource);
         pelvicOrganLabel = new javax.swing.JLabel();
@@ -607,19 +658,18 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames {
         recommendationLabel = new javax.swing.JLabel();
         therapyLabel = new javax.swing.JLabel();
         drugsPanel = new javax.swing.JPanel();
-        dreamPanel = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
         coordinationMainBox = new javax.swing.JComboBox();
         coordinationPanel = new javax.swing.JPanel();
         rombergLabel = new javax.swing.JLabel();
-        List<String> rombergList = props.getRombergList();
+        List <String> rombergList = props.getRombergList();
         int rombergListSize = rombergList.size();
         JCheckBox[] rombergBoxSource = new JCheckBox[rombergListSize];
 
-        for (int i = 0; i < rombergListSize; i++) {
+        for(int i=0; i<rombergListSize; i++)
+        {
             String name = rombergList.get(i);
             //System.out.println(name);
-            rombergBoxSource[i] = new JCheckBox(name);
+            rombergBoxSource[i]= new JCheckBox(name);
         }
         rombergBox = new JComboCheckBox(rombergBoxSource);
         coordinationTestLabel = new javax.swing.JLabel();
@@ -628,35 +678,38 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames {
         coordinationTestS = new javax.swing.JLabel();
         coordinationTestBoxSN = new javax.swing.JComboBox();
         coordinationTestN = new javax.swing.JLabel();
-        List<String> coordinationTestList = props.getCoordinationTest();
+        List <String> coordinationTestList = props.getCoordinationTest();
         int coordinationTestListSize = coordinationTestList.size();
         JCheckBox[] coordinationTestSource = new JCheckBox[coordinationTestListSize];
 
-        for (int i = 0; i < coordinationTestListSize; i++) {
+        for(int i=0; i<coordinationTestListSize; i++)
+        {
             String name = coordinationTestList.get(i);
-            coordinationTestSource[i] = new JCheckBox(name);
+            coordinationTestSource[i]= new JCheckBox(name);
         }
         coordinationTestBox = new JComboCheckBox(coordinationTestSource);
         sensitivityMainBox = new javax.swing.JComboBox();
-        List<String> sensitivityDisbalanceList = props.getSensitivityDisbalanceList();
+        List <String> sensitivityDisbalanceList = props.getSensitivityDisbalanceList();
         int sensitivityDisbalanceListSize = sensitivityDisbalanceList.size();
         JCheckBox[] sensitivityDisbalanceSource = new JCheckBox[sensitivityDisbalanceListSize];
 
-        for (int i = 0; i < sensitivityDisbalanceListSize; i++) {
+        for(int i=0; i<sensitivityDisbalanceListSize; i++)
+        {
             String name = sensitivityDisbalanceList.get(i);
             //System.out.println(name);
-            sensitivityDisbalanceSource[i] = new JCheckBox(name);
+            sensitivityDisbalanceSource[i]= new JCheckBox(name);
         }
         sensitivityDisbalanceBox = new JComboCheckBox(sensitivityDisbalanceSource);
         nervousTensionLabel = new javax.swing.JLabel();
         nervousTensionMainBox = new javax.swing.JComboBox();
-        List<String> nervousTensionList = props.getNervousTensionList();
+        List <String> nervousTensionList = props.getNervousTensionList();
         int nervousTensionListSize = nervousTensionList.size();
         JCheckBox[] nervousTensionSource = new JCheckBox[nervousTensionListSize];
 
-        for (int i = 0; i < nervousTensionListSize; i++) {
+        for(int i=0; i<nervousTensionListSize; i++)
+        {
             String name = nervousTensionList.get(i);
-            nervousTensionSource[i] = new JCheckBox(name);
+            nervousTensionSource[i]= new JCheckBox(name);
         }
         nervousTensionBox = new JComboCheckBox(nervousTensionSource);
         limbsLabel = new javax.swing.JLabel();
@@ -672,80 +725,115 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames {
         aReflexesMainBox = new javax.swing.JComboBox();
         pReflexesPanel = new javax.swing.JPanel();
         pReflexesHandLabel = new javax.swing.JLabel();
-        List<String> pReflexesHandList = props.getpReflexesHand();
+        List <String> pReflexesHandList = props.getpReflexesHand();
         int pReflexesHandListSize = pReflexesHandList.size();
         JCheckBox[] pReflexesHandSource = new JCheckBox[pReflexesHandListSize];
 
-        for (int i = 0; i < pReflexesHandListSize; i++) {
+        for(int i=0; i<pReflexesHandListSize; i++)
+        {
             String name = pReflexesHandList.get(i);
-            pReflexesHandSource[i] = new JCheckBox(name);
+            pReflexesHandSource[i]= new JCheckBox(name);
         }
         pReflexesHandBox = new JComboCheckBox(pReflexesHandSource);
         pReflexesLegLabel = new javax.swing.JLabel();
-        List<String> pReflexesLegList = props.getpReflexesLeg();
+        List <String> pReflexesLegList = props.getpReflexesLeg();
         int pReflexesLegListSize = pReflexesLegList.size();
         JCheckBox[] pReflexesLegSource = new JCheckBox[pReflexesLegListSize];
 
-        for (int i = 0; i < pReflexesLegListSize; i++) {
+        for(int i=0; i<pReflexesLegListSize; i++)
+        {
             String name = pReflexesLegList.get(i);
-            pReflexesLegSource[i] = new JCheckBox(name);
+            pReflexesLegSource[i]= new JCheckBox(name);
         }
         pReflexesLegBox = new JComboCheckBox(pReflexesLegSource);
-        List<String> aReflexesList = props.getaReflexesList();
+        List <String> aReflexesList = props.getaReflexesList();
         int aReflexesListSize = aReflexesList.size();
         JCheckBox[] aReflexesSource = new JCheckBox[aReflexesListSize];
 
-        for (int i = 0; i < aReflexesListSize; i++) {
+        for(int i=0; i<aReflexesListSize; i++)
+        {
             String name = aReflexesList.get(i);
-            aReflexesSource[i] = new JCheckBox(name);
+            aReflexesSource[i]= new JCheckBox(name);
         }
         aReflexesBox = new JComboCheckBox(aReflexesSource);
         gaitBox = new javax.swing.JComboBox();
         motionTypeBox = new javax.swing.JComboBox();
         motionLabel = new javax.swing.JLabel();
         muscleLabel = new javax.swing.JLabel();
-        List<String> muscleList = props.getMuscleToneList();
+        List <String> muscleList = props.getMuscleToneList();
         int muscleSize = muscleList.size();
         JCheckBox[] muscleBoxSource = new JCheckBox[muscleSize];
 
-        for (int i = 0; i < muscleSize; i++) {
+        for(int i=0; i<muscleSize; i++)
+        {
             String name = muscleList.get(i);
             //System.out.println(name);
-            muscleBoxSource[i] = new JCheckBox(name);
+            muscleBoxSource[i]= new JCheckBox(name);
         }
         muscleBox = new JComboCheckBox(muscleBoxSource);
-        List<String> motionList = props.getMotionList();
+        List <String> motionList = props.getMotionList();
         int motionListSize = motionList.size();
         JCheckBox[] motionBoxSource = new JCheckBox[motionListSize];
 
-        for (int i = 0; i < motionListSize; i++) {
+        for(int i=0; i<motionListSize; i++)
+        {
             String name = motionList.get(i);
-            motionBoxSource[i] = new JCheckBox(name);
+            motionBoxSource[i]= new JCheckBox(name);
         }
         motionBox = new JComboCheckBox(motionBoxSource);
         jScrollPane4 = new javax.swing.JScrollPane();
         diagnosisArea = new javax.swing.JTextArea();
-        List<String> recommendationList = props.getRecommendationList();
+        List <String> recommendationList = props.getRecommendationList();
         int recommendationSize = recommendationList.size();
         JCheckBox[] recommendationBoxSource = new JCheckBox[recommendationSize];
 
-        for (int i = 0; i < recommendationSize; i++) {
+        for(int i=0; i<recommendationSize; i++)
+        {
             String name = recommendationList.get(i);
-            recommendationBoxSource[i] = new JCheckBox(name);
+            recommendationBoxSource[i]= new JCheckBox(name);
         }
         recommendationBox = new JComboCheckBox(recommendationBoxSource);
         recommendationText = new javax.swing.JTextField();
-        List<String> therapyList = props.getTherapy();
+        List <String> therapyList = props.getTherapy();
         int therapySize = therapyList.size();
         JCheckBox[] therapyBoxSource = new JCheckBox[therapySize];
 
-        for (int i = 0; i < therapySize; i++) {
+        for(int i=0; i<therapySize; i++)
+        {
             String name = therapyList.get(i);
-            therapyBoxSource[i] = new JCheckBox(name);
+            therapyBoxSource[i]= new JCheckBox(name);
         }
         therapyBox = new JComboCheckBox(therapyBoxSource);
-        upperLimbsBox = new javax.swing.JComboBox();
-        downLimbsBox = new javax.swing.JComboBox();
+        upperLimbsBox = new javax.swing.JComboBox(props.getLimbReflexesList().toArray());
+        downLimbsBox = new javax.swing.JComboBox(props.getLimbReflexesList().toArray());
+        workCapacityBox = new javax.swing.JComboBox();
+        workСapacityListLabel = new javax.swing.JLabel();
+        fromLabel = new javax.swing.JLabel();
+        toLabel = new javax.swing.JLabel();
+        workСapacityFromDateChooser = new com.toedter.calendar.JDateChooser();
+        workСapacityToDateChooser = new com.toedter.calendar.JDateChooser();
+        appearanceLabel = new javax.swing.JLabel();
+        appearanceDateChooser = new com.toedter.calendar.JDateChooser();
+        List <String> pelvicList = props.getPelvicOrganList();
+        int pelvicListSize = pelvicList.size();
+        JCheckBox[] pelvicListSource = new JCheckBox[pelvicListSize];
+
+        for(int i=0; i<pelvicListSize; i++)
+        {
+            String name = pelvicList.get(i);
+            pelvicListSource[i]= new JCheckBox(name);
+        }
+        pelvicOrganBox = new JComboCheckBox(pelvicListSource);
+        List <String> complaintList = props.getComplaints();
+        int complaintListSize = complaintList.size();
+        JCheckBox[] complaintSource = new JCheckBox[complaintListSize];
+
+        for(int i=0; i<complaintListSize; i++)
+        {
+            String name = complaintList.get(i);
+            complaintSource[i]= new JCheckBox(name);
+        }
+        complaintBox = new JComboCheckBox(complaintSource);
         jMenuBar1 = new javax.swing.JMenuBar();
         categories = new javax.swing.JMenu();
         clearForm = new javax.swing.JMenu();
@@ -768,10 +856,10 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames {
 
         consciousLabel.setText(CONSCIOUS);
 
-        complaineArea.setColumns(20);
-        complaineArea.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        complaineArea.setRows(5);
-        jScrollPane1.setViewportView(complaineArea);
+        complaintArea.setColumns(20);
+        complaintArea.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        complaintArea.setRows(5);
+        jScrollPane1.setViewportView(complaintArea);
 
         jobLabel.setText(PropertyNames.SOCIAL_ANAMNESIS);
 
@@ -781,39 +869,39 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames {
             }
         });
 
-        stressComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[]{PropertyNames.EXERCISE_STRESS, PropertyNames.STATIC_LOAD}));
+        stressComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] {PropertyNames.EXERCISE_STRESS, PropertyNames.STATIC_LOAD}));
 
-        jobComboBox.setModel(new DefaultComboBoxModel(new String[]{PropertyNames.WORKING, PropertyNames.NOT_WORKING, PropertyNames.PENSIONER, PropertyNames.CRIPPLE}));
+        jobComboBox.setModel(new DefaultComboBoxModel(new String[] { PropertyNames.WORKING, PropertyNames.NOT_WORKING, PropertyNames.PENSIONER, PropertyNames.CRIPPLE }));
 
         javax.swing.GroupLayout complaintsTextPanelLayout = new javax.swing.GroupLayout(complaintsTextPanel);
         complaintsTextPanel.setLayout(complaintsTextPanelLayout);
         complaintsTextPanelLayout.setHorizontalGroup(
-                complaintsTextPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(complaintsTextPanelLayout.createSequentialGroup()
-                                .addGroup(complaintsTextPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 664, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGroup(complaintsTextPanelLayout.createSequentialGroup()
-                                                .addComponent(jobLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(jobComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(professionField, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(stressComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(0, 1, Short.MAX_VALUE))
+            complaintsTextPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(complaintsTextPanelLayout.createSequentialGroup()
+                .addGroup(complaintsTextPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 664, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(complaintsTextPanelLayout.createSequentialGroup()
+                        .addComponent(jobLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jobComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(professionField, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(stressComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(0, 1, Short.MAX_VALUE))
         );
         complaintsTextPanelLayout.setVerticalGroup(
-                complaintsTextPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(complaintsTextPanelLayout.createSequentialGroup()
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(complaintsTextPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(complaintsTextPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                                .addComponent(jobComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addComponent(professionField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addComponent(stressComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addComponent(jobLabel))
-                                .addGap(0, 0, Short.MAX_VALUE))
+            complaintsTextPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(complaintsTextPanelLayout.createSequentialGroup()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(complaintsTextPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(complaintsTextPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jobComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(professionField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(stressComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jobLabel))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         anamnesisArea.setColumns(20);
@@ -822,11 +910,11 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames {
 
         epiLabel.setText(EPILEPTIC_SEIZURE);
 
-        consciousBox.setModel(new javax.swing.DefaultComboBoxModel(new String[]{CONSCIOUS_CLEAR, CONSCIOUS_OBNUBILATION}));
+        consciousBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { CONSCIOUS_CLEAR, CONSCIOUS_OBNUBILATION }));
 
         emotionViolationBox.setVisible(false);
 
-        emotionMainBox.setModel(new javax.swing.DefaultComboBoxModel(new String[]{N, DISBALANCE}));
+        emotionMainBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { N, DISBALANCE}));
 
         epiText.setText(NEG);
 
@@ -835,12 +923,12 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames {
 
         emotionLabel.setText(PropertyNames.EMOTION);
 
-        complaineLabel.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        complaineLabel.setText(PropertyNames.COMPLAINE);
+        complaintLabel.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        complaintLabel.setText(COMPLAINTS);
 
         dreamDisbalanceBox.setVisible(false);
 
-        dreamComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[]{NORM, DISBALANCE}));
+        dreamComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] {NORM, DISBALANCE}));
 
         dreamLabel.setText(PropertyNames.DREAM);
 
@@ -883,48 +971,20 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames {
 
         therapyLabel.setText(THERAPY);
 
+        drugsPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
         javax.swing.GroupLayout drugsPanelLayout = new javax.swing.GroupLayout(drugsPanel);
         drugsPanel.setLayout(drugsPanelLayout);
         drugsPanelLayout.setHorizontalGroup(
-                drugsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(0, 100, Short.MAX_VALUE)
+            drugsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 396, Short.MAX_VALUE)
         );
         drugsPanelLayout.setVerticalGroup(
-                drugsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(0, 15, Short.MAX_VALUE)
+            drugsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        dreamPanel.setMinimumSize(new java.awt.Dimension(100, 100));
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-                jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(0, 100, Short.MAX_VALUE)
-        );
-        jPanel2Layout.setVerticalGroup(
-                jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(0, 100, Short.MAX_VALUE)
-        );
-
-        javax.swing.GroupLayout dreamPanelLayout = new javax.swing.GroupLayout(dreamPanel);
-        dreamPanel.setLayout(dreamPanelLayout);
-        dreamPanelLayout.setHorizontalGroup(
-                dreamPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(dreamPanelLayout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(326, Short.MAX_VALUE))
-        );
-        dreamPanelLayout.setVerticalGroup(
-                dreamPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, dreamPanelLayout.createSequentialGroup()
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap())
-        );
-
-        coordinationMainBox.setModel(new javax.swing.DefaultComboBoxModel(new String[]{NORM, DISBALANCE}));
+        coordinationMainBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { NORM, DISBALANCE }));
 
         coordinationPanel.setVisible(false);
 
@@ -934,61 +994,61 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames {
 
         coordinationTestD.setText("D");
 
-        coordinationTestBoxDS.setModel(new javax.swing.DefaultComboBoxModel(new String[]{"=", ">", "<", " "}));
+        coordinationTestBoxDS.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "=", ">", "<", " " }));
 
         coordinationTestS.setText("S");
 
-        coordinationTestBoxSN.setModel(new javax.swing.DefaultComboBoxModel(new String[]{"=", ">", "<"}));
+        coordinationTestBoxSN.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "=", ">", "<" }));
 
         coordinationTestN.setText("N");
 
         javax.swing.GroupLayout coordinationPanelLayout = new javax.swing.GroupLayout(coordinationPanel);
         coordinationPanel.setLayout(coordinationPanelLayout);
         coordinationPanelLayout.setHorizontalGroup(
-                coordinationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(coordinationPanelLayout.createSequentialGroup()
-                                .addComponent(rombergLabel)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(rombergBox, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(coordinationTestLabel)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(coordinationTestD)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(coordinationTestBoxDS, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(coordinationTestS)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(coordinationTestBoxSN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(coordinationTestN)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(coordinationTestBox, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            coordinationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(coordinationPanelLayout.createSequentialGroup()
+                .addComponent(rombergLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(rombergBox, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(coordinationTestLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(coordinationTestD)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(coordinationTestBoxDS, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(coordinationTestS)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(coordinationTestBoxSN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(coordinationTestN)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(coordinationTestBox, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         coordinationPanelLayout.setVerticalGroup(
-                coordinationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(coordinationPanelLayout.createSequentialGroup()
-                                .addGroup(coordinationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(rombergLabel)
-                                        .addComponent(rombergBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(coordinationTestLabel)
-                                        .addComponent(coordinationTestD)
-                                        .addComponent(coordinationTestBoxDS, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(coordinationTestS)
-                                        .addComponent(coordinationTestBoxSN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(coordinationTestN)
-                                        .addComponent(coordinationTestBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            coordinationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(coordinationPanelLayout.createSequentialGroup()
+                .addGroup(coordinationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(rombergLabel)
+                    .addComponent(rombergBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(coordinationTestLabel)
+                    .addComponent(coordinationTestD)
+                    .addComponent(coordinationTestBoxDS, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(coordinationTestS)
+                    .addComponent(coordinationTestBoxSN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(coordinationTestN)
+                    .addComponent(coordinationTestBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        sensitivityMainBox.setModel(new javax.swing.DefaultComboBoxModel(new String[]{NORM, DISBALANCE}));
+        sensitivityMainBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { NORM,DISBALANCE}));
 
         sensitivityDisbalanceBox.setVisible(false);
 
         nervousTensionLabel.setText(NERVOUS_TENSION);
 
-        nervousTensionMainBox.setModel(new javax.swing.DefaultComboBoxModel(new String[]{NO, THESE_IS}));
+        nervousTensionMainBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { NO, THESE_IS }));
 
         nervousTensionBox.setVisible(false);
 
@@ -1006,13 +1066,13 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames {
 
         lowerLimbsLabel.setText(LOWER);
 
-        upperDSLimbsBox.setModel(new javax.swing.DefaultComboBoxModel(new String[]{"=", ">", "<"}));
+        upperDSLimbsBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "=", ">", "<" }));
 
-        lowerDSLimbsBox.setModel(new javax.swing.DefaultComboBoxModel(new String[]{"=", ">", "<"}));
+        lowerDSLimbsBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "=", ">", "<" }));
 
-        pReflexesMainBox.setModel(new javax.swing.DefaultComboBoxModel(new String[]{NO, THESE_IS}));
+        pReflexesMainBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { NO, THESE_IS}));
 
-        aReflexesMainBox.setModel(new javax.swing.DefaultComboBoxModel(new String[]{NO, THESE_IS}));
+        aReflexesMainBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { NO, THESE_IS }));
 
         pReflexesPanel.setVisible(false);
 
@@ -1023,31 +1083,31 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames {
         javax.swing.GroupLayout pReflexesPanelLayout = new javax.swing.GroupLayout(pReflexesPanel);
         pReflexesPanel.setLayout(pReflexesPanelLayout);
         pReflexesPanelLayout.setHorizontalGroup(
-                pReflexesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(pReflexesPanelLayout.createSequentialGroup()
-                                .addComponent(pReflexesHandLabel)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(pReflexesHandBox, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(pReflexesLegLabel)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(pReflexesLegBox, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 37, Short.MAX_VALUE))
+            pReflexesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pReflexesPanelLayout.createSequentialGroup()
+                .addComponent(pReflexesHandLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(pReflexesHandBox, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(pReflexesLegLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(pReflexesLegBox, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 37, Short.MAX_VALUE))
         );
         pReflexesPanelLayout.setVerticalGroup(
-                pReflexesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(pReflexesPanelLayout.createSequentialGroup()
-                                .addGroup(pReflexesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(pReflexesHandLabel)
-                                        .addComponent(pReflexesHandBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(pReflexesLegLabel)
-                                        .addComponent(pReflexesLegBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            pReflexesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pReflexesPanelLayout.createSequentialGroup()
+                .addGroup(pReflexesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(pReflexesHandLabel)
+                    .addComponent(pReflexesHandBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(pReflexesLegLabel)
+                    .addComponent(pReflexesLegBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        gaitBox.setModel(new javax.swing.DefaultComboBoxModel(new String[]{N, ANTALGIC}));
+        gaitBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { N, ANTALGIC }));
 
-        motionTypeBox.setModel(new javax.swing.DefaultComboBoxModel(new String[]{ACTIVE, PASSIVE}));
+        motionTypeBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { ACTIVE, PASSIVE }));
 
         motionLabel.setText(MOTION);
 
@@ -1069,288 +1129,338 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames {
             }
         });
 
+        workCapacityBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] {ABLE_TO_WORK, UNABLE_TO_WORK}));
+
+        workСapacityListLabel.setText(WORK_CAPACITY_LIST);
+
+        fromLabel.setText(FROM);
+
+        toLabel.setText(TO);
+
+        appearanceLabel.setText(APPEARANCE);
+        appearanceLabel.setToolTipText("");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
-                jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(coordinationLabel)
+                            .addComponent(nervousLabel))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(coordinationMainBox, 0, 194, Short.MAX_VALUE)
+                            .addComponent(nervousSystemBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(32, 32, 32)
+                        .addComponent(coordinationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(addDrugButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(drugsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(workCapacityBox, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(workСapacityListLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(fromLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(workСapacityFromDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(toLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(workСapacityToDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(dateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(emotionLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(emotionMainBox, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(emotionViolationBox, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                            .addComponent(anamnesisLabel)
+                            .addGap(18, 18, 18)
+                            .addComponent(jScrollPane2))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                            .addComponent(consciousLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(consciousBox, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(consciousText, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(epiLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(epiText, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(complaintsTextPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(dreamLabel)
+                        .addGap(31, 31, 31)
+                        .addComponent(dreamComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(dreamDisbalanceBox, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(cranicalNerveLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(cranicalNerveBox, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(sensitivityLabel)
+                            .addComponent(aReflexesLabelLabel)
+                            .addComponent(gaitLabel)
+                            .addComponent(pReflexesLabelLabel)
+                            .addComponent(reflexesLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(15, 15, 15)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(jPanel1Layout.createSequentialGroup()
-                                                .addGap(323, 323, 323)
-                                                .addComponent(titleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGroup(jPanel1Layout.createSequentialGroup()
-                                                .addContainerGap()
-                                                .addComponent(nervousTensionLabel)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(nervousTensionMainBox, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addComponent(nervousTensionBox, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGroup(jPanel1Layout.createSequentialGroup()
-                                                .addContainerGap()
-                                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                                                .addComponent(motionTypeBox, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                                .addComponent(motionLabel)
-                                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                                .addComponent(motionBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                                                .addComponent(muscleLabel)
-                                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                                .addComponent(muscleBox, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                                .addGap(0, 0, Short.MAX_VALUE))
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addContainerGap()
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(sensitivityMainBox, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(sensitivityDisbalanceBox, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(gaitBox, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(jPanel1Layout.createSequentialGroup()
-                                                .addComponent(pelvicOrganLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addGap(228, 228, 228))
-                                        .addGroup(jPanel1Layout.createSequentialGroup()
-                                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                        .addGroup(jPanel1Layout.createSequentialGroup()
-                                                                .addComponent(nameLabel)
-                                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                                .addComponent(nameField, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                        .addGroup(jPanel1Layout.createSequentialGroup()
-                                                                .addComponent(jLabel2)
-                                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                                .addComponent(dateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                        .addGroup(jPanel1Layout.createSequentialGroup()
-                                                                .addComponent(emotionLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                                .addComponent(emotionMainBox, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                                .addComponent(emotionViolationBox, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                                                        .addComponent(anamnesisLabel)
-                                                                        .addGap(18, 18, 18)
-                                                                        .addComponent(jScrollPane2))
-                                                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                                                        .addComponent(consciousLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                                        .addComponent(consciousBox, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                                        .addComponent(consciousText, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                                        .addComponent(epiLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                                        .addComponent(epiText, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                                        .addComponent(complaintsTextPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                        .addComponent(complaineLabel)
-                                                        .addGroup(jPanel1Layout.createSequentialGroup()
-                                                                .addComponent(dreamLabel)
-                                                                .addGap(31, 31, 31)
-                                                                .addComponent(dreamComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                                .addComponent(dreamDisbalanceBox, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                        .addGroup(jPanel1Layout.createSequentialGroup()
-                                                                .addComponent(cranicalNerveLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                                .addComponent(cranicalNerveBox, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                        .addGroup(jPanel1Layout.createSequentialGroup()
-                                                                .addComponent(nervousLabel)
-                                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                                        .addComponent(pelvicOrganField, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                        .addComponent(nervousSystemBox, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                                        .addGroup(jPanel1Layout.createSequentialGroup()
-                                                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                                        .addComponent(coordinationLabel)
-                                                                        .addComponent(sensitivityLabel)
-                                                                        .addComponent(reflexesLabel)
-                                                                        .addComponent(aReflexesLabelLabel)
-                                                                        .addComponent(gaitLabel)
-                                                                        .addComponent(pReflexesLabelLabel))
-                                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                                        .addGroup(jPanel1Layout.createSequentialGroup()
-                                                                                .addComponent(sensitivityMainBox, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                                                .addComponent(sensitivityDisbalanceBox, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                                .addGap(373, 373, 373)
-                                                                                .addComponent(dreamPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                                        .addGroup(jPanel1Layout.createSequentialGroup()
-                                                                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                                                                        .addComponent(aReflexesMainBox, javax.swing.GroupLayout.Alignment.LEADING, 0, 43, Short.MAX_VALUE)
-                                                                                        .addComponent(pReflexesMainBox, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                                                        .addComponent(pReflexesPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                                        .addComponent(aReflexesBox, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                                                        .addGroup(jPanel1Layout.createSequentialGroup()
-                                                                                .addComponent(limbsLabel)
-                                                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                                                .addComponent(upperLimbsLabel)
-                                                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                                                .addComponent(dLabel)
-                                                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                                                .addComponent(upperDSLimbsBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                                .addGap(9, 9, 9)
-                                                                                .addComponent(sLabel)
-                                                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                                                .addComponent(lowerLimbsLabel)
-                                                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                                                .addComponent(dLabel1)
-                                                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                                                .addComponent(lowerDSLimbsBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                                                .addComponent(sLabel1))
-                                                                        .addGroup(jPanel1Layout.createSequentialGroup()
-                                                                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                                                                        .addComponent(gaitBox, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                                                        .addComponent(coordinationMainBox, javax.swing.GroupLayout.Alignment.LEADING, 0, 108, Short.MAX_VALUE))
-                                                                                .addGap(18, 18, 18)
-                                                                                .addComponent(coordinationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                                        .addGroup(jPanel1Layout.createSequentialGroup()
-                                                                .addComponent(drugsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                .addGap(29, 29, 29)
-                                                                .addComponent(addDrugButton))
-                                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                                                .addComponent(recommendationLabel)
-                                                                                .addComponent(therapyLabel))
-                                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                                                                .addComponent(therapyBox, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                                                .addComponent(recommendationBox, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                                        .addComponent(recommendationText, javax.swing.GroupLayout.PREFERRED_SIZE, 544, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                                                        .addComponent(diagnosisLabel)
-                                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 770, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(15, 15, 15)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                            .addComponent(aReflexesMainBox, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(pReflexesMainBox, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(upperLimbsLabel)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(pReflexesPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(aReflexesBox, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(limbsLabel)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(upperLimbsBox, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(dLabel)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(upperDSLimbsBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(9, 9, 9)
+                                        .addComponent(sLabel)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(lowerLimbsLabel)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(downLimbsBox, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(dLabel1)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(lowerDSLimbsBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(sLabel1))))))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                            .addComponent(motionTypeBox, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(motionLabel)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(motionBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                            .addComponent(muscleLabel)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(muscleBox, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(appearanceLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(appearanceDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(313, 313, 313)
+                        .addComponent(titleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(nervousTensionLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(nervousTensionMainBox, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(nervousTensionBox, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(recommendationLabel)
+                                .addComponent(therapyLabel))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(therapyBox, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(recommendationBox, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(recommendationText, javax.swing.GroupLayout.PREFERRED_SIZE, 455, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addComponent(diagnosisLabel)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 744, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(pelvicOrganLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(pelvicOrganBox, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(pelvicOrganField, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addComponent(complaintLabel)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(complaintBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                            .addComponent(nameLabel)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(nameField, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(161, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
-                jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(titleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(dateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(nameLabel)
-                                        .addComponent(nameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(complaineLabel)
-                                .addGap(12, 12, 12)
-                                .addComponent(complaintsTextPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(anamnesisLabel)
-                                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(37, 37, 37)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(consciousLabel)
-                                        .addComponent(consciousBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(consciousText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(epiLabel)
-                                        .addComponent(epiText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(emotionLabel)
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                                .addComponent(emotionMainBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addComponent(emotionViolationBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                                .addComponent(dreamComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addComponent(dreamDisbalanceBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGroup(jPanel1Layout.createSequentialGroup()
-                                                .addGap(1, 1, 1)
-                                                .addComponent(dreamLabel)))
-                                .addGap(5, 5, 5)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(cranicalNerveLabel)
-                                        .addComponent(cranicalNerveBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 0, 0)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                                .addComponent(sensitivityLabel)
-                                                .addComponent(sensitivityMainBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addComponent(sensitivityDisbalanceBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addComponent(dreamPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 8, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(nervousTensionLabel)
-                                        .addComponent(nervousTensionMainBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(nervousTensionBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(1, 1, 1)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(reflexesLabel)
-                                        .addComponent(limbsLabel)
-                                        .addComponent(upperLimbsLabel)
-                                        .addComponent(dLabel)
-                                        .addComponent(sLabel)
-                                        .addComponent(dLabel1)
-                                        .addComponent(sLabel1)
-                                        .addComponent(lowerLimbsLabel)
-                                        .addComponent(lowerDSLimbsBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(upperDSLimbsBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(upperLimbsBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(downLimbsBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                                .addComponent(pReflexesLabelLabel)
-                                                .addComponent(pReflexesMainBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addComponent(pReflexesPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(aReflexesLabelLabel)
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                                .addComponent(aReflexesMainBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addComponent(aReflexesBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(gaitLabel)
-                                        .addComponent(gaitBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(motionTypeBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(motionLabel)
-                                        .addComponent(motionBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(3, 3, 3)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(muscleLabel)
-                                        .addComponent(muscleBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(8, 8, 8)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                                .addComponent(coordinationLabel)
-                                                .addComponent(coordinationMainBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addComponent(coordinationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(nervousLabel)
-                                        .addComponent(nervousSystemBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(pelvicOrganLabel)
-                                        .addComponent(pelvicOrganField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(diagnosisLabel)
-                                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(recommendationLabel)
-                                        .addComponent(recommendationBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(recommendationText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(therapyLabel)
-                                        .addComponent(therapyBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(drugsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(addDrugButton))
-                                .addGap(30, 30, 30))
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(titleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(dateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(nameLabel)
+                    .addComponent(nameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(complaintLabel)
+                    .addComponent(complaintBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(9, 9, 9)
+                .addComponent(complaintsTextPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(anamnesisLabel)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(37, 37, 37)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(consciousLabel)
+                    .addComponent(consciousBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(consciousText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(epiLabel)
+                    .addComponent(epiText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(emotionLabel)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(emotionMainBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(emotionViolationBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(dreamComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(dreamDisbalanceBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(1, 1, 1)
+                        .addComponent(dreamLabel)))
+                .addGap(5, 5, 5)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cranicalNerveLabel)
+                    .addComponent(cranicalNerveBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 0, 0)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(sensitivityLabel)
+                    .addComponent(sensitivityMainBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(sensitivityDisbalanceBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(nervousTensionLabel)
+                    .addComponent(nervousTensionMainBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(nervousTensionBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(1, 1, 1)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(reflexesLabel)
+                    .addComponent(limbsLabel)
+                    .addComponent(upperLimbsLabel)
+                    .addComponent(dLabel)
+                    .addComponent(sLabel)
+                    .addComponent(dLabel1)
+                    .addComponent(sLabel1)
+                    .addComponent(lowerLimbsLabel)
+                    .addComponent(lowerDSLimbsBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(upperDSLimbsBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(upperLimbsBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(downLimbsBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(pReflexesLabelLabel)
+                        .addComponent(pReflexesMainBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(pReflexesPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(aReflexesLabelLabel)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(aReflexesMainBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(aReflexesBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(gaitLabel)
+                    .addComponent(gaitBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(motionTypeBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(motionLabel)
+                    .addComponent(motionBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(3, 3, 3)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(muscleLabel)
+                    .addComponent(muscleBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(8, 8, 8)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(coordinationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(coordinationLabel)
+                            .addComponent(coordinationMainBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(nervousLabel)
+                            .addComponent(nervousSystemBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(pelvicOrganLabel)
+                    .addComponent(pelvicOrganField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(pelvicOrganBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(9, 9, 9)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(diagnosisLabel)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(19, 19, 19)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(recommendationLabel)
+                    .addComponent(recommendationBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(recommendationText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(therapyLabel)
+                    .addComponent(therapyBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(23, 23, 23)
+                        .addComponent(addDrugButton))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(drugsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(workCapacityBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(workСapacityListLabel)
+                        .addComponent(fromLabel)
+                        .addComponent(toLabel))
+                    .addComponent(workСapacityFromDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(workСapacityToDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(appearanceLabel)
+                    .addComponent(appearanceDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
 
         aReflexesBox.setVisible(false);
@@ -1402,12 +1512,12 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames {
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 1000, Short.MAX_VALUE)
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 1000, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 679, Short.MAX_VALUE)
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 679, Short.MAX_VALUE)
         );
 
         pack();
@@ -1531,7 +1641,25 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames {
 
     private void addDrugButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_addDrugButtonActionPerformed
     {//GEN-HEADEREND:event_addDrugButtonActionPerformed
-        // TODO add your handling code here:
+//        SwingUtilities.invokeLater(new Runnable() {
+//                @Override
+//                public void run() {
+        JLabel label = new JLabel("Bla");
+                    drugsPanel.add(label);
+//        getContentPane().setLayout(new java.awt.FlowLayout());
+          getContentPane().add(drugsPanel, BorderLayout.NORTH);
+        label.setVisible(true);
+//                    drugsPanel.setVisible(true);
+                    drugsPanel.revalidate();
+//        pack();
+                    drugsPanel.repaint();
+
+//            revalidate();
+//        this.repaint();
+
+
+//                }
+//            });
     }//GEN-LAST:event_addDrugButtonActionPerformed
 
     private void cranicalNerveBoxActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_cranicalNerveBoxActionPerformed
@@ -1552,10 +1680,13 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames {
     private javax.swing.JButton addDrugButton;
     private javax.swing.JTextArea anamnesisArea;
     private javax.swing.JLabel anamnesisLabel;
+    private com.toedter.calendar.JDateChooser appearanceDateChooser;
+    private javax.swing.JLabel appearanceLabel;
     private javax.swing.JMenu categories;
     private javax.swing.JMenu clearForm;
-    private javax.swing.JTextArea complaineArea;
-    private javax.swing.JLabel complaineLabel;
+    private javax.swing.JTextArea complaintArea;
+    private javax.swing.JComboBox complaintBox;
+    private javax.swing.JLabel complaintLabel;
     private javax.swing.JPanel complaintsTextPanel;
     private javax.swing.JComboBox consciousBox;
     private javax.swing.JLabel consciousLabel;
@@ -1581,7 +1712,6 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames {
     private javax.swing.JComboBox dreamComboBox;
     private javax.swing.JComboBox dreamDisbalanceBox;
     private javax.swing.JLabel dreamLabel;
-    private javax.swing.JPanel dreamPanel;
     private javax.swing.JPanel drugsPanel;
     private javax.swing.JLabel emotionLabel;
     private javax.swing.JComboBox emotionMainBox;
@@ -1589,6 +1719,7 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames {
     private javax.swing.JLabel epiLabel;
     private javax.swing.JTextField epiText;
     private javax.swing.JMenuItem exportItem;
+    private javax.swing.JLabel fromLabel;
     private javax.swing.JComboBox gaitBox;
     private javax.swing.JLabel gaitLabel;
     private javax.swing.JMenuItem importItem;
@@ -1596,7 +1727,6 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames {
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
@@ -1625,6 +1755,7 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames {
     private javax.swing.JLabel pReflexesLegLabel;
     private javax.swing.JComboBox pReflexesMainBox;
     private javax.swing.JPanel pReflexesPanel;
+    private javax.swing.JComboBox pelvicOrganBox;
     private javax.swing.JTextField pelvicOrganField;
     private javax.swing.JLabel pelvicOrganLabel;
     private javax.swing.JTextField professionField;
@@ -1643,9 +1774,14 @@ public class CreateFrame extends javax.swing.JFrame implements PropertyNames {
     private javax.swing.JComboBox therapyBox;
     private javax.swing.JLabel therapyLabel;
     private javax.swing.JLabel titleLabel;
+    private javax.swing.JLabel toLabel;
     private javax.swing.JComboBox upperDSLimbsBox;
     private javax.swing.JComboBox upperLimbsBox;
     private javax.swing.JLabel upperLimbsLabel;
+    private javax.swing.JComboBox workCapacityBox;
+    private com.toedter.calendar.JDateChooser workСapacityFromDateChooser;
+    private javax.swing.JLabel workСapacityListLabel;
+    private com.toedter.calendar.JDateChooser workСapacityToDateChooser;
     // End of variables declaration//GEN-END:variables
 
 }

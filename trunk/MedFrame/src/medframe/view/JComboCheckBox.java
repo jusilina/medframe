@@ -133,6 +133,7 @@ public class JComboCheckBox extends JComboBox {
                 }
                 return c;
             } else {
+                value = value == null ? "" : value;
                 if (defaultLabel == null) defaultLabel = new JLabel(value.toString());
                 else defaultLabel.setText(value.toString());
                 return defaultLabel;

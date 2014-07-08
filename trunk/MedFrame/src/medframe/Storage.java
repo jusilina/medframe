@@ -108,7 +108,7 @@ public class Storage implements PropertyNames {
             mainPart.setFont(font);
             mainPart.setAlignment(Element.ALIGN_LEFT);
 
-            Chunk date = new Chunk(DATE + SPACE + visit.getStringDate() + "   ");
+            Chunk date = new Chunk(DATE + SPACE + visit.getStringDate(visit.getDate()) + "   ");
 //            Chunk date = new Chunk(DATE + SPACE + visit.getDate().toString() + "   ");
             Chunk name = new Chunk(NAME + SPACE + visit.getName());
             Phrase dateAndName = new Phrase();
@@ -118,17 +118,17 @@ public class Storage implements PropertyNames {
             mainPart.add(dateAndName);
             document.add(mainPart);
 
-            Paragraph complaine = new Paragraph();
-            complaine.setFont(font);
+            Paragraph complaint = new Paragraph();
+            complaint.setFont(font);
             //   Phrase complaine = new Phrase();
-            Phrase complaineCh = new Phrase(COMPLAINE + SPACE);
+            Phrase complaintCh = new Phrase(COMPLAINTS + SPACE);
             //    complaineCh.getFont().setStyle(Font.BOLD);
-            Phrase complaineVal = new Phrase(visit.getComplaine());
+            Phrase complaintVal = new Phrase(visit.getComplaintList().toString() + SPACE+ visit.getComplaint());
 
-            complaine.add(complaineCh);
-            complaine.add(complaineVal);
+            complaint.add(complaintCh);
+            complaint.add(complaintVal);
 
-            document.add(complaine);
+            document.add(complaint);
 
             Paragraph socialAnamnesis = new Paragraph();
             socialAnamnesis.setFont(font);
@@ -230,15 +230,15 @@ public class Storage implements PropertyNames {
             Paragraph reflexes = new Paragraph();
             reflexes.setFont(font);
 
-            Phrase reflexesLabel = new Phrase(REFLEXES + SPACE + LIMBS + SPACE);
+            Phrase reflexesLabel = new Phrase(REFLEXES + SPACE);
 
             //    Phrase reflexesVal;
 //            java.util.List reflexesVal = visit.getReflexes();
             String reflexesU = "D " + visit.getUpperDSLimb() + " S ";
             String reflexesL = "D " + visit.getLowerDSLimb() + " S ";
 
-            Phrase reflexesLabelU = new Phrase(UPPER + SPACE + reflexesU);
-            Phrase reflexesLabelL = new Phrase(LOWER + SPACE + reflexesL);
+            Phrase reflexesLabelU = new Phrase(UPPER + SPACE + LIMBS + SPACE + visit.getUpperLimbReflexes() + SPACE + reflexesU);
+            Phrase reflexesLabelL = new Phrase(LOWER + SPACE + LIMBS + SPACE + visit.getDownLimbReflexes() + SPACE + reflexesL);
 
             reflexes.add(reflexesLabel);
             reflexes.add(reflexesLabelU);
@@ -360,7 +360,7 @@ public class Storage implements PropertyNames {
             pelvicOrgan.setFont(font);
 
             Phrase pelvicOrganLabel = new Phrase(PELVIC_ORGAN + SPACE);
-            Phrase pelvicOrganValue = new Phrase(visit.getPelvicOrgan());
+            Phrase pelvicOrganValue = new Phrase(visit.getPelvicOrganList().toString() + SPACE + visit.getPelvicOrgan());
 
             pelvicOrgan.add(pelvicOrganLabel);
             pelvicOrgan.add(pelvicOrganValue);
@@ -402,6 +402,19 @@ public class Storage implements PropertyNames {
             therapy.add(therapyValue);
 
             document.add(therapy);
+
+            Paragraph workCapacity = new Paragraph();
+            workCapacity.setFont(font);
+
+            workCapacity.add(new Phrase(visit.getWorkCapacity()+SPACE));
+            Paragraph workCapacityList = new Paragraph();
+            workCapacityList.setFont(font);
+            workCapacityList.add(new Phrase(WORK_CAPACITY_LIST + SPACE + FROM + SPACE+visit.getStringDate(visit.getWorkCapacityListDateFrom()) + SPACE + TO + SPACE+visit.getStringDate(visit.getWorkCapacityListDateTo()) + SPACE));
+
+            workCapacityList.add(new Phrase(APPEARANCE+SPACE+visit.getStringDate(visit.getAppearanceDate())));
+            document.add(workCapacity);
+            document.add(workCapacityList);
+
 
             document.close();
         } catch (Exception ex) {

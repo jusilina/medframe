@@ -32,6 +32,7 @@ public class SAXHandler extends DefaultHandler {
     private String thisDrug;
     private ArrayList sensitivityDisbalanceList;
     private ArrayList nervousTensionList;
+    private ArrayList<String> limbReflexesList;
     private ArrayList<String> pReflexesHand;
     private ArrayList<String> pReflexesLeg;
     private ArrayList aReflexesList;
@@ -42,6 +43,8 @@ public class SAXHandler extends DefaultHandler {
     private ArrayList recommendationList;
     private ArrayList therapyList;
     private ArrayList coordinationTest;
+    private ArrayList pelvicOrganList;
+    private ArrayList complaints;
 
     public ArrayList getTherapyList() {
         return therapyList;
@@ -64,6 +67,9 @@ public class SAXHandler extends DefaultHandler {
         return recommendationList;
     }
 
+    public ArrayList<String> getLimbReflexesList() {
+        return limbReflexesList;
+    }
 
     public ArrayList getMuscleToneList() {
         return muscleToneList;
@@ -124,6 +130,14 @@ public class SAXHandler extends DefaultHandler {
         return rombergList;
     }
 
+    public ArrayList getPelvicOrganList() {
+        return pelvicOrganList;
+    }
+
+    public ArrayList getComplaints() {
+        return complaints;
+    }
+
     @Override
     public void startDocument() throws SAXException {
         partOfBody = new ArrayList<String>();
@@ -136,6 +150,7 @@ public class SAXHandler extends DefaultHandler {
         rombergList = new ArrayList();
         sensitivityDisbalanceList = new ArrayList();
         nervousTensionList = new ArrayList();
+        limbReflexesList = new ArrayList<>();
         pReflexesHand = new ArrayList<>();
         pReflexesLeg = new ArrayList<>();
         aReflexesList = new ArrayList();
@@ -144,6 +159,8 @@ public class SAXHandler extends DefaultHandler {
         recommendationList = new ArrayList();
         therapyList = new ArrayList();
         coordinationTest = new ArrayList();
+        pelvicOrganList = new ArrayList();
+        complaints = new ArrayList();
     }
 
     @Override
@@ -222,6 +239,10 @@ public class SAXHandler extends DefaultHandler {
                 nervousTensionList.add(new String(ch, start, length));
                 break;
             }
+            case "limbReflexes": {
+                limbReflexesList.add(new String(ch, start, length));
+                break;
+            }
             case "pReflexesHand": {
                 pReflexesHand.add(new String(ch, start, length));
                 break;
@@ -252,6 +273,14 @@ public class SAXHandler extends DefaultHandler {
             }
             case "coordinationTest": {
                 coordinationTest.add(new String(ch, start, length));
+                break;
+            }
+            case "pelvicOrgan":{
+                pelvicOrganList.add(new String(ch, start, length));
+                break;
+            }
+            case "complaint":{
+                complaints.add(new String(ch, start, length));
                 break;
             }
         }

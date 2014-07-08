@@ -58,10 +58,21 @@
     <conscious>ясное</conscious>
     <conscious>оглушенность</conscious>
     
+	<!-- Жалобы -->
+	<complaint>боли в шее</complaint>
+	<complaint>боли в грудном отделе</complaint>
+	<complaint>боли в поясничном отделе</complaint>
+	<complaint>ограничения движения ШОП</complaint>
+	<complaint>ограничения движения ГОП</complaint>
+	<complaint>ограничения движения ПКО</complaint>
+
+	
+	
     <disturbed_sleep>трудность засыпания</disturbed_sleep>
     <disturbed_sleep>частые пробуждения</disturbed_sleep>
     <disturbed_sleep>раннее пробуждение</disturbed_sleep>
  
+	
     <!-- Эмоциональная сфера нарушения -->   
     <emotion>эмоциональная лабильность</emotion>
     <emotion>астенизация</emotion>
@@ -98,8 +109,15 @@
     <nervousTension>с-м Нери</nervousTension>
     <nervousTension>с-м Ласега D</nervousTension>
     <nervousTension>с-м Ласега S</nervousTension>
+	<nervousTension>с-м Вассермана D</nervousTension>
+    <nervousTension>с-м Вассермана S</nervousTension>
     <nervousTension>парестезии</nervousTension>
     
+	<limbReflexes>сохранены</limbReflexes>
+	<limbReflexes>снижены</limbReflexes>
+	<limbReflexes>торпидны</limbReflexes>
+	<limbReflexes>оживлены</limbReflexes>
+	
     <pReflexesHand>Ласк</pReflexesHand>
     <pReflexesHand>Бехтерев</pReflexesHand>
     <pReflexesHand>Тремнер</pReflexesHand>
@@ -111,7 +129,9 @@
     
     <aReflexes>хоботковый</aReflexes>
     <aReflexes>Маринеску-Радовичи</aReflexes>
-    <muscleTone>повышен</muscleTone>
+    <muscleTone>повышен в паравебральных мышцах ШОП</muscleTone>
+	<muscleTone>повышен в паравебральных мышцах ГОП</muscleTone>
+	<muscleTone>повышен в паравебральных мышцах ПКО</muscleTone>
     <muscleTone>снижен</muscleTone>
     <muscleTone>болезненность при пальпации ШОП</muscleTone>
     <muscleTone>болезненность при пальпации ГОП</muscleTone>
@@ -157,6 +177,11 @@
     <coordinationTest>промахивается</coordinationTest>
     <coordinationTest>интенция</coordinationTest>
     <coordinationTest>атаксия</coordinationTest>
+	
+	<pelvicOrgan>задержка мочи</pelvicOrgan>
+	<pelvicOrgan>недержание мочи</pelvicOrgan>
+	<pelvicOrgan>запоры</pelvicOrgan>
+	<pelvicOrgan>императивные порывы к мочеиспусканию</pelvicOrgan>
 
     
 </parameters>
